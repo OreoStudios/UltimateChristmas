@@ -36,13 +36,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GrinchBossManager {
@@ -76,13 +70,39 @@ public class GrinchBossManager {
         startAutoTaskIfConfigured();
     }
 
+    /* -------------------------------------------------
+     * DEBUG HELPERS
+     * ------------------------------------------------- */
+
+    private boolean isDebug() {
+        try {
+            return plugin.getConfig("grinchboss.yml").getBoolean("grinchdebug", false);
+        } catch (Throwable t) {
+            return false;
+        }
+    }
+
+    private void dbg(String msg) {
+        if (isDebug()) {
+            plugin.getLogger().info("[GrinchDebug] " + msg);
+        }
+    }
+
     // ----------------- PERSISTENCE -----------------
 
     public void loadSpawnData() {
         try {
-            if (!storageFile.exists()) return;
+            if (!storageFile.exists()) {
+                dbg("No bosssata.json yet, skipping load.");
+                return;
+            }
             try (Reader r = new FileReader(storageFile)) {
                 stored = gson.fromJson(r, GrinchSpawnData.class);
+            }
+            if (stored != null) {
+                dbg("Loaded bosssata.json: world=" + stored.world +
+                        " x=" + stored.x + " y=" + stored.y + " z=" + stored.z +
+                        " cooldown=" + stored.cooldownSeconds + "s stay=" + stored.staySeconds + "s");
             }
         } catch (Exception e) {
             plugin.getLogger().warning("[Grinch] Failed to read bosssata.json: " + e.getMessage());
@@ -90,12 +110,16 @@ public class GrinchBossManager {
     }
 
     private void saveSpawnData() {
-        if (stored == null) return;
+        if (stored == null) {
+            dbg("saveSpawnData() called but stored==null, skipping.");
+            return;
+        }
         try {
             storageFile.getParentFile().mkdirs();
             try (Writer w = new FileWriter(storageFile)) {
                 gson.toJson(stored, w);
             }
+            dbg("Saved bosssata.json: " + storageFile.getAbsolutePath());
         } catch (Exception e) {
             plugin.getLogger().warning("[Grinch] Failed to write bosssata.json: " + e.getMessage());
         }
@@ -112,12 +136,20 @@ public class GrinchBossManager {
                 where.getX(), where.getY(), where.getZ(),
                 cooldownSec, staySec
         );
+        dbg("setAutoSpawnAt(): world=" + stored.world +
+                " x=" + stored.x + " y=" + stored.y + " z=" + stored.z +
+                " cooldown=" + cooldownSec + "s stay=" + staySec + "s");
+
         saveSpawnData();
         restartAutoTask();
     }
 
     private void startAutoTaskIfConfigured() {
-        if (stored == null) return;
+        if (stored == null) {
+            dbg("Auto-task not started: no stored spawn data.");
+            return;
+        }
+        dbg("Auto-task configured, starting.");
         restartAutoTask();
     }
 
@@ -129,19 +161,29 @@ public class GrinchBossManager {
             if (isAlive()) return;
 
             long now = System.currentTimeMillis() / 1000L;
-            if (lastSpawnEpoch != 0L && now - lastSpawnEpoch < stored.cooldownSeconds) return;
+            long diff = (lastSpawnEpoch == 0L) ? Long.MAX_VALUE : (now - lastSpawnEpoch);
+            if (lastSpawnEpoch != 0L && diff < stored.cooldownSeconds) {
+                dbg("Auto-task: cooldown not passed yet (" + diff + "s / " + stored.cooldownSeconds + "s).");
+                return;
+            }
 
             World w = plugin.getServer().getWorld(stored.world);
-            if (w == null) return;
+            if (w == null) {
+                dbg("Auto-task: stored world not found: " + stored.world);
+                return;
+            }
             Location loc = new Location(w, stored.x, stored.y, stored.z);
+            dbg("Auto-task: attempting auto-spawn at " + loc);
 
             if (spawn(loc, null)) {
                 lastSpawnEpoch = now;
                 long ticks = Math.max(1L, stored.staySeconds) * 20L;
                 plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-                    // Force cleanup even if entity became invalid/unloaded
+                    dbg("Auto-task: stay time elapsed, calling despawn().");
                     despawn();
                 }, ticks);
+            } else {
+                dbg("Auto-task: spawn() returned false (probably already alive).");
             }
         }, 40L, 20L); // start after 2s, then every 1s
     }
@@ -150,12 +192,9 @@ public class GrinchBossManager {
     public boolean isGrinch(Entity e) {
         if (e == null) return false;
 
-        // Prefer the live handle if we still have it
         if (grinch != null && grinch.isValid()) {
             return e.getUniqueId().equals(grinch.getUniqueId());
         }
-
-        // Fallback to the cached UUID
         return grinchUUID != null && e.getUniqueId().equals(grinchUUID);
     }
 
@@ -172,7 +211,12 @@ public class GrinchBossManager {
     // ----------------- STATE -----------------
 
     public boolean isAlive() {
-        return grinch != null && !grinch.isDead() && grinch.isValid();
+        boolean alive = grinch != null && !grinch.isDead() && grinch.isValid();
+        if (isDebug()) {
+            dbg("isAlive() -> " + alive +
+                    " (grinch=" + (grinch != null ? grinch.getUniqueId() : "null") + ")");
+        }
+        return alive;
     }
 
     public Entity getEntity() {
@@ -190,10 +234,15 @@ public class GrinchBossManager {
     // ----------------- SPAWN / DESPAWN -----------------
 
     public boolean spawn(Location where, ProtectedRegion leash) {
-        if (isAlive()) return false;
+        if (isAlive()) {
+            dbg("spawn() called but Grinch is already alive.");
+            return false;
+        }
 
         where.getChunk().load(true);
         this.leashRegion = leash;
+
+        dbg("Spawning Grinch at " + where);
 
         // Base mob (disguised anyway)
         Mob z = where.getWorld().spawn(where, Zombie.class, mob -> {
@@ -209,6 +258,8 @@ public class GrinchBossManager {
         double speed  = Math.max(0.05, cfg.getDouble("stats.speed", 0.30));
         boolean glowing = cfg.getBoolean("cosmetics.glowing", true);
 
+        dbg("Config stats: health=" + health + " speed=" + speed + " glowing=" + glowing);
+
         Objects.requireNonNull(z.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(health);
         z.setHealth(health);
         Objects.requireNonNull(z.getAttribute(Attribute.MOVEMENT_SPEED)).setBaseValue(speed);
@@ -221,11 +272,14 @@ public class GrinchBossManager {
 
         // Disguise with player skin (no armor so skin is fully visible)
         String skin = cfg.getString("skin", "GreenDude");
+        dbg("Applying disguise with skin=" + skin);
         applyDisguise(z, skin, name);
 
         this.grinch = z;
         this.grinchUUID = z.getUniqueId();
         this.damageDone.clear();
+
+        dbg("Spawn OK. UUID=" + grinchUUID + ", clearing damage map.");
 
         // Spawn lines + cosmetic thunder
         say(cfg.getStringList("messages.spawn_lines"), where);
@@ -238,13 +292,18 @@ public class GrinchBossManager {
     }
 
     public void despawn() {
+        dbg("despawn() called.");
+
         if (aiTask != null) { aiTask.cancel(); aiTask = null; }
 
         // remove disguise + grinch
         Entity e = getEntity();
         if (e != null) {
+            dbg("Removing Grinch entity " + e.getUniqueId());
             try { DisguiseAPI.undisguiseToAll(e); } catch (Throwable ignored) {}
             e.remove();
+        } else {
+            dbg("despawn(): getEntity() returned null.");
         }
 
         // remove minions
@@ -256,6 +315,8 @@ public class GrinchBossManager {
 
         grinch = null; grinchUUID = null; leashRegion = null;
         damageDone.clear();
+
+        dbg("despawn(): internal state cleared.");
     }
 
     // ----------------- AI -----------------
@@ -269,34 +330,46 @@ public class GrinchBossManager {
     private void startAI() {
         var cfg = plugin.getConfig("grinchboss.yml");
         int tick = Math.max(5, cfg.getInt("ai.tick_rate", 20));
+        dbg("Starting AI task with tick=" + tick + " ticks.");
 
         aiTask = new BukkitRunnable() {
             int t = 0;
             @Override public void run() {
-                if (!isAlive()) { cancel(); return; }
+                if (!isAlive()) {
+                    dbg("AI tick: Grinch no longer alive, cancelling task.");
+                    cancel();
+                    return;
+                }
 
                 // Leash
                 if (leashRegion != null && !insideRegion(grinch.getLocation(), leashRegion)) {
                     Location safe = centerOnGround(grinch.getLocation().getWorld(), leashRegion);
+                    dbg("AI tick: outside leash, teleporting back to " + safe);
                     if (safe != null) grinch.teleport(safe);
                 }
 
                 // If no players nearby, just idle (and prune minions)
                 if (!anyPlayersNearby(18)) {
-                    pruneMinions();
                     t += tick;
+                    if (t % (20 * 10) == 0) dbg("AI tick: no players nearby, idle. Minions=" + aliveMinionCount());
+                    pruneMinions();
                     return;
                 }
 
                 if (t % (cfg.getInt("ai.taunt_every_seconds", 20) * 20) == 0) {
+                    dbg("AI tick: casting taunt.");
                     sayOne(cfg.getStringList("messages.taunts"), grinch.getLocation());
                 }
                 if (t % (cfg.getInt("ai.ability_every_seconds", 10) * 20) == 0) {
+                    dbg("AI tick: casting random ability.");
                     castRandomAbility();
                 }
 
                 // Periodically cleanup dangling minions
-                if (t % (20 * 10) == 0) pruneMinions();
+                if (t % (20 * 10) == 0) {
+                    dbg("AI tick: pruning minions. Alive before=" + aliveMinionCount());
+                    pruneMinions();
+                }
 
                 t += tick;
             }
@@ -312,6 +385,8 @@ public class GrinchBossManager {
         pick.add("shadow_dash",     cfg.getInt("abilities.shadow_dash.weight",     25));
         pick.add("summon_minions",  cfg.getInt("abilities.summon_minions.weight",  25));
         String chosen = pick.pick();
+        dbg("castRandomAbility() picked: " + chosen);
+
         if (chosen == null) return;
 
         switch (chosen) {
@@ -325,6 +400,7 @@ public class GrinchBossManager {
     private void abilityRoar() {
         if (!isAlive()) return;
         Location c = grinch.getLocation();
+        dbg("Ability: roar_knockback at " + c);
         c.getWorld().playSound(c, Sound.ENTITY_WARDEN_ROAR, 1f, 0.7f);
         c.getWorld().spawnParticle(Particle.SONIC_BOOM, c, 1, 0, 0, 0, 0);
         for (Player p : getNearbyPlayers(8)) {
@@ -338,6 +414,7 @@ public class GrinchBossManager {
     private void abilitySnowstorm() {
         if (!isAlive()) return;
         Location c = grinch.getLocation();
+        dbg("Ability: snowstorm_slow at " + c);
         c.getWorld().playSound(c, Sound.WEATHER_RAIN_ABOVE, 1f, 0.8f);
         for (int i = 0; i < 150; i++) {
             double rx = (rng.nextDouble() - 0.5) * 10;
@@ -353,8 +430,12 @@ public class GrinchBossManager {
     private void abilityDash() {
         if (!isAlive()) return;
         Player target = nearestPlayer(15);
-        if (target == null) return;
+        if (target == null) {
+            dbg("Ability: shadow_dash but no target in range.");
+            return;
+        }
 
+        dbg("Ability: shadow_dash towards " + target.getName());
         Vector dir = target.getLocation().toVector().subtract(grinch.getLocation().toVector()).normalize();
         grinch.setVelocity(dir.multiply(1.2).setY(0.3));
         grinch.getWorld().playSound(grinch.getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1f, 0.6f);
@@ -362,7 +443,10 @@ public class GrinchBossManager {
         // small delay then AOE hit (guard against despawn/NPE)
         final Entity g = getEntity();
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            if (g == null || !g.isValid()) return;
+            if (g == null || !g.isValid()) {
+                dbg("shadow_dash follow-up: Grinch entity invalid, skipping damage.");
+                return;
+            }
             for (Player p : getNearbyPlayers(3)) {
                 p.damage(6.0, g);
                 p.getWorld().spawnParticle(Particle.CRIT, p.getLocation(), 20, .3, .5, .3, .1);
@@ -376,9 +460,13 @@ public class GrinchBossManager {
         pruneMinions();
 
         int budget = Math.max(0, maxMinions() - aliveMinionCount());
-        if (budget <= 0) return;
+        if (budget <= 0) {
+            dbg("Ability: summon_minions but budget<=0 (already at max).");
+            return;
+        }
 
         int toSpawn = Math.min(3, budget); // at most 3 per cast
+        dbg("Ability: summon_minions spawning " + toSpawn + " minions.");
 
         for (int i = 0; i < toSpawn; i++) {
             Location l = grinch.getLocation().clone().add(rng.nextDouble() * 4 - 2, 0, rng.nextDouble() * 4 - 2);
@@ -391,8 +479,10 @@ public class GrinchBossManager {
                 UUID id = z.getUniqueId();
                 minions.add(id);
 
-                // per-minion lifetime cleanup
                 int lifeSec = minionLifetimeSeconds();
+                dbg("Summoned minion " + id + " at " + l + " lifetime=" + lifeSec + "s.");
+
+                // per-minion lifetime cleanup
                 Bukkit.getScheduler().runTaskLater(plugin, () -> {
                     Entity e2 = Bukkit.getEntity(id);
                     if (e2 != null && e2.isValid()) e2.remove();
@@ -409,28 +499,46 @@ public class GrinchBossManager {
     public void recordDamage(Player p, double amount, EntityDamageEvent.DamageCause cause) {
         if (!isAlive() || p == null || amount <= 0) return;
         damageDone.merge(p.getUniqueId(), amount, Double::sum);
+        if (isDebug()) {
+            double total = damageDone.getOrDefault(p.getUniqueId(), 0.0);
+            dbg("recordDamage(): " + p.getName() + " +" + amount +
+                    " (cause=" + cause + ") -> total=" + total);
+        }
     }
 
-    public void handleDeathAndRewards() {
-        if (!isAlive()) return;
+    public void handleDeathAndRewards(Location deathLoc) {
+        dbg("handleDeathAndRewards() called. deathLoc=" + deathLoc);
+
+        Entity e = getEntity();
+        dbg("handleDeathAndRewards(): getEntity() -> " +
+                (e != null ? e.getUniqueId() : "null") +
+                ", damage map size=" + damageDone.size());
+
         var cfg = plugin.getConfig("grinchboss.yml");
 
         // Broadcast death line
-        say(cfg.getStringList("messages.death_lines"), grinch.getLocation());
+        say(cfg.getStringList("messages.death_lines"), deathLoc);
 
         // Drop loot chest with Santa presents
-        placeLootChestAtDeath(grinch.getLocation());
+        placeLootChestAtDeath(deathLoc);
 
         // Weighted rewards to top contributors
         var rewardsSec = cfg.getConfigurationSection("rewards");
-        if (rewardsSec != null) {
+        if (rewardsSec == null) {
+            dbg("handleDeathAndRewards(): no 'rewards' section in grinchboss.yml.");
+        } else if (damageDone.isEmpty()) {
+            dbg("handleDeathAndRewards(): damageDone is empty -> no contributors to reward.");
+        } else {
             WeightedRandomPicker<String> picker = new WeightedRandomPicker<>();
             for (String key : rewardsSec.getKeys(false)) {
                 int w = cfg.getInt("rewards." + key + ".chance", 1);
                 picker.add(key, w);
+                dbg("Reward entry: " + key + " weight=" + w);
             }
 
             int topN = Math.max(1, cfg.getInt("rewarding.top_contributors", 5));
+            dbg("Selecting top " + topN + " contributors.");
+
             List<Map.Entry<UUID, Double>> top = damageDone.entrySet().stream()
                     .sorted((a, b) -> Double.compare(b.getValue(), a.getValue()))
                     .limit(topN)
@@ -438,15 +546,35 @@ public class GrinchBossManager {
 
             for (var ent : top) {
                 Player p = Bukkit.getPlayer(ent.getKey());
-                if (p == null) continue;
+                dbg("Top entry: uuid=" + ent.getKey() + " damage=" + ent.getValue() +
+                        " online=" + (p != null));
+            }
+
+            for (var ent : top) {
+                Player p = Bukkit.getPlayer(ent.getKey());
+                if (p == null) {
+                    dbg("Skipping reward for offline player uuid=" + ent.getKey());
+                    continue;
+                }
 
                 String chosen = picker.pick();
+                dbg("Reward for " + p.getName() + ": picker returned=" + chosen);
                 if (chosen == null) continue;
 
-                for (String raw : cfg.getStringList("rewards." + chosen + ".commands")) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), raw.replace("%player%", p.getName()));
+                List<String> cmds = cfg.getStringList("rewards." + chosen + ".commands");
+                List<String> msgs = cfg.getStringList("rewards." + chosen + ".messages");
+
+                if (cmds.isEmpty() && msgs.isEmpty()) {
+                    dbg("Reward '" + chosen + "' has no commands/messages, skipping.");
+                    continue;
                 }
-                for (String msg : cfg.getStringList("rewards." + chosen + ".messages")) {
+
+                for (String raw : cmds) {
+                    String cmd = raw.replace("%player%", p.getName());
+                    dbg("Dispatching command: /" + cmd);
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                }
+                for (String msg : msgs) {
                     p.sendMessage(color(msg));
                 }
                 p.playSound(p.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1f, 1f);
@@ -454,6 +582,7 @@ public class GrinchBossManager {
             }
         }
 
+        // Final cleanup
         despawn();
     }
 
@@ -461,18 +590,28 @@ public class GrinchBossManager {
 
     private void placeLootChestAtDeath(Location where) {
         var gc = plugin.getConfig("grinchboss.yml");
-        if (!gc.getBoolean("loot_chest.enabled", true)) return;
+        if (!gc.getBoolean("loot_chest.enabled", true)) {
+            dbg("Loot chest disabled by config.");
+            return;
+        }
 
         where = where.clone();
         World world = where.getWorld();
-        if (world == null) return;
+        if (world == null) {
+            dbg("placeLootChestAtDeath(): world is null.");
+            return;
+        }
+
+        dbg("placeLootChestAtDeath(): raw deathLoc=" + where);
 
         int y = world.getHighestBlockYAt(where.getBlockX(), where.getBlockZ());
         where.setY(y);
 
+        dbg("placeLootChestAtDeath(): using highest block at y=" + y);
+
         Block b = world.getBlockAt(where);
-        // Try to place a chest; if blocked, drop items on ground
         if (!b.getType().isAir()) {
+            dbg("placeLootChestAtDeath(): target block not air (" + b.getType() + "), dropping on ground.");
             dropLootOnGround(where);
             return;
         }
@@ -480,6 +619,7 @@ public class GrinchBossManager {
         b.setType(Material.CHEST, false);
 
         if (!(b.getState() instanceof Chest chest)) {
+            dbg("placeLootChestAtDeath(): block state is not Chest, dropping on ground.");
             dropLootOnGround(where);
             return;
         }
@@ -487,6 +627,9 @@ public class GrinchBossManager {
         int min = Math.max(1, gc.getInt("loot_chest.min_gifts", 3));
         int max = Math.max(min, gc.getInt("loot_chest.max_gifts", 6));
         int count = min + rng.nextInt(Math.max(1, (max - min + 1)));
+
+        dbg("placeLootChestAtDeath(): filling chest at " + where +
+                " with " + count + " Santa presents.");
 
         for (int i = 0; i < count; i++) {
             chest.getBlockInventory().addItem(SantaPresentFactory.buildPresent(plugin, 1));
@@ -498,6 +641,7 @@ public class GrinchBossManager {
                 String mat = gc.getString("loot_chest.extra_items." + key + ".material", "COAL");
                 int amt = Math.max(1, gc.getInt("loot_chest.extra_items." + key + ".amount", 1));
                 Material m = Material.matchMaterial(mat);
+                dbg("Extra loot '" + key + "': material=" + mat + " resolved=" + m + " amount=" + amt);
                 if (m != null) chest.getBlockInventory().addItem(new ItemStack(m, amt));
             }
         }
@@ -514,6 +658,8 @@ public class GrinchBossManager {
 
         world.spawnParticle(Particle.FIREWORK, where.clone().add(0.5, 1.2, 0.5), 30, .3, .4, .3, .05);
         world.playSound(where, Sound.BLOCK_CHEST_OPEN, 1f, 0.9f);
+
+        dbg("placeLootChestAtDeath(): chest placed & announcement sent.");
     }
 
     private void dropLootOnGround(Location where) {
@@ -521,6 +667,9 @@ public class GrinchBossManager {
         int min = Math.max(1, gc.getInt("loot_chest.min_gifts", 3));
         int max = Math.max(min, gc.getInt("loot_chest.max_gifts", 6));
         int count = min + rng.nextInt(Math.max(1, (max - min + 1)));
+
+        dbg("dropLootOnGround(): dropping " + count + " presents at " + where);
+
         for (int i = 0; i < count; i++) {
             where.getWorld().dropItemNaturally(where, SantaPresentFactory.buildPresent(plugin, 1));
         }

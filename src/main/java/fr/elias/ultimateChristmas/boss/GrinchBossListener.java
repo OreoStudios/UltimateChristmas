@@ -18,7 +18,7 @@ public class GrinchBossListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onHit(EntityDamageByEntityEvent e) {
-        if (!mgr.isAlive() || e.getEntity() != mgr.getEntity()) return;
+        if (!mgr.isGrinch(e.getEntity())) return;
         if (e.getDamager() instanceof Player p) {
             mgr.recordDamage(p, e.getFinalDamage(), e.getCause());
         }
@@ -26,9 +26,12 @@ public class GrinchBossListener implements Listener {
 
     @EventHandler
     public void onDeath(EntityDeathEvent e) {
-        if (!mgr.isAlive() || e.getEntity() != mgr.getEntity()) return;
-        e.getDrops().clear(); // rewards handled by manager
+        if (!mgr.isGrinch(e.getEntity())) return;
+
+        // prevent vanilla drops/xp
+        e.getDrops().clear();
         e.setDroppedExp(0);
-        mgr.handleDeathAndRewards();
+
+        mgr.handleDeathAndRewards(e.getEntity().getLocation());
     }
 }

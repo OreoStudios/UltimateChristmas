@@ -6,76 +6,73 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
 import fr.elias.ultimateChristmas.UltimateChristmas;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.*;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.ItemFrame;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Player-local snowfall manager:
- * - Particles always visible around the player.
+ * - Particles always visible around the player (unless under a roof, if respect-roof: true).
  * - Thin ground snow layers placed near the player, except in blocked WG regions or under a roof.
  * - Safe-zones near players and interactables to avoid misclicks.
- * - Toggleable per player via /snowify (handled by your command).
+ * - Toggleable per player via /snowify (handled by SnowCommand).
  */
 public class SnowEffectManager implements Listener {
 
-    private final Plugin plugin;
+    private final UltimateChristmas plugin;
 
     // Runtime state
     private final Set<Player> activePlayers = new HashSet<>();
     private final Set<Player> optedOut = new HashSet<>();
+    private final Set<Material> bannedBaseBlocks = EnumSet.noneOf(Material.class);
 
-    // Config
-    private final boolean snowEnabled;
-    private final boolean applyToAllPlayers;
-    private final boolean keepSnowOnDisable;
-    private final int radius;
-    private final int particleDensity;
-    private final long durationTicks;
-    private final double noSnowNearPlayer;
-    private final double noSnowNearEntity;
+    // Config (mutable so we can reload)
+    private boolean snowEnabled;
+    private boolean applyToAllPlayers;
+    private boolean keepSnowOnDisable;
+    private int radius;
+    private int particleDensity;
+    private long durationTicks;
+    private double noSnowNearPlayer;
+    private double noSnowNearEntity;
 
-    private final boolean biasFront;
-    private final double lookAheadFactor;
+    private boolean biasFront;
+    private double lookAheadFactor;
 
     // Ground placement rules
-    private final boolean respectRoof;              // do not place ground snow when under a cover
-    private final Set<String> blockedWGRegions;     // WG regions where ground snow is blocked
+    private boolean respectRoof;          // do not place/show snow when player is under a cover
+    private Set<String> blockedWGRegions; // WG regions where ground snow is blocked
 
-    public SnowEffectManager(Plugin plugin) {
+    // ----------------------------------------------------------------------------------------------------
+    // CONSTRUCTOR + CONFIG LOAD
+    // ----------------------------------------------------------------------------------------------------
+
+    public SnowEffectManager(UltimateChristmas plugin) {
         this.plugin = plugin;
 
-        // Read config
-        var cfg = plugin.getConfig();
+        // initial load
+        loadFromConfig();
 
-        this.snowEnabled        = cfg.getBoolean("snow.enabled", true);
-        this.applyToAllPlayers  = cfg.getBoolean("snow.apply-to-all-players", true);
-        this.keepSnowOnDisable  = cfg.getBoolean("snow.keep-snow-on-disable", true);
-
-        this.radius             = Math.max(2, cfg.getInt("snow.radius", 24));
-        this.particleDensity    = Math.max(0, cfg.getInt("snow.density", 40));
-
-        int seconds             = Math.max(0, cfg.getInt("snow.duration", 0));
-        this.durationTicks      = seconds == 0 ? 0L : seconds * 20L;
-
-        this.noSnowNearPlayer   = Math.max(0.25, cfg.getDouble("snow.no-snow-near-player-radius", 1.5));
-        this.noSnowNearEntity   = Math.max(0.25, cfg.getDouble("snow.no-snow-near-entity-radius", 1.25));
-
-        this.biasFront          = cfg.getBoolean("snow.presnow.bias-front", true);
-        this.lookAheadFactor    = Math.min(2.0, Math.max(0.0, cfg.getDouble("snow.presnow.lookahead-factor", 0.66)));
-
-        this.respectRoof        = cfg.getBoolean("snow.respect-roof", true);
-        this.blockedWGRegions   = new HashSet<>(cfg.getStringList("snow.blocked-wg-regions"));
-
+        // register events once
         Bukkit.getPluginManager().registerEvents(this, plugin);
 
         // Auto-enable around currently online players if globally enabled
@@ -84,7 +81,74 @@ public class SnowEffectManager implements Listener {
         }
     }
 
-    /* =============================== Public API (used by /snowify) =============================== */
+    /**
+     * Called from UltimateChristmas.reloadAll()
+     */
+    public void reloadConfig() {
+        loadFromConfig();
+
+        // If snow was disabled in config while some players had it active → stop their tasks
+        if (!snowEnabled) {
+            for (Player p : new HashSet<>(activePlayers)) {
+                disableFor(p, !keepSnowOnDisable);
+            }
+        } else if (snowEnabled && applyToAllPlayers) {
+            // If it just got enabled or radius changed etc., re-apply to online players
+            enableForOnlinePlayers();
+        }
+    }
+
+    private void loadFromConfig() {
+        FileConfiguration cfg = plugin.getConfig("snow.yml");
+        if (cfg == null) {
+            plugin.getLogger().warning("[Snow] Could not load snow.yml (FileConfiguration is null).");
+            return;
+        }
+
+        // clear sets
+        bannedBaseBlocks.clear();
+        if (blockedWGRegions == null) {
+            blockedWGRegions = new HashSet<>();
+        } else {
+            blockedWGRegions.clear();
+        }
+
+        // Snow main section
+        this.snowEnabled        = cfg.getBoolean("snow.enabled", true);
+        this.applyToAllPlayers  = cfg.getBoolean("snow.apply-to-all-players", true);
+        this.keepSnowOnDisable  = cfg.getBoolean("snow.keep-snow-on-disable", true);
+
+        this.radius             = Math.max(2, cfg.getInt("snow.radius", 24));
+        this.particleDensity    = Math.max(0, cfg.getInt("snow.density", 40));
+
+        int seconds             = Math.max(0, cfg.getInt("snow.duration", 0));
+        this.durationTicks      = (seconds == 0 ? 0L : seconds * 20L);
+
+        this.noSnowNearPlayer   = Math.max(0.25, cfg.getDouble("snow.no-snow-near-player-radius", 1.5));
+        this.noSnowNearEntity   = Math.max(0.25, cfg.getDouble("snow.no-snow-near-entity-radius", 1.25));
+
+        // Presnow bias
+        this.biasFront          = cfg.getBoolean("snow.presnow.bias-front", true);
+        this.lookAheadFactor    = Math.min(2.0, Math.max(0.0, cfg.getDouble("snow.presnow.lookahead-factor", 0.66)));
+
+        // Ground placement rules
+        this.respectRoof        = cfg.getBoolean("snow.respect-roof", true);
+        this.blockedWGRegions.addAll(cfg.getStringList("snow.blocked-wg-regions"));
+
+        // Banned base blocks for snow layers
+        for (String raw : cfg.getStringList("snowify.banned-blocks")) {
+            Material mat = Material.matchMaterial(raw);
+            if (mat != null) {
+                bannedBaseBlocks.add(mat);
+            } else {
+                plugin.getLogger().warning("[Snow] Unknown banned-block: " + raw);
+            }
+        }
+    }
+
+    // ----------------------------------------------------------------------------------------------------
+    // PUBLIC API (used by /snowify)
+    // ----------------------------------------------------------------------------------------------------
 
     /** Toggle the effect for a specific player. */
     public void toggleSnowCommand(Player player) {
@@ -104,7 +168,9 @@ public class SnowEffectManager implements Listener {
         player.sendMessage("§f❄ Snow begins to fall around you...");
     }
 
-    /* =============================== Join auto-enable =============================== */
+    // ----------------------------------------------------------------------------------------------------
+    // JOIN AUTO-ENABLE
+    // ----------------------------------------------------------------------------------------------------
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
@@ -120,7 +186,9 @@ public class SnowEffectManager implements Listener {
         }
     }
 
-    /* =============================== Core loop =============================== */
+    // ----------------------------------------------------------------------------------------------------
+    // CORE LOOP
+    // ----------------------------------------------------------------------------------------------------
 
     private void enableFor(Player player) {
         if (!snowEnabled) return;
@@ -138,12 +206,21 @@ public class SnowEffectManager implements Listener {
                     return;
                 }
 
-                // 1) Always show particles (even in blocked regions)
-                spawnSnowParticles(player);
+                // If config got turned off while task is running, stop gracefully
+                if (!snowEnabled) {
+                    disableFor(player, !keepSnowOnDisable);
+                    cancel();
+                    return;
+                }
 
-                // 2) Place thin ground snow (every 10 ticks), but NEVER inside blocked WG regions
-                if ((ticks % 10) == 0) {
-                    applyPreSnow(player);
+                // 1) Particles (respect-roof: if true and under cover -> no particles OR ground snow)
+                if (!(respectRoof && isUnderCover(player))) {
+                    spawnSnowParticles(player);
+
+                    // 2) Place thin ground snow (every 10 ticks), but NEVER inside blocked WG regions
+                    if ((ticks % 10) == 0) {
+                        applyPreSnow(player);
+                    }
                 }
 
                 ticks += 2;
@@ -164,7 +241,9 @@ public class SnowEffectManager implements Listener {
         }
     }
 
-    /* =============================== Particles =============================== */
+    // ----------------------------------------------------------------------------------------------------
+    // PARTICLES
+    // ----------------------------------------------------------------------------------------------------
 
     private void spawnSnowParticles(Player player) {
         if (particleDensity <= 0) return;
@@ -179,14 +258,13 @@ public class SnowEffectManager implements Listener {
         }
     }
 
-    /* =============================== Ground pre-snow =============================== */
+    // ----------------------------------------------------------------------------------------------------
+    // GROUND PRE-SNOW
+    // ----------------------------------------------------------------------------------------------------
 
     private void applyPreSnow(Player player) {
         World world = player.getWorld();
         Location loc = player.getLocation();
-
-        // Skip ground placement when under a roof (configurable)
-        if (respectRoof && isUnderCover(player)) return;
 
         int px = loc.getBlockX();
         int pz = loc.getBlockZ();
@@ -214,6 +292,9 @@ public class SnowEffectManager implements Listener {
                 if (!ground.getType().isSolid() || ground.isLiquid()) continue;
                 if (top.getType() != Material.AIR) continue;
 
+                // Never place snow on banned base blocks (stairs, slabs, specific blocks)
+                if (isBannedBase(ground)) continue;
+
                 // DO NOT place ground snow inside any configured WG region
                 if (isInsideBlockedWGRegion(top.getLocation().add(0.5, 0.0, 0.5))) continue;
 
@@ -223,6 +304,23 @@ public class SnowEffectManager implements Listener {
                 top.setType(Material.SNOW, false); // thin layer
             }
         }
+    }
+
+    /**
+     * True if we must NOT place snow on top of this base block.
+     * - Config-driven list (banned-blocks in snow.yml)
+     * - Automatically bans all *_SLAB and *_STAIRS.
+     */
+    private boolean isBannedBase(Block base) {
+        if (base == null) return true;
+        Material type = base.getType();
+
+        // Explicit list from config
+        if (bannedBaseBlocks.contains(type)) return true;
+
+        // Auto-block all slabs & stairs so you don’t have to list every variant
+        String name = type.name();
+        return name.endsWith("_SLAB") || name.endsWith("_STAIRS");
     }
 
     private boolean isNearInteractable(Location center, double xr, double yr) {
@@ -255,7 +353,9 @@ public class SnowEffectManager implements Listener {
         return e.getType().name().equalsIgnoreCase("INTERACTION");
     }
 
-    /* =============================== Cleanup =============================== */
+    // ----------------------------------------------------------------------------------------------------
+    // CLEANUP
+    // ----------------------------------------------------------------------------------------------------
 
     private void revertThinSnowNear(Player player) {
         World world = player.getWorld();
@@ -273,7 +373,9 @@ public class SnowEffectManager implements Listener {
         }
     }
 
-    /* =============================== Helpers =============================== */
+    // ----------------------------------------------------------------------------------------------------
+    // HELPERS
+    // ----------------------------------------------------------------------------------------------------
 
     /**
      * True if any non-air block exists above the player's head (i.e., under a roof).
@@ -299,7 +401,10 @@ public class SnowEffectManager implements Listener {
      * Particles are NOT affected by this — only ground placement is skipped.
      */
     private boolean isInsideBlockedWGRegion(Location loc) {
-        if (blockedWGRegions.isEmpty() || loc == null || loc.getWorld() == null) return false;
+        if (blockedWGRegions == null || blockedWGRegions.isEmpty()
+                || loc == null || loc.getWorld() == null) {
+            return false;
+        }
 
         try {
             if (Bukkit.getPluginManager().getPlugin("WorldGuard") == null) return false;

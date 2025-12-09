@@ -1,0 +1,19 @@
+music:
+  no-permission: "&cYou don't have permission."
+  usage: "&eUsage: &f/%label% &7<trackKey|list|stop> [&7self|playerName&f]"
+  usage-list: "&8- &flist &7: shows available tracks"
+  usage-stop: "&8- &fstop &7: stops the music"
+  noteblock-missing: "&cNoteBlockAPI is not loaded. Install it and add &fsoftdepend: [NoteBlockAPI]&c."
+
+  no-tracks: "&7No tracks found. Configure &fmusic.yml &7→ &etracks:*"
+  no-tracks-short: "&7No available tracks (&fmusic.yml&7)."
+  tracks-list: "&7Tracks: &f%tracks%"
+
+  self-only-player: "&cOnly a player can use &fself&c."
+  no-permission-others: "&cYou don't have permission to target other players."
+  player-not-found: "&cPlayer not found: &f%player%"
+
+  no-permission-stop: "&cMissing permission: &f%perm%"
+  stop-all: "&aStopped music for &f%count% &aplayer(s)."
+
+  console-missing-player: "&cFrom console, please specify &f/%label% %track% <player>&c."

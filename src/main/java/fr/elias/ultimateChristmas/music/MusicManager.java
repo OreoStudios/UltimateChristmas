@@ -16,22 +16,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MusicManager {
+
     private final Plugin plugin;
     private final Logger log;
-    private final boolean debug;
+    // not final → can update when reloading if needed
+    private boolean debug;
 
     private static final String DIR_SONGS = "songs";
     private static final String DIR_MUSIC = "music";
 
+    /**
+     * Internal track representation.
+     * configKey   = key as written in music.yml (for /playchristmas list)
+     * file        = resolved NBS file (case-insensitive lookup)
+     * displayName = optional pretty name
+     */
     private static class Track {
-        final String file;
+        final String configKey;
+        final File file;
         final String displayName;
-        Track(String file, String displayName) {
+
+        Track(String configKey, File file, String displayName) {
+            this.configKey = configKey;
             this.file = file;
             this.displayName = displayName;
         }
     }
 
+    // map key = lowercased configKey, value = track
     private final Map<String, Track> tracks = new LinkedHashMap<>();
 
     public MusicManager(Plugin plugin) {
@@ -41,7 +53,9 @@ public class MusicManager {
         loadTracks();
     }
 
-    // ---------- API utilisée par la commande ----------
+    /* ======================================================================
+     * PUBLIC API – used by /playchristmas
+     * ====================================================================== */
 
     public boolean isNoteBlockAvailable() {
         try {
@@ -49,48 +63,64 @@ public class MusicManager {
             boolean loaded = nbp != null && nbp.isEnabled();
             if (!loaded) return false;
 
-            // Diag informatif (ne bloque pas)
+            // Optional diag, does NOT block if getAPI() is null on some forks
             try {
                 var api = NoteBlockAPI.getAPI();
                 if (api == null && debug) {
-                    log.warning("[Music][DEBUG] NoteBlockAPI.getAPI() est null mais le plugin est actif. " +
-                            "C'est normal sur certains forks; on continue quand même.");
+                    log.warning("[Music][DEBUG] NoteBlockAPI.getAPI() is null but plugin is enabled. This can be normal on some forks.");
                 } else if (debug) {
                     log.info("[Music][DEBUG] NoteBlockAPI.getAPI() OK");
                 }
             } catch (Throwable t) {
-                if (debug)
-                    log.warning("[Music][DEBUG] Appel getAPI() a lancé: " + t.getClass().getSimpleName() + ": " + t.getMessage());
+                if (debug) {
+                    log.warning("[Music][DEBUG] getAPI() threw " + t.getClass().getSimpleName() + ": " + t.getMessage());
+                }
             }
 
-            return true; // plugin présent et enabled → disponible
+            return true;
         } catch (Throwable t) {
             return false;
         }
     }
 
+    /** Returns the list of track keys as written in music.yml (for tab-complete + list). */
     public List<String> getKeys() {
-        var list = new ArrayList<>(tracks.keySet());
-        list.sort(String.CASE_INSENSITIVE_ORDER);
-        return list;
+        List<String> keys = new ArrayList<>();
+        for (Track t : tracks.values()) {
+            keys.add(t.configKey);
+        }
+        keys.sort(String.CASE_INSENSITIVE_ORDER);
+        return keys;
     }
 
+    /**
+     * Play a track by key.
+     * @param key        key typed in the command (any case)
+     * @param onlyTarget if non-null, only that player hears the music; else, all online players
+     */
     public String playTrack(String key, Player onlyTarget) {
         if (!isNoteBlockAvailable()) {
-            return color("&cNoteBlockAPI n'est pas chargé. Ajoutez &fsoftdepend: [NoteBlockAPI]&c et placez le jar.");
+            return color("&cNoteBlockAPI is not loaded. Install it and add &fsoftdepend: [NoteBlockAPI]&c in plugin.yml.");
         }
 
-        Track track = tracks.get(key);
+        Track track = tracks.get(key.toLowerCase(Locale.ROOT));
         if (track == null) {
-            return color("&cPiste inconnue: &f" + key + "&7. Utilisez &f/playchristmas list&7.");
+            return color("&cUnknown track: &f" + key + "&7. Use &f/playchristmas list&7.");
         }
 
-        String displayName = track.displayName != null ? track.displayName : key;
+        if (track.file == null || !track.file.exists()) {
+            return color("&cNBS file not found on disk for track &f" + track.configKey + "&c.");
+        }
+
+        String displayName = (track.displayName != null && !track.displayName.isBlank())
+                ? track.displayName
+                : track.configKey;
 
         if (onlyTarget != null) {
             boolean ok = playRadio(onlyTarget, track.file);
-            return ok ? color("&aLecture de &f" + displayName + " &a→ &f" + onlyTarget.getName())
-                    : color("&cÉchec du démarrage de &f" + displayName + " &cpour &f" + onlyTarget.getName());
+            return ok
+                    ? color("&aNow playing &f" + displayName + " &afor &f" + onlyTarget.getName())
+                    : color("&cFailed to start &f" + displayName + " &cfor &f" + onlyTarget.getName());
         }
 
         int okCount = 0;
@@ -99,17 +129,17 @@ public class MusicManager {
         }
 
         return okCount > 0
-                ? color("&aLecture de &f" + displayName + " &apour &f" + okCount + " &ajoueur(s).")
-                : color("&cImpossible de démarrer &f" + displayName + " &cpour les joueurs connectés.");
+                ? color("&aNow playing &f" + displayName + " &afor &f" + okCount + " &aplayer(s).")
+                : color("&cCould not start &f" + displayName + " &cfor connected players.");
     }
 
     public String stopFor(Player p) {
         try {
             NoteBlockAPI.stopPlaying(p);
-            return color("&aMusique arrêtée pour &f" + p.getName());
+            return color("&aMusic stopped for &f" + p.getName());
         } catch (Throwable t) {
             log.log(Level.WARNING, "[Music] stopFor error: " + t.getMessage(), t);
-            return color("&cErreur lors de l'arrêt pour &f" + p.getName());
+            return color("&cError while stopping for &f" + p.getName());
         }
     }
 
@@ -126,10 +156,12 @@ public class MusicManager {
         return count;
     }
 
-    // ---------- Lancement bas-niveau ----------
+    /* ======================================================================
+     * LOW-LEVEL PLAYBACK
+     * ====================================================================== */
 
-    public boolean playRadio(Player player, String songFileName) {
-        d("Invoke by " + player.getName() + " for '" + songFileName + "'");
+    private boolean playRadio(Player player, File nbsFile) {
+        d("Invoke by " + player.getName() + " for file '" + nbsFile.getName() + "'");
 
         var nbp = Bukkit.getPluginManager().getPlugin("NoteBlockAPI");
         if (nbp == null || !nbp.isEnabled()) {
@@ -137,34 +169,24 @@ public class MusicManager {
             return false;
         }
 
-        // Diag seulement — ne PAS retourner false si getAPI() == null
         try {
             if (NoteBlockAPI.getAPI() == null && debug) {
-                log.warning("[Music][DEBUG] getAPI() == null (fork/impl). On tente quand même la lecture.");
+                log.warning("[Music][DEBUG] getAPI() == null (fork/impl). Trying playback anyway.");
             } else if (debug) {
                 log.info("[Music][DEBUG] getAPI() OK");
             }
         } catch (Throwable ignored) {}
 
-        d("NoteBlockAPI OK. Version=" + nbp.getDescription().getVersion());
+        d("Using NBS file: " + nbsFile.getAbsolutePath());
+        if (!nbsFile.exists()) {
+            log.warning("[Music] NBS file does not exist: " + nbsFile.getAbsolutePath());
+            return false;
+        }
 
         try {
-            File baseSongs = new File(plugin.getDataFolder(), DIR_SONGS);
-            File baseMusic = new File(plugin.getDataFolder(), DIR_MUSIC);
-            if (!baseSongs.exists()) baseSongs.mkdirs();
-
-            File nbs = new File(baseSongs, songFileName);
-            if (!nbs.exists()) nbs = new File(baseMusic, songFileName);
-
-            d("Resolved NBS path: " + nbs.getAbsolutePath());
-            if (!nbs.exists()) {
-                log.warning("[Music] NBS not found in 'songs/' or 'music/': " + songFileName);
-                return false;
-            }
-
-            Song song = NBSDecoder.parse(nbs);
+            Song song = NBSDecoder.parse(nbsFile);
             if (song == null) {
-                log.warning("[Music] Failed to parse NBS: " + nbs.getName());
+                log.warning("[Music] Failed to parse NBS: " + nbsFile.getName());
                 return false;
             }
 
@@ -184,24 +206,49 @@ public class MusicManager {
         }
     }
 
-    // ---------- Internes ----------
+    /* ======================================================================
+     * TRACK LOADING (CONFIG + DISK, CASE-INSENSITIVE)
+     * ====================================================================== */
+
+    /** Called from /uc reload via UltimateChristmas.reloadAll() */
+    public void reloadTracks() {
+        // update debug flag too (in case it changed)
+        this.debug = plugin.getConfig().getBoolean("debug", false);
+        loadTracks();
+    }
 
     private void loadTracks() {
         tracks.clear();
-        File musicFile = new File(plugin.getDataFolder(), "music.yml");
+
+        // 1) Build a case-insensitive map of all .nbs files in songs/ and music/
+        Map<String, File> fileMap = new HashMap<>();
+
+        File dataFolder = plugin.getDataFolder();
+        File songsDir = new File(dataFolder, DIR_SONGS);
+        File musicDir = new File(dataFolder, DIR_MUSIC);
+
+        if (!songsDir.exists()) songsDir.mkdirs();
+        if (!musicDir.exists()) musicDir.mkdirs();
+
+        scanFolderForNbs(songsDir, fileMap);
+        scanFolderForNbs(musicDir, fileMap);
+
+        // 2) Read music.yml (or fallback to config.yml)
+        File musicFile = new File(dataFolder, "music.yml");
         YamlConfiguration cfg = musicFile.exists()
                 ? YamlConfiguration.loadConfiguration(musicFile)
-                : YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
+                : YamlConfiguration.loadConfiguration(new File(dataFolder, "config.yml"));
 
         ConfigurationSection sec = cfg.isConfigurationSection("tracks")
                 ? cfg.getConfigurationSection("tracks")
                 : cfg.getConfigurationSection("music.tracks");
 
         if (sec == null) {
-            d("No 'tracks' section found.");
+            d("No 'tracks' or 'music.tracks' section found in music.yml.");
             return;
         }
 
+        // 3) Parse config entries and resolve to real files (case-insensitive)
         for (String key : sec.getKeys(false)) {
             String fileName = null;
             String display = null;
@@ -215,12 +262,44 @@ public class MusicManager {
             }
 
             if (fileName == null || fileName.isBlank()) continue;
-            if (!fileName.toLowerCase(Locale.ROOT).endsWith(".nbs")) fileName += ".nbs";
 
-            tracks.put(key, new Track(fileName, display));
-            d("Track: " + key + " -> " + fileName + (display != null ? " (" + display + ")" : ""));
+            // normalise extension
+            if (!fileName.toLowerCase(Locale.ROOT).endsWith(".nbs")) {
+                fileName = fileName + ".nbs";
+            }
+
+            File resolved = fileMap.get(fileName.toLowerCase(Locale.ROOT));
+
+            if (resolved == null) {
+                log.warning("[Music] Config track '" + key + "' refers to '" + fileName
+                        + "' but no such NBS file was found (case-insensitive) in '"
+                        + DIR_SONGS + "/' or '" + DIR_MUSIC + "/'.");
+            } else {
+                d("Track loaded: key=" + key + " -> file=" + resolved.getName()
+                        + (display != null ? " (" + display + ")" : ""));
+            }
+
+            // Store track anyway; playTrack will report if file is missing
+            tracks.put(key.toLowerCase(Locale.ROOT), new Track(key, resolved, display));
         }
     }
+
+    private void scanFolderForNbs(File dir, Map<String, File> fileMap) {
+        File[] files = dir.listFiles();
+        if (files == null) return;
+
+        for (File f : files) {
+            if (!f.isFile()) continue;
+            String name = f.getName();
+            if (name.toLowerCase(Locale.ROOT).endsWith(".nbs")) {
+                fileMap.put(name.toLowerCase(Locale.ROOT), f);
+            }
+        }
+    }
+
+    /* ======================================================================
+     * UTIL
+     * ====================================================================== */
 
     private void d(String msg) {
         if (debug) log.info("[Music][DEBUG] " + msg);

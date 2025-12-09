@@ -44,6 +44,11 @@ commands:
     usage: "/grinchboss <spawn|despawn|setspawn|status>"
     permission: ultimatechristmas.grinch.admin
 
+  ultimatechristmas:
+    description: Main command
+    aliases: [uc]
+    usage: /<command> reload
+
 permissions:
   ultimatechristmas.admin:
     description: Grants access to all UltimateChristmas admin commands

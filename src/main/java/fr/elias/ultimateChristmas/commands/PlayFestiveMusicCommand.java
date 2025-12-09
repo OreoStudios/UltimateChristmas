@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,8 +20,8 @@ import java.util.logging.Logger;
 
 public class PlayFestiveMusicCommand implements CommandExecutor, TabCompleter {
 
-    // Permissions (adjust if you use different nodes)
-    private static final String PERM_USE = "ultimatechristmas.music";
+    // Permissions
+    private static final String PERM_USE   = "ultimatechristmas.music";
     private static final String PERM_OTHERS = "ultimatechristmas.music.others";
     private static final String PERM_STOP = "ultimatechristmas.music.stop";
 
@@ -36,16 +37,52 @@ public class PlayFestiveMusicCommand implements CommandExecutor, TabCompleter {
         this.debug = plugin.getConfig().getBoolean("debug", false);
     }
 
+    /* ------------- Lang helpers ------------- */
+
+    private FileConfiguration langCfg() {
+        // Uses UltimateChristmas#getConfig(String) -> ConfigUtil
+        return plugin.getConfig("lang.yml");
+    }
+
+    private String msg(String path, String def) {
+        return Msg.color(langCfg().getString(path, def));
+    }
+
+    private String msg(String path, String def, java.util.Map<String, String> placeholders) {
+        String base = langCfg().getString(path, def);
+        if (base == null) base = def;
+        for (var entry : placeholders.entrySet()) {
+            base = base.replace(entry.getKey(), entry.getValue());
+        }
+        return Msg.color(base);
+    }
+
     private void d(String s) {
         if (debug) log.info("[PlayFestiveMusic][DEBUG] " + s);
     }
 
     private void sendUsage(CommandSender sender, String label) {
-        sender.sendMessage(Msg.color("&eUsage: &f/" + label + " &7<trackKey|list|stop> [&7self|playerName&f]"));
-        sender.sendMessage(Msg.color("&8- &flist &7: affiche les pistes disponibles"));
-        sender.sendMessage(Msg.color("&8- &fstop &7: arrête la musique"));
+        sender.sendMessage(msg(
+                "music.usage",
+                "&eUsage: &f/%label% &7<trackKey|list|stop> [&7self|playerName&f]",
+                java.util.Map.of("%label%", label)
+        ));
+        sender.sendMessage(msg(
+                "music.usage-list",
+                "&8- &flist &7: shows available tracks",
+                java.util.Collections.emptyMap()
+        ));
+        sender.sendMessage(msg(
+                "music.usage-stop",
+                "&8- &fstop &7: stops the music",
+                java.util.Collections.emptyMap()
+        ));
         if (!music.isNoteBlockAvailable()) {
-            sender.sendMessage(Msg.color("&cNoteBlockAPI n'est pas chargé. Installez-le et ajoutez &fsoftdepend: [NoteBlockAPI]&c."));
+            sender.sendMessage(msg(
+                    "music.noteblock-missing",
+                    "&cNoteBlockAPI is not loaded. Install it and add &fsoftdepend: [NoteBlockAPI]&c.",
+                    java.util.Collections.emptyMap()
+            ));
         }
     }
 
@@ -56,19 +93,33 @@ public class PlayFestiveMusicCommand implements CommandExecutor, TabCompleter {
                              @NotNull String[] args) {
 
         if (!sender.hasPermission(PERM_USE)) {
-            sender.sendMessage(Msg.color("&cVous n'avez pas la permission."));
+            sender.sendMessage(msg(
+                    "music.no-permission",
+                    "&cYou don't have permission.",
+                    java.util.Collections.emptyMap()
+            ));
             return true;
         }
 
         // /playchristmas
         if (args.length == 0) {
             sendUsage(sender, label);
+
             // Quick helper showing available keys
             List<String> keys = music.getKeys();
             if (keys.isEmpty()) {
-                sender.sendMessage(Msg.color("&7Aucune piste trouvée. Configurez &fmusic.yml &7→ &etracks:*"));
+                sender.sendMessage(msg(
+                        "music.no-tracks",
+                        "&7No tracks found. Configure &fmusic.yml &7→ &etracks:*",
+                        java.util.Collections.emptyMap()
+                ));
             } else {
-                sender.sendMessage(Msg.color("&7Pistes: &f" + String.join("&7, &f", keys)));
+                String joined = String.join("&7, &f", keys);
+                sender.sendMessage(msg(
+                        "music.tracks-list",
+                        "&7Tracks: &f%tracks%",
+                        java.util.Map.of("%tracks%", joined)
+                ));
             }
             return true;
         }
@@ -83,7 +134,11 @@ public class PlayFestiveMusicCommand implements CommandExecutor, TabCompleter {
             String targetArg = args[1];
             if ("self".equalsIgnoreCase(targetArg)) {
                 if (!(sender instanceof Player)) {
-                    sender.sendMessage(Msg.color("&cSeul un joueur peut utiliser &fself&c."));
+                    sender.sendMessage(msg(
+                            "music.self-only-player",
+                            "&cOnly a player can use &fself&c.",
+                            java.util.Collections.emptyMap()
+                    ));
                     return true;
                 }
                 explicitTarget = (Player) sender;
@@ -91,12 +146,20 @@ public class PlayFestiveMusicCommand implements CommandExecutor, TabCompleter {
             } else {
                 // a player name was given
                 if (!sender.hasPermission(PERM_OTHERS)) {
-                    sender.sendMessage(Msg.color("&cVous n'avez pas la permission de cibler d'autres joueurs."));
+                    sender.sendMessage(msg(
+                            "music.no-permission-others",
+                            "&cYou don't have permission to target other players.",
+                            java.util.Collections.emptyMap()
+                    ));
                     return true;
                 }
                 explicitTarget = Bukkit.getPlayerExact(targetArg);
                 if (explicitTarget == null) {
-                    sender.sendMessage(Msg.color("&cJoueur introuvable: &f" + targetArg));
+                    sender.sendMessage(msg(
+                            "music.player-not-found",
+                            "&cPlayer not found: &f%player%",
+                            java.util.Map.of("%player%", targetArg)
+                    ));
                     return true;
                 }
             }
@@ -107,28 +170,45 @@ public class PlayFestiveMusicCommand implements CommandExecutor, TabCompleter {
             case "list": {
                 List<String> keys = music.getKeys();
                 if (keys.isEmpty()) {
-                    sender.sendMessage(Msg.color("&7Aucune piste disponible (&fmusic.yml&7)."));
+                    sender.sendMessage(msg(
+                            "music.no-tracks-short",
+                            "&7No available tracks (&fmusic.yml&7).",
+                            java.util.Collections.emptyMap()
+                    ));
                 } else {
-                    sender.sendMessage(Msg.color("&7Pistes: &f" + String.join("&7, &f", keys)));
+                    String joined = String.join("&7, &f", keys);
+                    sender.sendMessage(msg(
+                            "music.tracks-list",
+                            "&7Tracks: &f%tracks%",
+                            java.util.Map.of("%tracks%", joined)
+                    ));
                 }
                 return true;
             }
             case "stop": {
                 if (!sender.hasPermission(PERM_STOP)) {
-                    sender.sendMessage(Msg.color("&cPermission manquante: &f" + PERM_STOP));
+                    sender.sendMessage(msg(
+                            "music.no-permission-stop",
+                            "&cMissing permission: &f%perm%",
+                            java.util.Map.of("%perm%", PERM_STOP)
+                    ));
                     return true;
                 }
                 // stop for self or a specific player or globally if console/no args
                 if (explicitTarget != null) {
-                    String msg = music.stopFor(explicitTarget);
-                    sender.sendMessage(Msg.color(msg));
+                    String m = music.stopFor(explicitTarget);
+                    sender.sendMessage(Msg.color(m)); // result already a message key
                 } else if (sender instanceof Player p) {
-                    String msg = music.stopFor(p);
-                    sender.sendMessage(Msg.color(msg));
+                    String m = music.stopFor(p);
+                    sender.sendMessage(Msg.color(m));
                 } else {
                     // console: stop for all
                     int count = music.stopAll();
-                    sender.sendMessage(Msg.color("&aArrêt de la musique pour &f" + count + " &ajoueur(s)."));
+                    sender.sendMessage(msg(
+                            "music.stop-all",
+                            "&aStopped music for &f%count% &aplayer(s).",
+                            java.util.Map.of("%count%", String.valueOf(count))
+                    ));
                 }
                 return true;
             }
@@ -150,7 +230,14 @@ public class PlayFestiveMusicCommand implements CommandExecutor, TabCompleter {
 
         // If still null → console must specify a player
         if (target == null) {
-            sender.sendMessage(Msg.color("&cDepuis la console, précisez &f/" + label + " " + trackKey + " <player>&c."));
+            sender.sendMessage(msg(
+                    "music.console-missing-player",
+                    "&cFrom console, please specify &f/%label% %track% <player>&c.",
+                    java.util.Map.of(
+                            "%label%", label,
+                            "%track%", trackKey
+                    )
+            ));
             return true;
         }
 

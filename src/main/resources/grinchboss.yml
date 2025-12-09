@@ -1,5 +1,5 @@
 enabled: true
-
+grinchdebug: false
 display_name: "&2&lThe Grinch"
 # Must be a valid Mojang username with a public skin
 skin: "L1lius"
