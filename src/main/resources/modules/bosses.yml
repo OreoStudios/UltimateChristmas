@@ -1,0 +1,178 @@
+# ============================================================================
+#  modules/bosses.yml - festive boss fights
+#  Reload with: /christmas module reload bosses
+# ----------------------------------------------------------------------------
+#  Spawn with /christmas boss spawn <id>, or use the control center:
+#  /christmas boss        (opens a GUI to summon, inspect and despawn bosses)
+#
+#  Loot is shared among the top damage dealers, so a fight rewards the people
+#  who actually fought it.
+#
+#  Abilities (use any mix): roar  frost  leap  summon
+#
+#  CUSTOM ANIMATED MODELS (optional)
+#  A boss can wear a Blockbench model with animations. Three providers:
+#    display       the plugin's OWN renderer - no third-party plugin, plays the
+#                  model's animations (idle/walk/run auto, attack/laugh/... on
+#                  events). Needs the bundled resource pack on the client (see
+#                  models/README.txt).
+#    modelengine   render via ModelEngine
+#    bettermodel   render via BetterModel
+#    auto          built-in if a rig is loaded and no model plugin is present,
+#                  else ModelEngine/BetterModel
+#    none          always the vanilla mob
+#
+#    model:
+#      id: grinch
+#      provider: display
+#      scale: 1.0            # tune if the model is too big/small
+#      offset-y: 0.0         # lift so the feet meet the ground
+#      yaw-offset: 180       # flip if the model faces backwards
+#      animations:          # map states/events to the model's clip names
+#        idle: idle
+#        walk: walk
+#        run: run
+#        attack: attack      # played when the boss lands a hit
+#        spawn: laugh        # played once when it appears (optional)
+#      ability-animations:  # play a clip when an ability fires
+#        summon: laugh
+#        roar: celebrate
+#
+#  MINION MODELS
+#  A boss's summoned minions can wear their own animated model too:
+#    minions:
+#      model:
+#        id: grinch_minion     # a rig compiled from grinch_minion.bbmodel
+#        provider: display
+#        scale: 0.8
+#        animations: { idle: idle, walk: walk, run: run, attack: attack }
+#
+#  Note: Minecraft caps a mob's health at 1024. For more, scale via a model or
+#  a MythicMobs base - the plugin warns if health is capped.
+# ============================================================================
+
+# Seconds between a boss using one of its abilities.
+ability-interval-seconds: 12
+
+# Broadcast each boss's spawn and death lines.
+taunt: true
+
+# Clear summoned minions when the boss dies.
+remove-minions-on-death: true
+
+bosses:
+
+  grinch:
+    display-name: "&2&lThe Grinch"
+    entity-type: WITHER_SKELETON
+    health: 800
+    speed: 0.30
+    attack-damage: 9
+    glowing: true
+    abilities: [roar, frost, summon]
+    reward-top-contributors: 5
+    # Wears the bundled animated Grinch model using the plugin's own renderer.
+    # Needs the resource pack on clients (models/README.txt); without it the
+    # Grinch is invisible-with-a-nametag, so set provider: none to disable.
+    model:
+      id: grinch
+      provider: display
+      scale: 1.0
+      offset-y: 0.0
+      yaw-offset: 180
+      animations:
+        idle: idle
+        walk: walk
+        attack: attack
+      ability-animations:
+        summon: attack
+    spawn-messages:
+      - "&2The Grinch:&7 Ho ho - NO. No Christmas this year!"
+    death-messages:
+      - "&aThe Grinch's heart grows three sizes... he retreats for now."
+    rewards:
+      shards_big:
+        weight: 40
+        shards: 150-300
+        messages: ["&a+shards from the Grinch's stolen stash!"]
+      diamonds:
+        weight: 30
+        shards: 50
+        items:
+          - { material: DIAMOND, amount: 6 }
+        messages: ["&bSix frosty diamonds."]
+      gear:
+        weight: 20
+        items:
+          - { material: DIAMOND_CHESTPLATE, enchants: { protection: 2 } }
+        messages: ["&dYou pry festive armour from the Grinch's loot."]
+      title:
+        weight: 10
+        shards: 500
+        pass-xp: 300
+        messages: ["&6You are now a &eGrinch Slayer&6!"]
+        firework: true
+
+  krampus:
+    display-name: "&4&lKrampus"
+    entity-type: PIGLIN_BRUTE
+    health: 1200
+    speed: 0.32
+    attack-damage: 12
+    glowing: true
+    abilities: [roar, leap, summon, frost]
+    reward-top-contributors: 5
+    spawn-messages:
+      - "&4Krampus:&7 The naughty will be punished!"
+    death-messages:
+      - "&aKrampus is banished back to the cold."
+    rewards:
+      shards_huge:
+        weight: 40
+        shards: 300-600
+      netherite:
+        weight: 25
+        items:
+          - { material: NETHERITE_SCRAP, amount: 2 }
+      enchanted:
+        weight: 25
+        items:
+          - { material: ENCHANTED_GOLDEN_APPLE, amount: 1 }
+      jackpot:
+        weight: 10
+        shards: 1000
+        pass-xp: 500
+        firework: true
+        broadcast: ["&6%player% &eclaimed Krampus's jackpot!"]
+
+  frost_monarch:
+    display-name: "&b&lThe Frost Monarch"
+    entity-type: STRAY
+    health: 2000
+    speed: 0.28
+    attack-damage: 10
+    glowing: true
+    abilities: [frost, roar, summon, leap]
+    reward-top-contributors: 8
+    spawn-messages:
+      - "&b&lThe Frost Monarch:&7 Kneel before eternal winter."
+    death-messages:
+      - "&aThe eternal winter thaws. The Frost Monarch falls."
+    rewards:
+      shards_massive:
+        weight: 35
+        shards: 500-900
+      diamond_block:
+        weight: 30
+        items:
+          - { material: DIAMOND_BLOCK, amount: 1 }
+      crown:
+        weight: 25
+        items:
+          - { material: GOLDEN_HELMET, name: "&b&lFrost Crown", glow: true, enchants: { protection: 4 } }
+      legendary:
+        weight: 10
+        shards: 2000
+        pass-xp: 1000
+        firework: true
+        broadcast: ["&b&l%player% helped fell the Frost Monarch!"]

@@ -1,94 +1,168 @@
 name: UltimateChristmas
-version: '3.1-SNAPSHOT'
+version: '${project.version}'
 main: fr.elias.ultimateChristmas.UltimateChristmas
 api-version: '1.21'
-depend: [NoteBlockAPI]
-softdepend: [WorldGuard, LibsDisguises, ProtocolLib]
-loadbefore: [LuckPerms]
 authors: [Elias]
+description: A full festive season for Paper servers - advent calendar, Santa, bosses, carols and more.
+website: https://github.com/OreoStudios
+
+# Everything is optional. The plugin detects what is installed at startup and
+# logs which integrations are active; nothing here is required to run.
+softdepend:
+  - NoteBlockAPI      # plays the bundled note block carols
+  - WorldGuard        # region limits for Santa, presents and the tree
+  - LuckPerms         # group-specific reward tables
+  - Vault             # lets shop entries be priced in server currency
+  - PlaceholderAPI    # exposes festive placeholders
+  - LibsDisguises     # gives NPCs a player skin
+  - MythicMobs        # shard rewards for custom mobs
+  - ItemsAdder        # shard rewards for custom blocks
+  - ModelEngine       # custom Blockbench models for bosses
+  - BetterModel       # alternative custom-model renderer
 
 commands:
-  shards:
-    description: Shard balance / shop / admin give
-    usage: "/shards [shop|give|set]"
-    permission: ultimatechristmas.shards
-
-  snowify:
-    description: Toggle a gentle snow effect around you
-    usage: "/snowify [on|off]"
-    permission: ultimatechristmas.snow.use
-
-  playchristmas:
-    description: Play a configured .nbs track
-    usage: "/playchristmas <trackKey>|stop|list"
-    permission: ultimatechristmas.music.play
-
-  santaadmin:
-    description: Admin commands for the Santa NPC
-    usage: "/santaadmin <spawn|despawn|reload>"
-    permission: ultimatechristmas.admin
-
-  ucgift:
-    description: Daily gift commands
-    usage: "/ucgift give <player>"
-    permission: ultimatechristmas.gift.give
-
-  advent:
-    description: Open or manage the Advent Calendar
-    aliases: [calendar, adventcalendar]
-    usage: "/advent [open|claim|remaining|streak|help] [player]"
-    permission: ultimatechristmas.advent.use
-
-  grinchboss:
-    description: Manage the Grinch boss (spawn/despawn/setspawn/status)
-    usage: "/grinchboss <spawn|despawn|setspawn|status>"
-    permission: ultimatechristmas.grinch.admin
-
-  ultimatechristmas:
-    description: Main command
-    aliases: [uc]
-    usage: /<command> reload
+  christmas:
+    description: Everything the plugin does. Run it alone for help.
+    aliases: [uc, xmas, ultimatechristmas]
+    usage: /christmas help
 
 permissions:
-  ultimatechristmas.admin:
-    description: Grants access to all UltimateChristmas admin commands
-    default: op
-
-  # Shards
+  # ---------------------------------------------------------------- players
+  ultimatechristmas.earn:
+    description: Earn shards from blocks and mobs
+    default: true
   ultimatechristmas.shards:
-    description: Use /shards base command (balance, etc.)
+    description: Check your own shard balance
     default: true
-  ultimatechristmas.shop.use:
-    description: Open the shard shop GUI
-    default: true
-
-  # Music
-  ultimatechristmas.music.play:
-    description: Allows using /playchristmas
+  ultimatechristmas.shards.others:
+    description: Check someone else's balance
     default: op
-
-  # Snow effect toggle
-  ultimatechristmas.snow.use:
-    description: Allows /snowify
+  ultimatechristmas.pay:
+    description: Send shards to another player
     default: true
-
-  # Snowball / villager rewards
+  ultimatechristmas.shop:
+    description: Open Santa's Workshop store
+    default: true
+  ultimatechristmas.advent:
+    description: Open and claim the advent calendar
+    default: true
+  ultimatechristmas.snow:
+    description: Toggle the snow that follows you
+    default: true
+  ultimatechristmas.music:
+    description: Play the bundled carols
+    default: true
+  ultimatechristmas.snowball:
+    description: List trick snowballs
+    default: true
   ultimatechristmas.snowball.reward:
-    description: Allows players to earn rewards for snowball hits
+    description: Earn rewards for snowball hits
     default: true
-
-  # Daily gift / advent
-  ultimatechristmas.gift.give:
-    description: Allows /ucgift give <player>
-    default: op
-  ultimatechristmas.advent.use:
-    description: Use Advent Calendar commands (/advent)
+  ultimatechristmas.presents:
+    description: Find and open hidden presents
     default: true
-  ultimatechristmas.advent.admin:
-    description: Manage others’ calendar claims / view streaks
+  ultimatechristmas.quests:
+    description: View festive objectives
+    default: true
+  ultimatechristmas.pass:
+    description: View and claim the festive pass
+    default: true
+  ultimatechristmas.cosmetics:
+    description: Open the cosmetics wardrobe
+    default: true
+  ultimatechristmas.feasts:
+    description: Use festive food and drink
+    default: true
+  ultimatechristmas.tree:
+    description: Decorate the community tree
+    default: true
+  ultimatechristmas.secretsanta:
+    description: Join the Secret Santa exchange
+    default: true
+  ultimatechristmas.countdown:
+    description: See the countdown to Christmas
+    default: true
+  ultimatechristmas.top:
+    description: View the festive leaderboards
+    default: true
+  ultimatechristmas.season:
+    description: See where the season clock stands
+    default: true
+  ultimatechristmas.profile:
+    description: View your own festive stats
+    default: true
+  ultimatechristmas.profile.others:
+    description: View anyone's festive stats
     default: op
 
-  # Grinch boss
-  ultimatechristmas.grinch.admin:
-    description: Allows /grinchboss admin commands
+  # ------------------------------------------------------------------ admin
+  ultimatechristmas.admin:
+    description: All administrative commands
+    default: op
+    children:
+      ultimatechristmas.admin.reload: true
+      ultimatechristmas.admin.modules: true
+      ultimatechristmas.admin.architecture: true
+      ultimatechristmas.admin.economy: true
+      ultimatechristmas.admin.advent: true
+      ultimatechristmas.admin.santa: true
+      ultimatechristmas.admin.boss: true
+      ultimatechristmas.admin.snow: true
+      ultimatechristmas.admin.snowball: true
+      ultimatechristmas.admin.presents: true
+      ultimatechristmas.admin.music: true
+      ultimatechristmas.admin.quests: true
+      ultimatechristmas.admin.pass: true
+      ultimatechristmas.admin.cosmetics: true
+      ultimatechristmas.admin.tree: true
+      ultimatechristmas.admin.secretsanta: true
+      ultimatechristmas.shards.others: true
+      ultimatechristmas.profile.others: true
+  ultimatechristmas.admin.reload:
+    description: Reload configs
+    default: op
+  ultimatechristmas.admin.modules:
+    description: Enable, disable, restart and reload individual modules
+    default: op
+  ultimatechristmas.admin.architecture:
+    description: Export the module dependency graph
+    default: op
+  ultimatechristmas.admin.economy:
+    description: Give, take and set shards
+    default: op
+  ultimatechristmas.admin.advent:
+    description: Reset advent calendars
+    default: op
+  ultimatechristmas.admin.santa:
+    description: Spawn and despawn Santa
+    default: op
+  ultimatechristmas.admin.boss:
+    description: Spawn and despawn festive bosses
+    default: op
+  ultimatechristmas.admin.snow:
+    description: Start a blizzard
+    default: op
+  ultimatechristmas.admin.snowball:
+    description: Hand out trick snowballs
+    default: op
+  ultimatechristmas.admin.presents:
+    description: Spawn and clear hidden presents
+    default: op
+  ultimatechristmas.admin.music:
+    description: Control music for other players
+    default: op
+  ultimatechristmas.admin.quests:
+    description: Reset quest progress
+    default: op
+  ultimatechristmas.admin.pass:
+    description: Grant pass tiers and premium
+    default: op
+  ultimatechristmas.admin.cosmetics:
+    description: Grant cosmetics
+    default: op
+  ultimatechristmas.admin.tree:
+    description: Set the tree location and reset it
+    default: op
+  ultimatechristmas.admin.secretsanta:
+    description: Draw and reset Secret Santa pairings
     default: op

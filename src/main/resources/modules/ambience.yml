@@ -1,0 +1,20 @@
+# ============================================================================
+#  modules/ambience.yml - ambient festive atmosphere
+#  Reload with: /christmas module reload ambience
+# ----------------------------------------------------------------------------
+#  Light-touch polish: a greeting on join and the occasional distant bell.
+#  Greeting lines are in lang.yml under 'ambience.greetings' (%player%, %days%).
+# ============================================================================
+
+# Send a festive greeting shortly after a player joins.
+greet-players: true
+greet-delay-ticks: 40
+
+ambient-sounds:
+  enabled: true
+  # Per-pass chance each player hears a faint sleigh bell.
+  chance: 0.15
+  period-ticks: 400
+
+# Keep everything quiet outside the configured season window.
+only-during-season: true

@@ -1,63 +1,83 @@
-# Correct and Complete config.yml
+# ============================================================================
+#  UltimateChristmas - config.yml
+# ----------------------------------------------------------------------------
+#  Only genuinely global settings live here. Every feature has its own file in
+#  the modules/ folder, named after the module:
+#
+#      modules/economy.yml      modules/advent.yml      modules/santa.yml
+#      modules/shop.yml         modules/bosses.yml      modules/snow.yml
+#      ...and one per module. Run /christmas module list to see them all.
+#
+#  Reload with /christmas reload (configs only, nothing restarts), or reload a
+#  single feature with /christmas module reload <id>.
+# ============================================================================
 
-# --- Global Settings ---
-debug: false
+# --- The season clock -------------------------------------------------------
+# Everything date-related reads from here, so the advent calendar, the
+# countdown and the daily reset can never disagree with each other.
+season:
+  # Day 1 of the season, ISO yyyy-MM-dd. Leave blank to default to 1 December
+  # of the current season.
+  start: ""
 
-messages:
-  # The prefix for most plugin messages.
-  prefix: "&c&l[Christmas]&r "
+  # How many days the season runs. The advent calendar is capped by this.
+  length-days: 25
 
-  # Message shown when a player earns shards from breaking a block or killing a mob
-  shards-earned: "&a+ %amount% shards &7(You now have %total%)"
+  # Christmas Day itself. Leave blank for 25 December of the start year.
+  christmas-day: ""
 
-  # Message shown when a player doesn't have enough shards for a purchase
-  not-enough-shards: "&cNot enough shards!"
+  # Timezone for every date calculation. Use a full zone id, not an offset,
+  # so daylight saving is handled: "Europe/Paris", "America/New_York", "UTC".
+  timezone: "UTC"
 
-  # Message shown when a player successfully buys an item
-  bought-item: "&aPurchase successful! New balance: %balance% shards"
+  # Hour (0-23) at which the day rolls over. With 5, anything before 05:00
+  # still counts as the previous day, which suits servers whose players are
+  # most active late at night.
+  reset-hour: 0
 
+# --- The shard currency -----------------------------------------------------
+# The name is global because it appears in messages from the shop, the advent
+# calendar and boss rewards alike.
+currency:
+  singular: "shard"
+  plural: "shards"
 
-# --- Feature Toggles ---
-# Use these settings to quickly enable or disable major features.
+# --- Player data ------------------------------------------------------------
+storage:
+  # yaml   - one file per player under playerdata/. Good for most servers.
+  # sqlite - a single players.db. Better past a few thousand players, and
+  #          makes leaderboards an indexed query instead of a folder scan.
+  type: yaml
 
-toggles:
-  # Enables the shard economy (earning shards from blocks/mobs, shard manager).
-  shard-economy: true
-  
-  # Enables the /shards shop command and the GUI itself.
-  shard-shop: true
-  
-  # Enables the daily gift item and the daily gift manager.
-  daily-gifts: true
-  
-  # Enables the Santa NPC spawning and interaction logic.
-  santa-event: true
-  
-  # Enables the /playchristmas command and the music manager.
-  music: true
-  
-  # Enables the ability to earn rewards by hitting villagers with snowballs.
-  villager-snowball: true
+  # How often pending changes are written out, in seconds. Writes are batched
+  # and always happen off the main thread; changes are also saved when a player
+  # disconnects and when the server stops, so this is only a safety net.
+  auto-save-seconds: 300
 
+# --- Boss model resource pack -----------------------------------------------
+# The built-in 'display' model provider (for festive bosses) needs its resource
+# pack on the client to show the models. The pack is bundled and unpacked to
+# plugins/UltimateChristmas/pack/UltimateChristmas-Models.zip.
+#
+# Host that zip somewhere players can download (any static host), put the URL
+# here, and the plugin sends it on join with the correct hash. Leave url blank
+# to not send it (players who already have it, e.g. via server.properties, still
+# see the models).
+resource-pack:
+  url: ""
+  # Require it (kicks players who decline). Usually false.
+  required: false
 
-# ❄ Snow effect settings
-snow:
-  enabled: true
-  apply-to-all-players: true        # auto-enable for everyone online
-  keep-snow-on-disable: true        # keep thin layers when a player disables the effect
-  radius: 24                        # horizontal radius around the player
-  density: 40                       # particle burst per tick slice (visual only)
-  duration: 0                       # 0 = infinite (seconds per player)
-  no-snow-near-player-radius: 1.5   # safe ring around feet
-  no-snow-near-entity-radius: 1.25  # avoid placing near interactables/Santa
-
-  presnow:
-    bias-front: true
-    lookahead-factor: 0.66          # 0.0..2.0 how much to bias ahead
-
-  # Ground placement rules
-  respect-roof: true                # no ground snow if player under a ceiling
-  blocked-wg-regions:               # particles still show here; only ground snow is blocked
-    - santa_zone
-    # - market
-    # - spawn
+# --- Modules ----------------------------------------------------------------
+# Features are modules with their own lifecycle. Manage them in game:
+#
+#   /christmas module list                 what exists and what is running
+#   /christmas module disable <id>         stop one feature now, and keep it off
+#   /christmas module enable <id>          start it again
+#   /christmas module restart <id>         fresh listeners and tasks
+#   /christmas module reload <id>          re-read only that module's config
+#
+# Anything disabled in game is recorded below so it stays off after a restart.
+# You can also edit this list by hand before first start.
+modules:
+  disabled: []

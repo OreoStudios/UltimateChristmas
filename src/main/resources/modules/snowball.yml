@@ -1,0 +1,75 @@
+# ============================================================================
+#  modules/snowball.yml - snowball fights and trick snowballs
+#  Reload with: /christmas module reload snowball
+# ----------------------------------------------------------------------------
+#  Hand out trick snowballs with /christmas snowball give <kind> <player>.
+#  Hitting players (or mobs) can award from 'hit-rewards' on a cooldown.
+# ============================================================================
+
+# Seconds between rewarded hits, per player.
+reward-cooldown-seconds: 30
+
+# Reward hitting mobs too, not only players.
+reward-mob-hits: true
+
+# Keep trick snowballs when thrown instead of consuming them.
+infinite-snowballs: false
+
+# ----------------------------------------------------------------------------
+#  Trick snowballs. Each is a tagged snowball with an optional on-hit reward,
+#  potion effects applied to the victim, knockback and a standing change.
+# ----------------------------------------------------------------------------
+kinds:
+
+  frost:
+    material: SNOWBALL
+    name: "&b&lFrost Snowball"
+    lore: ["&7Chills whoever it hits."]
+    glow: true
+    knockback: 0.3
+    naughty-points: 0
+    on-hit:
+      effects: ["SLOWNESS:80:1"]
+
+  blizzard:
+    material: SNOWBALL
+    name: "&f&lBlizzard Snowball"
+    lore: ["&7Blinds and slows on impact."]
+    glow: true
+    knockback: 0.6
+    on-hit:
+      effects: ["SLOWNESS:100:2", "BLINDNESS:60:0"]
+
+  coal:
+    material: SNOWBALL
+    name: "&8&lCoal Snowball"
+    lore: ["&7Naughty! Marks you down the nice list."]
+    knockback: 0.2
+    naughty-points: -2
+    on-hit:
+      shards: 5
+      effects: ["WEAKNESS:100:0"]
+
+  lucky:
+    material: SNOWBALL
+    name: "&6&lLucky Snowball"
+    lore: ["&7Rewards YOU for a good shot."]
+    glow: true
+    on-hit:
+      shards: 25-75
+      messages: ["&6Lucky hit! Shards for you."]
+
+# ----------------------------------------------------------------------------
+#  Rewards for landing a snowball on another player (plain or trick), on a
+#  cooldown. Remove this section to disable hit rewards.
+# ----------------------------------------------------------------------------
+hit-rewards:
+  small:
+    weight: 70
+    shards: 5-15
+    messages: ["&aNice shot! +shards"]
+  big:
+    weight: 30
+    shards: 20-40
+    messages: ["&aGreat throw!"]
+    sound: ENTITY_ARROW_HIT_PLAYER

@@ -1,0 +1,72 @@
+# ============================================================================
+#  modules/santa.yml - the wandering Santa NPC
+#  Reload with: /christmas module reload santa
+# ----------------------------------------------------------------------------
+#  Santa appears on a timer during the season, stays a while, then leaves.
+#  Right-click him for a gift (once per gift-cooldown-hours per player).
+#  Without LibsDisguises he is a named villager; with it he wears the skin.
+# ============================================================================
+
+display-name: "&c&lSanta Claus"
+
+# A Mojang username whose skin LibsDisguises will apply. Blank = plain villager.
+skin: ""
+
+# Let Santa appear on his own during the season.
+auto-spawn: true
+
+# How long he stays each visit, and the gap between visits.
+stay-seconds: 180
+cooldown-seconds: 600
+
+# How often one player may receive a gift from him (0 = no limit).
+gift-cooldown-hours: 20
+
+# ----------------------------------------------------------------------------
+#  Where Santa can appear. List as "world,x,y,z" lines, or leave empty and use
+#  /christmas santa spawn while standing where you want him (one-off).
+# ----------------------------------------------------------------------------
+spawn-locations: []
+#  - "world,100,64,-50"
+#  - "world,20,70,200"
+
+gifts:
+  # Restrict where his present items may be opened (needs WorldGuard).
+  # Empty = anywhere.
+  open-regions: []
+
+  # Weighted gifts handed out on right-click.
+  rewards:
+    cookies:
+      weight: 30
+      shards: 25-60
+      items:
+        - { material: COOKIE, amount: 6 }
+      messages: ["&eSanta hands you a bag of warm cookies."]
+      sound: ENTITY_VILLAGER_YES
+    small_shards:
+      weight: 35
+      shards: 50-150
+      messages: ["&aSanta drops some shards into your stocking."]
+      sound: ENTITY_PLAYER_LEVELUP
+    gear:
+      weight: 20
+      shards: 30
+      items:
+        - { material: GOLDEN_APPLE, amount: 1 }
+      messages: ["&6Santa gives you a golden apple. Stay warm!"]
+    rare:
+      weight: 12
+      shards: 200-400
+      items:
+        - { material: DIAMOND, amount: 2 }
+      messages: ["&b&lSanta is feeling generous!"]
+      firework: true
+    coal:
+      weight: 3
+      shards: 5
+      naughty-nice: -2
+      items:
+        - { material: COAL, amount: 4 }
+      messages: ["&8Santa frowns and hands you coal. Behave!"]
+      sound: ENTITY_VILLAGER_NO

@@ -1,0 +1,25 @@
+# ============================================================================
+#  modules/leaderboards.yml - festive leaderboards
+#  Reload with: /christmas module reload leaderboards
+# ----------------------------------------------------------------------------
+#  View with /christmas top [board] [count].
+# ============================================================================
+
+# Rows shown by default, the most a player may request, and how long a board
+# result is cached before re-querying storage.
+default-size: 10
+max-size: 25
+cache-seconds: 60
+
+# Boards to offer: a stat key mapped to a display name. Any tracked stat works.
+boards:
+  shards: "Shards"
+  shards_earned: "Shards Earned"
+  gifts_opened: "Gifts Opened"
+  presents_found: "Presents Found"
+  snowballs_hit: "Snowball Hits"
+  boss_damage: "Boss Damage"
+  bosses_slain: "Bosses Slain"
+  ornaments_hung: "Ornaments Hung"
+  advent_claimed: "Advent Doors"
+  gifts_given: "Gifts Given"

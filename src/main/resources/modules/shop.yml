@@ -1,0 +1,108 @@
+# ============================================================================
+#  modules/shop.yml - Santa's Workshop store
+#  Reload with: /christmas module reload shop
+# ----------------------------------------------------------------------------
+#  Entries are rewards, so anything the advent calendar or a boss can hand out
+#  can also be sold here, using the same keys. Each entry needs a 'price' (in
+#  shards) or 'money' (server currency, needs Vault + an economy plugin).
+# ============================================================================
+
+menu:
+  # %category% and %balance% are available.
+  title: "&6&l❄ Santa's Workshop &7- %category%"
+
+# Show a yes/no confirmation before taking payment.
+confirm-purchases: true
+
+open-permission: ultimatechristmas.shop
+
+# ----------------------------------------------------------------------------
+#  Categories become tabs along the bottom of the store.
+# ----------------------------------------------------------------------------
+categories:
+
+  treats:
+    name: "&aTreats"
+    icon: COOKIE
+    items:
+      cookie_bundle:
+        material: COOKIE
+        name: "&6Cookie Bundle"
+        lore: ["&7A dozen fresh cookies."]
+        price: 50
+        items:
+          - { material: COOKIE, amount: 12 }
+      cocoa:
+        material: HONEY_BOTTLE
+        name: "&6Hot Cocoa"
+        lore: ["&7Warms you right up.", "&7Grants Fire Resistance."]
+        price: 120
+        effects: ["FIRE_RESISTANCE:2400:0"]
+        items:
+          - { material: HONEY_BOTTLE, amount: 1 }
+      candy_cane:
+        material: STICK
+        name: "&c&lCandy Cane"
+        lore: ["&7Minty and festive."]
+        glow: true
+        price: 80
+        items:
+          - { material: STICK, amount: 4, name: "&c&lCandy Cane", glow: true }
+
+  gear:
+    name: "&bGear"
+    icon: DIAMOND_CHESTPLATE
+    items:
+      santa_hat:
+        material: LEATHER_HELMET
+        name: "&c&lSanta Hat"
+        lore: ["&7Wear it with pride.", "&7100% festive certified."]
+        colour: "#c41e3a"
+        glow: true
+        price: 300
+        items:
+          - { material: LEATHER_HELMET, name: "&c&lSanta Hat", colour: "#c41e3a", glow: true }
+      peppermint_blade:
+        material: IRON_SWORD
+        name: "&f&lPeppermint Blade"
+        lore: ["&7Forged in Santa's workshop.", "&6+ Sharpness III"]
+        price: 600
+        enchants: { sharpness: 3 }
+        items:
+          - { material: IRON_SWORD, name: "&f&lPeppermint Blade", enchants: { sharpness: 3 }, glow: true }
+      frost_boots:
+        material: LEATHER_BOOTS
+        name: "&b&lFrost-Walkers"
+        lore: ["&7Never slip on the ice again.", "&6+ Frost Walker II", "&6+ Feather Falling III"]
+        colour: "#a8d8ff"
+        price: 750
+        items:
+          - { material: LEATHER_BOOTS, name: "&b&lFrost-Walkers", colour: "#a8d8ff", enchants: { frost_walker: 2, feather_falling: 3 } }
+
+  specials:
+    name: "&dSpecials"
+    icon: NETHER_STAR
+    items:
+      extra_gift_roll:
+        material: CHEST
+        name: "&6&lMystery Gift"
+        lore: ["&7Roll for a random prize!", "&7Up to three per day."]
+        price: 250
+        stock-per-day: 3
+        shards: 50-400
+      nice_list_pass:
+        material: PAPER
+        name: "&a&lNice List Pass"
+        lore: ["&7Bumps your standing toward nice."]
+        price: 500
+        requires-nice: -50
+        naughty-nice: 25
+        messages: ["&aSanta moves you up the nice list."]
+      firework_show:
+        material: FIREWORK_ROCKET
+        name: "&e&lPersonal Firework Show"
+        lore: ["&7Celebrate in style."]
+        price: 150
+        firework: true
+        items:
+          - { material: FIREWORK_ROCKET, amount: 8 }

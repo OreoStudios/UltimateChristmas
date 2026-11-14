@@ -1,0 +1,67 @@
+# ============================================================================
+#  modules/cosmetics.yml - hats and particle trails
+#  Reload with: /christmas module reload cosmetics
+# ----------------------------------------------------------------------------
+#  Two kinds, both purely visual:
+#    type: HAT     worn in the helmet slot (your real helmet is handed back)
+#    type: TRAIL   a particle that follows you
+#
+#  Grant with /christmas cosmetics grant <player> <id>, or set 'free: true' to
+#  give it to everyone, or a 'permission:' to gate it.
+# ============================================================================
+
+trails:
+  tick-period: 6
+  particles: 3
+
+hats:
+  use-helmet-slot: true
+
+items:
+
+  santa_hat:
+    type: HAT
+    name: "&c&lSanta Hat"
+    material: LEATHER_HELMET
+    colour: "#c41e3a"
+    free: true
+
+  elf_hat:
+    type: HAT
+    name: "&a&lElf Hat"
+    material: LEATHER_HELMET
+    colour: "#2e8b57"
+    free: true
+
+  snow_crown:
+    type: HAT
+    name: "&b&lSnow Crown"
+    material: GOLDEN_HELMET
+    glow: true
+    permission: ultimatechristmas.cosmetic.snowcrown
+
+  snowflake_trail:
+    type: TRAIL
+    name: "&f&lSnowflake Trail"
+    material: SNOW_BLOCK
+    particle: SNOWFLAKE
+    free: true
+
+  frost_trail:
+    type: TRAIL
+    name: "&b&lFrost Trail"
+    material: ICE
+    particle: ITEM_SNOWBALL
+
+  ember_trail:
+    type: TRAIL
+    name: "&6&lWarm Ember Trail"
+    material: CAMPFIRE
+    particle: FLAME
+    permission: ultimatechristmas.cosmetic.ember
+
+  heart_trail:
+    type: TRAIL
+    name: "&d&lFestive Cheer Trail"
+    material: POPPY
+    particle: HEART

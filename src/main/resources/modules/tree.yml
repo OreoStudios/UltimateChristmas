@@ -1,0 +1,44 @@
+# ============================================================================
+#  modules/tree.yml - the community Christmas tree
+#  Reload with: /christmas module reload tree
+# ----------------------------------------------------------------------------
+#  One shared tree the whole server decorates together. An admin sets its spot
+#  with /christmas tree sethere; players hang ornaments with /christmas tree
+#  hang until the goal is met, then everyone online is rewarded.
+#
+#  The tree's location and progress are saved under 'state' below - leave that
+#  to the plugin.
+# ============================================================================
+
+# Ornaments needed to fully decorate the tree.
+goal: 500
+
+# How close a player must stand to hang one.
+radius: 6.0
+
+# Seconds between a player's contributions.
+cooldown-seconds: 300
+
+# Require a specific item in hand to hang (blank = anything, nothing consumed).
+# e.g. "GLOWSTONE_DUST" to make players bring ornaments.
+ornament-material: ""
+
+reward:
+  # Per-ornament reward for the player who hangs it.
+  shards: 25
+  nice-points: 1
+
+ambient-particles: true
+
+# ----------------------------------------------------------------------------
+#  The shared reward every online player receives when the tree is completed.
+# ----------------------------------------------------------------------------
+completion-reward:
+  gift:
+    weight: 1
+    shards: 1000
+    pass-xp: 300
+    items:
+      - { material: DIAMOND, amount: 4 }
+    messages: ["&a&lThe tree is complete! Here is your gift."]
+    firework: true

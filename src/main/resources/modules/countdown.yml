@@ -1,0 +1,18 @@
+# ============================================================================
+#  modules/countdown.yml - countdown to Christmas
+#  Reload with: /christmas module reload countdown
+#  (boss-bar on/off needs: /christmas module restart countdown)
+# ----------------------------------------------------------------------------
+#  Reads the Christmas date from config.yml (season.christmas-day).
+# ============================================================================
+
+boss-bar:
+  # Show a countdown boss bar to players with the ultimatechristmas.countdown
+  # permission (default: everyone).
+  enabled: true
+  update-ticks: 100
+
+midnight-show:
+  # Fire a firework celebration for everyone online at midnight on Christmas Day.
+  enabled: true
+  fireworks: 12

@@ -6,27 +6,37 @@
 
     <groupId>fr.elias</groupId>
     <artifactId>UltimateChristmas</artifactId>
-    <version>3.2-SNAPSHOT</version>
+    <version>4.0.0</version>
     <packaging>jar</packaging>
 
     <name>UltimateChristmas</name>
+    <description>A full festive season for Paper servers.</description>
 
     <properties>
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <modulith.version>0.7.0</modulith.version>
     </properties>
 
     <build>
         <defaultGoal>clean package</defaultGoal>
+        <finalName>${project.name}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>${java.version}</release>
+                    <compilerArgs>
+                        <arg>-Xlint:all,-serial,-processing</arg>
+                    </compilerArgs>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -38,6 +48,30 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <!-- Modulith resolves modules and functor parameters
+                                 reflectively, so pruning unused classes would
+                                 break discovery at runtime. -->
+                            <minimizeJar>false</minimizeJar>
+                            <artifactSet>
+                                <includes>
+                                    <include>dev.oreo.modulith:*</include>
+                                </includes>
+                            </artifactSet>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/MANIFEST.MF</exclude>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                        <exclude>META-INF/maven/**</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -45,64 +79,107 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+                <!-- Only the plugin descriptor needs ${project.version} substituted.
+                     Filtering everything would corrupt the binary .nbs tracks. -->
                 <filtering>true</filtering>
+                <includes>
+                    <include>plugin.yml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>plugin.yml</exclude>
+                </excludes>
             </resource>
         </resources>
     </build>
 
     <repositories>
         <repository>
-            <id>papermc-repo</id>
+            <id>oreostudios</id>
+            <name>Oreo Studios Maven</name>
+            <url>https://maven.oreostudios.fr/oreostudioslib</url>
+        </repository>
+        <repository>
+            <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
-            <id>smartinvs-repo</id>
-            <url>https://raw.github.com/dominicfeliton/SmartInvs/bukkit-maven-repo</url>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/releases/</url>
         </repository>
         <repository>
-            <id>md_5-public</id>
-            <url>https://repo.md-5.net/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-        <repository>
-            <id>codemc-repo</id>
-            <url>https://repo.codemc.io/repository/maven-public/</url>
-        </repository>
-        <repository>
-            <id>enginehub-maven</id>
+            <id>enginehub</id>
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
         <repository>
-            <id>nexus</id>
-            <name>Lumine Public</name>
+            <id>lumine</id>
             <url>https://mvn.lumine.io/repository/maven-public/</url>
         </repository>
         <repository>
-            <id>matteodev</id>
-            <url>https://maven.devs.beer/</url>
+            <id>codemc</id>
+            <url>https://repo.codemc.io/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>jitpack</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>md-5</id>
+            <url>https://repo.md-5.net/content/groups/public/</url>
         </repository>
     </repositories>
 
     <dependencies>
+        <!-- Paper bundles Adventure, MiniMessage, Gson and the SQLite driver,
+             so only MinecraftModulith has to be shaded into the jar. -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>1.21.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- MinecraftModulith: module boundaries, typed functors, per-module
+             lifecycle. Shaded, because servers do not ship it. -->
         <dependency>
-            <groupId>fr.minuskube.inv</groupId>
-            <artifactId>bukkit-smart-invs</artifactId>
-            <version>1.3.5</version>
+            <groupId>dev.oreo.modulith</groupId>
+            <artifactId>modulith-paper</artifactId>
+            <version>${modulith.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.lumine</groupId>
-            <artifactId>Mythic-Dist</artifactId>
-            <version>5.6.1</version>
+            <groupId>dev.oreo.modulith</groupId>
+            <artifactId>modulith-test</artifactId>
+            <version>${modulith.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Optional integrations, all guarded at runtime by HookManager. -->
+        <dependency>
+            <groupId>com.github.koca2000</groupId>
+            <artifactId>NoteBlockAPI</artifactId>
+            <version>master-8c79784f8e-1</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.11.6</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.MilkBowl</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.7</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.luckperms</groupId>
@@ -111,39 +188,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>me.libraryaddict.disguises</groupId>
-            <artifactId>libsdisguises</artifactId>
-            <version>11.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.11.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.koca2000</groupId>
-            <artifactId>NoteBlockAPI</artifactId>
-            <version>master-8c79784f8e-1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.retrooper</groupId>
-            <artifactId>packetevents-spigot</artifactId>
-            <version>2.9.5</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sk89q.worldedit</groupId>
-            <artifactId>worldedit-bukkit</artifactId>
-            <version>7.3.9</version>
-            <scope>provided</scope> </dependency>
-        <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-bukkit</artifactId>
             <version>7.1.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.lumine</groupId>
+            <artifactId>Mythic-Dist</artifactId>
+            <version>5.6.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -152,5 +205,29 @@
             <version>3.6.1</version>
             <scope>provided</scope>
         </dependency>
+        <!-- LibsDisguises is reached reflectively in DisguiseHook: its only
+             published repo is third-party, and the surface we touch is two
+             calls, so a hard compile dependency is not worth the fragility. -->
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- modulith-test brings JUnit 5.11.x; pinning the BOM keeps the
+                 engine and platform-commons on one version, otherwise test
+                 discovery fails with a NoSuchMethodError. -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.11.4</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

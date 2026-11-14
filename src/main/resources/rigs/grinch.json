@@ -1,0 +1,406 @@
+{
+  "name": "grinch",
+  "bones": [
+    {
+      "name": "root",
+      "parent": null,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "model": null
+    },
+    {
+      "name": "leg_right",
+      "parent": "root",
+      "pivot": [
+        -2,
+        12,
+        0
+      ],
+      "model": "ultimatechristmas:boss/grinch_leg_right"
+    },
+    {
+      "name": "leg_left",
+      "parent": "root",
+      "pivot": [
+        2,
+        12,
+        0
+      ],
+      "model": "ultimatechristmas:boss/grinch_leg_left"
+    },
+    {
+      "name": "body",
+      "parent": "root",
+      "pivot": [
+        0,
+        12,
+        0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body"
+    },
+    {
+      "name": "arm_right",
+      "parent": "root",
+      "pivot": [
+        -4,
+        21,
+        0
+      ],
+      "model": "ultimatechristmas:boss/grinch_arm_right"
+    },
+    {
+      "name": "arm_left",
+      "parent": "root",
+      "pivot": [
+        4,
+        21,
+        0
+      ],
+      "model": "ultimatechristmas:boss/grinch_arm_left"
+    },
+    {
+      "name": "head",
+      "parent": "root",
+      "pivot": [
+        0,
+        23,
+        0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head"
+    },
+    {
+      "name": "hat",
+      "parent": "head",
+      "pivot": [
+        0,
+        31,
+        0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hat"
+    }
+  ],
+  "animations": {
+    "idle": {
+      "length": 3.0,
+      "loop": true,
+      "hold": false,
+      "bones": {
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              1.5,
+              4.0,
+              3.0,
+              0.0
+            ],
+            [
+              3.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        "arm_right": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              2.0
+            ],
+            [
+              1.5,
+              -3.0,
+              0.0,
+              2.0
+            ],
+            [
+              3.0,
+              0.0,
+              0.0,
+              2.0
+            ]
+          ]
+        },
+        "arm_left": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              -2.0
+            ],
+            [
+              1.5,
+              -3.0,
+              0.0,
+              -2.0
+            ],
+            [
+              3.0,
+              0.0,
+              0.0,
+              -2.0
+            ]
+          ]
+        },
+        "body": {
+          "position": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              1.5,
+              0.0,
+              0.4,
+              0.0
+            ],
+            [
+              3.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        }
+      }
+    },
+    "walk": {
+      "length": 1.0,
+      "loop": true,
+      "hold": false,
+      "bones": {
+        "leg_right": {
+          "rotation": [
+            [
+              0.0,
+              32.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.5,
+              -32.0,
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              32.0,
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        "leg_left": {
+          "rotation": [
+            [
+              0.0,
+              -32.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.5,
+              32.0,
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              -32.0,
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        "arm_right": {
+          "rotation": [
+            [
+              0.0,
+              -28.0,
+              0.0,
+              2.0
+            ],
+            [
+              0.5,
+              28.0,
+              0.0,
+              2.0
+            ],
+            [
+              1.0,
+              -28.0,
+              0.0,
+              2.0
+            ]
+          ]
+        },
+        "arm_left": {
+          "rotation": [
+            [
+              0.0,
+              28.0,
+              0.0,
+              -2.0
+            ],
+            [
+              0.5,
+              -28.0,
+              0.0,
+              -2.0
+            ],
+            [
+              1.0,
+              28.0,
+              0.0,
+              -2.0
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.5,
+              3.0,
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        }
+      }
+    },
+    "attack": {
+      "length": 0.6,
+      "loop": false,
+      "hold": false,
+      "bones": {
+        "arm_right": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              2.0
+            ],
+            [
+              0.15,
+              -150.0,
+              0.0,
+              2.0
+            ],
+            [
+              0.35,
+              -150.0,
+              0.0,
+              2.0
+            ],
+            [
+              0.6,
+              0.0,
+              0.0,
+              2.0
+            ]
+          ]
+        },
+        "arm_left": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              -2.0
+            ],
+            [
+              0.2,
+              -120.0,
+              0.0,
+              -2.0
+            ],
+            [
+              0.4,
+              -120.0,
+              0.0,
+              -2.0
+            ],
+            [
+              0.6,
+              0.0,
+              0.0,
+              -2.0
+            ]
+          ]
+        },
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.15,
+              -8.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.6,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.15,
+              -10.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.6,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        }
+      }
+    }
+  }
+}

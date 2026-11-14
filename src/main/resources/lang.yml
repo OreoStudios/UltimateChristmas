@@ -1,19 +1,294 @@
+# ============================================================================
+#  UltimateChristmas - lang.yml
+# ----------------------------------------------------------------------------
+#  Every player-facing string.
+#
+#  FORMATTING
+#  Both styles work, and you can mix them freely in one line:
+#
+#    Legacy      &a green   &l bold   &#ff0088 hex
+#    MiniMessage <green>    <bold>    <#ff0088>
+#                <gradient:#ff0000:#00ff00>fancy</gradient>
+#                <hover:show_text:'Hi'>hover me</hover>
+#                <click:run_command:'/christmas shop'>click me</click>
+#
+#  PLACEHOLDERS
+#  %like_this% is replaced with a value. Each message lists the ones it has.
+#  Values are inserted as plain text, so a player name can never inject
+#  formatting or a clickable command into a message.
+#
+#  Set any message to "" to silence it.
+# ============================================================================
+
+prefix: "<red><bold>[Christmas]</bold></red> <reset>"
+
+# --- Commands ---------------------------------------------------------------
+command:
+  # %input%
+  unknown: "<red>There is no <white>%input%</white> command."
+  # %label% %suggestion%
+  did-you-mean: "<gray>Did you mean <yellow>/%label% %suggestion%</yellow>?"
+  # %permission%
+  no-permission: "<red>You do not have permission to do that."
+  player-only: "<red>Only a player can do that."
+  error: "<red>That did not work. The console has the details."
+  no-commands: "<gray>You have access to no commands here."
+  # %page% %pages%
+  help-header: "<gold><bold>Christmas</bold></gold> <dark_gray>- help, page %page%/%pages%"
+  # %label% %page%
+  help-more: "<gray>More with <yellow>/%label% help %page%</yellow>"
+  # %player%
+  unknown-player: "<red>No player called <white>%player%</white> has joined before."
+
+menu:
+  error: "<red>That menu could not be opened. The console has the details."
+
+# --- Rewards ----------------------------------------------------------------
+reward:
+  inventory-full: "<yellow>Your inventory was full, so some of it dropped at your feet."
+  none-configured: "<red>There is nothing configured to win here. Tell an admin."
+
+# --- Shards -----------------------------------------------------------------
+economy:
+  # %amount% %total% %currency% - shown on the action bar, so keep it short
+  earned: "<green>+%amount% %currency% <gray>(%total%)"
+  # %amount% %currency%
+  balance: "<gray>You have <gold>%amount%</gold> %currency%."
+  # %player% %amount% %currency%
+  balance-other: "<white>%player%</white> <gray>has <gold>%amount%</gold> %currency%."
+  # %needed% %balance%
+  not-enough: "<red>You need <white>%needed%</white> shards but only have <white>%balance%</white>."
+  # %amount% %player% %balance%
+  pay-sent: "<green>Sent <gold>%amount%</gold> shards to <white>%player%</white>. <gray>(%balance% left)"
+  # %amount% %player% %balance%
+  pay-received: "<green>%player% sent you <gold>%amount%</gold> shards! <gray>(%balance% total)"
+  # %action% %amount% %player% %balance%
+  admin-done: "<green>Did <white>%action%</white> <gold>%amount%</gold> on <white>%player%</white>. <gray>New balance: %balance%"
+  # %action% %amount% %balance%
+  admin-changed: "<gray>An admin ran <white>%action%</white> on your shards. <gray>New balance: <gold>%balance%"
+
+# --- Advent calendar --------------------------------------------------------
+advent:
+  # %day% %doors% %streak% %opened% %shards% %reward%
+  claimed: "<green>Door <white>%day%</white> is open! <gray>Streak: <white>%streak%</white> - opened <white>%opened%</white>/<white>%doors%</white>"
+  # %day%
+  already-open: "<yellow>You already opened door <white>%day%</white>."
+  # %day%
+  not-yet: "<gray>Door <white>%day%</white> is still shut. Patience!"
+  outside-season: "<gray>The calendar is not running right now."
+  catch-up-disabled: "<red>That door is gone for good - catch-up is switched off."
+  cannot-afford: "<red>You cannot afford to open that door late."
+  no-reward: "<red>That door has nothing behind it. Tell an admin."
+  # %day% %cost%
+  caught-up: "<yellow>You paid <gold>%cost%</gold> shards to open door <white>%day%</white> late."
+  # %streak% %amount%
+  streak-bonus: "<gold><bold>%streak%-day streak!</bold></gold> <green>+%amount% shards"
+  # %streak% %best% %opened% %doors% %remaining%
+  streak: "<gray>Streak <white>%streak%</white> (best <white>%best%</white>) - <white>%opened%</white>/<white>%doors%</white> doors - next in <white>%remaining%</white>"
+  # %player%
+  reset: "<green>Cleared <white>%player%</white>'s calendar."
+  # %day% %doors%
+  reminder: "<gold>Door <white>%day%</white> of the advent calendar is waiting for you!"
+
+# --- Santa's Workshop store -------------------------------------------------
+shop:
+  # %entry% %price% %balance%
+  bought: "<green>Bought <white>%entry%</white> for <gold>%price%</gold>. <gray>(%balance% shards left)"
+  no-permission: "<red>That item is not for you."
+  cannot-afford: "<red>You cannot afford that."
+  out-of-stock: "<yellow>Sold out - try again tomorrow."
+  too-naughty: "<red>Santa has seen your behaviour. Be nicer and come back."
+  no-economy: "<red>That item is priced in server money, but no economy plugin is installed."
+  empty: "<gray>The shop has nothing in it yet."
+
+# --- Snow -------------------------------------------------------------------
+snow:
+  enabled: "<aqua>Snow now follows you. <gray>Turn it off with /christmas snow off"
+  disabled: "<gray>The snow around you clears."
+  # %seconds%
+  blizzard-started: "<aqua><bold>A blizzard sweeps in!</bold> <gray>(%seconds%s)"
+
+# --- Snowballs --------------------------------------------------------------
+snowball:
+  # %kinds%
+  list: "<gray>Trick snowballs: <white>%kinds%"
+  # %amount% %kind% %player%
+  given: "<green>Gave <white>%amount%x %kind%</white> to <white>%player%</white>."
+
+# --- Music ------------------------------------------------------------------
 music:
-  no-permission: "&cYou don't have permission."
-  usage: "&eUsage: &f/%label% &7<trackKey|list|stop> [&7self|playerName&f]"
-  usage-list: "&8- &flist &7: shows available tracks"
-  usage-stop: "&8- &fstop &7: stops the music"
-  noteblock-missing: "&cNoteBlockAPI is not loaded. Install it and add &fsoftdepend: [NoteBlockAPI]&c."
+  # %track% %source%
+  playing: "<green>Now playing <reset>%track% <dark_gray>(%source%)"
+  # %count% %tracks%
+  list: "<gray>%count% carols: <white>%tracks%"
+  radio-on: "<green>Festive radio on. <gray>/christmas music radio to stop."
+  radio-off: "<gray>Festive radio off."
+  stopped: "<gray>Music stopped."
+  # %count%
+  stopped-all: "<green>Stopped the music for <white>%count%</white> player(s)."
 
-  no-tracks: "&7No tracks found. Configure &fmusic.yml &7→ &etracks:*"
-  no-tracks-short: "&7No available tracks (&fmusic.yml&7)."
-  tracks-list: "&7Tracks: &f%tracks%"
+# --- Presents ---------------------------------------------------------------
+presents:
+  # %reward% %found% - opening a present you found
+  opened: "<green>You open the present... <reset>%reward%"
+  # %x% %y% %z% %world%
+  spawned: "<gold>A present has appeared somewhere around <white>%x%, %y%, %z%</white>!"
+  # %count%
+  announce: "<gold><bold>%count%</bold> present(s) have been hidden around the world!"
+  none-active: "<gray>There are no presents hidden right now."
+  # %count%
+  cleared: "<green>Removed <white>%count%</white> hidden present(s)."
+  # %count%
+  status: "<gray>Presents hidden right now: <white>%count%"
+  not-yours: "<red>Someone else found that one first."
 
-  self-only-player: "&cOnly a player can use &fself&c."
-  no-permission-others: "&cYou don't have permission to target other players."
-  player-not-found: "&cPlayer not found: &f%player%"
+# --- Quests -----------------------------------------------------------------
+quests:
+  # %name% %progress% %goal%
+  progress: "<gray>%name%: <white>%progress%</white>/<white>%goal%"
+  # %name%
+  completed: "<green><bold>Objective complete!</bold> <reset><white>%name%"
+  none: "<gray>No festive objectives are set right now."
+  # %player%
+  reset: "<green>Reset <white>%player%</white>'s objectives."
+  # %remaining%
+  reset-in: "<gray>New objectives in <white>%remaining%</white>."
 
-  no-permission-stop: "&cMissing permission: &f%perm%"
-  stop-all: "&aStopped music for &f%count% &aplayer(s)."
+# --- Festive pass -----------------------------------------------------------
+pass:
+  # %tier% %xp% %needed%
+  status: "<gray>Pass tier <white>%tier%</white> - <white>%xp%</white>/<white>%needed%</white> xp"
+  # %tier%
+  tier-up: "<gold><bold>Festive pass tier %tier%!</bold></gold> <gray>Claim it with /christmas pass"
+  # %tier%
+  claimed: "<green>Claimed tier <white>%tier%</white>."
+  # %tier%
+  locked: "<red>Tier <white>%tier%</white> is not unlocked yet."
+  already-claimed: "<yellow>You already claimed that tier."
+  premium-only: "<red>That reward is for the premium pass."
+  # %player%
+  premium-granted: "<green>Gave the premium pass to <white>%player%</white>."
 
-  console-missing-player: "&cFrom console, please specify &f/%label% %track% <player>&c."
+# --- Cosmetics --------------------------------------------------------------
+cosmetics:
+  # %name%
+  equipped: "<green>Equipped <reset>%name%<green>."
+  # %slot%
+  unequipped: "<gray>Took off your %slot%."
+  locked: "<red>You do not own that yet."
+  # %name% %player%
+  granted: "<green>Gave <reset>%name% <green>to <white>%player%</white>."
+  none-owned: "<gray>You do not own any cosmetics yet. Try the shop!"
+
+# --- Festive food -----------------------------------------------------------
+feasts:
+  # %name%
+  eaten: "<green>You enjoy the %name%<green>."
+  # %name% %player%
+  given: "<green>Gave <reset>%name% <green>to <white>%player%</white>."
+  # %remaining%
+  cooldown: "<yellow>You are still full. Try again in <white>%remaining%</white>."
+
+# --- The community tree -----------------------------------------------------
+tree:
+  # %ornament% %total% %goal%
+  hung: "<green>You hang %ornament% <green>on the tree! <gray>(%total%/%goal%)"
+  # %total% %goal%
+  status: "<gray>The tree has <white>%total%</white>/<white>%goal%</white> ornaments."
+  # %goal%
+  complete: "<gold><bold>The tree is fully decorated!</bold></gold> <gray>Everyone gets a gift."
+  not-set: "<red>No tree location is set. An admin can use /christmas tree sethere."
+  too-far: "<gray>You need to be nearer the tree to decorate it."
+  # %remaining%
+  cooldown: "<yellow>You can hang another ornament in <white>%remaining%</white>."
+  set: "<green>The community tree is now here."
+  reset: "<green>Stripped the tree bare again."
+
+# --- Secret Santa -----------------------------------------------------------
+secretsanta:
+  joined: "<green>You are in this year's Secret Santa."
+  already-joined: "<yellow>You already joined."
+  not-joined: "<gray>You are not in the Secret Santa. Join with /christmas secretsanta join"
+  # %player%
+  target: "<gray>You are buying for <white>%player%</white>. <gray>Keep it secret!"
+  no-target: "<gray>Pairings have not been drawn yet."
+  # %count%
+  drawn: "<green>Drew Secret Santa pairings for <white>%count%</white> player(s)."
+  too-few: "<red>At least two players have to join first."
+  # %player%
+  delivered: "<green>Your gift is on its way to <white>%player%</white>."
+  already-delivered: "<yellow>You already sent your gift."
+  # %player%
+  received: "<gold><bold>A Secret Santa gift arrives!</bold></gold> <gray>From someone who wishes you well."
+  empty-hand: "<red>Hold the gift you want to send."
+  reset: "<green>Cleared every Secret Santa pairing."
+
+# --- Countdown --------------------------------------------------------------
+countdown:
+  # %days% %time%
+  days: "<gold><bold>%days%</bold></gold> <gray>days until Christmas!"
+  today: "<gold><bold>It is Christmas Day!</bold></gold> <red>Merry Christmas!"
+  # %time%
+  bar: "<gold>Christmas in <white>%time%"
+  bar-today: "<gold><bold>Merry Christmas!</bold>"
+  passed: "<gray>Christmas has been and gone. See you next year."
+  # Broadcast at midnight on Christmas Day
+  midnight: "<gold><bold>Merry Christmas, everyone!</bold></gold>"
+
+# --- Leaderboards -----------------------------------------------------------
+leaderboard:
+  # %stat%
+  header: "<gold><bold>Top %stat%"
+  # %rank% %player% %value%
+  row: "<dark_gray>%rank%. <white>%player% <dark_gray>- <gold>%value%"
+  empty: "<gray>Nobody is on this board yet."
+  # %boards%
+  unknown: "<red>No such board. Try: <white>%boards%"
+  loading: "<gray>Fetching the board..."
+
+# --- Santa ------------------------------------------------------------------
+santa:
+  # %x% %y% %z% %world%
+  spawned: "<green>Santa has arrived near <white>%x%, %y%, %z%</white>! Go and find him."
+  left: "<red>Santa has finished his rounds and gone."
+  # %reward%
+  gift: "<green>Santa hands you a gift... <reset>%reward%"
+  # %remaining%
+  cooldown: "<yellow>Santa has already given you something. Come back in <white>%remaining%</white>."
+  not-here: "<gray>Santa is not around at the moment."
+  already-here: "<yellow>Santa is already here."
+  despawned: "<green>Sent Santa on his way."
+  no-location: "<red>No spawn locations are configured for Santa."
+  present-wrong-place: "<red>You can only open Santa's presents near the Christmas tree."
+
+# --- Bosses -----------------------------------------------------------------
+boss:
+  # %name% %x% %y% %z%
+  spawned: "<dark_red><bold>%name%</bold></dark_red> <red>has appeared at <white>%x%, %y%, %z%</white>!"
+  # %name%
+  defeated: "<green><bold>%name% has been defeated!</bold>"
+  # %name%
+  escaped: "<gray>%name% slips away into the blizzard..."
+  # %name% %player% %damage%
+  top-damage: "<gray>Top damage: <white>%player%</white> (<gold>%damage%</gold>)"
+  already-active: "<yellow>That boss is already out there."
+  not-active: "<gray>That boss is not around right now."
+  # %names%
+  unknown: "<red>No such boss. Try: <white>%names%"
+  # %remaining%
+  cooldown: "<yellow>That boss cannot be summoned again yet (<white>%remaining%</white>)."
+  no-location: "<red>No spawn location is set for that boss."
+
+# --- Admin ------------------------------------------------------------------
+admin:
+  # %ms%
+  reloaded: "<green>Reloaded every config in <white>%ms%ms</white>. <gray>Use /christmas module restart <id> to replace a feature's listeners."
+
+# --- Ambience ---------------------------------------------------------------
+ambience:
+  # A random greeting is chosen on join. %player% and %days% are available.
+  greetings:
+    - "<gold>Welcome back, <white>%player%</white>! <gray>%days% days until Christmas."
+    - "<green>Season's greetings, <white>%player%</white>!"
+    - "<red>Ho ho ho! <gray>Good to see you, <white>%player%</white>."
+    - "<aqua>Bundle up, <white>%player%</white> - it's cold out there!"

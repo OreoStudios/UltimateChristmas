@@ -1,0 +1,77 @@
+# ============================================================================
+#  modules/quests.yml - daily, weekly and season objectives
+#  Reload with: /christmas module reload quests
+# ----------------------------------------------------------------------------
+#  An objective tracks a stat the plugin already records, so no code is needed
+#  to add one. Known stats:
+#    shards_earned   gifts_opened     presents_found   snowballs_hit
+#    boss_damage     bosses_slain     advent_claimed   ornaments_hung
+#    gifts_given
+#
+#  scope: daily | weekly | season   (daily/weekly reset automatically)
+# ============================================================================
+
+announce-completions: false
+
+objectives:
+
+  daily_presents:
+    name: "&aFind 3 presents"
+    stat: presents_found
+    goal: 3
+    scope: daily
+    icon: CHEST
+    reward:
+      shards: 150
+      pass-xp: 50
+
+  daily_snowballs:
+    name: "&bLand 15 snowballs"
+    stat: snowballs_hit
+    goal: 15
+    scope: daily
+    icon: SNOWBALL
+    reward:
+      shards: 100
+      pass-xp: 40
+
+  daily_advent:
+    name: "&cOpen today's advent door"
+    stat: advent_claimed
+    goal: 1
+    scope: daily
+    icon: RED_STAINED_GLASS_PANE
+    reward:
+      shards: 75
+      pass-xp: 30
+
+  weekly_ornaments:
+    name: "&eHang 10 ornaments on the tree"
+    stat: ornaments_hung
+    goal: 10
+    scope: weekly
+    icon: LIME_DYE
+    reward:
+      shards: 400
+      pass-xp: 150
+
+  weekly_boss:
+    name: "&4Help defeat a festive boss"
+    stat: bosses_slain
+    goal: 1
+    scope: weekly
+    icon: WITHER_SKELETON_SKULL
+    reward:
+      shards: 500
+      pass-xp: 200
+
+  season_generosity:
+    name: "&dGive 5 gifts to other players"
+    stat: gifts_given
+    goal: 5
+    scope: season
+    icon: PLAYER_HEAD
+    reward:
+      shards: 600
+      pass-xp: 250
+      naughty-nice: 10

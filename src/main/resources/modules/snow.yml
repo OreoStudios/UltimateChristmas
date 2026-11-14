@@ -1,0 +1,39 @@
+# ============================================================================
+#  modules/snow.yml - personal snowfall and blizzards
+#  Reload needs a restart for tick-period: /christmas module restart snow
+# ============================================================================
+
+# Give every player snowfall as they join (they can toggle it off).
+on-by-default: true
+
+# Horizontal radius of the effect, and particle density per pass.
+radius: 20
+density: 32
+
+# Ticks between passes. Higher is cheaper. (Changing this needs a restart.)
+tick-period: 10
+
+# How far ahead of a moving player to bias the snow (0 to 2).
+lookahead-factor: 0.66
+
+# Worlds snow may appear in (empty = all).
+worlds: []
+
+# ----------------------------------------------------------------------------
+#  Optional: place actual thin snow layers on the ground (not just particles).
+#  Rate-limited and careful, but still writes to the world - off by default.
+# ----------------------------------------------------------------------------
+ground-snow:
+  enabled: false
+  blocks-per-tick: 4
+  safe-radius: 1.5
+  entity-clearance: 1.25
+  respect-roof: true
+  blocked-regions: []
+  banned-blocks:
+    - OAK_SLAB
+    - SPRUCE_SLAB
+    - COBBLESTONE_SLAB
+    - STONE_BRICK_SLAB
+    - FARMLAND
+    - FLOWERING_AZALEA_LEAVES

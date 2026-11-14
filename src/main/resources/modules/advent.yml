@@ -1,0 +1,261 @@
+# ============================================================================
+#  modules/advent.yml - the advent calendar
+#  Reload with: /christmas module reload advent
+# ----------------------------------------------------------------------------
+#  One door per day of the season. The season window itself (start date,
+#  length, timezone, rollover hour) lives in config.yml under 'season', so the
+#  calendar, the countdown and the daily reset always agree.
+# ============================================================================
+
+# Doors to show. Capped by season.length-days in config.yml.
+door-count: 25
+
+# Naughty/nice credit for opening a door.
+nice-points-per-door: 1
+
+# Particles and a sleigh-bell jingle on a successful claim.
+celebrate: true
+
+# Missed a day? Buy it back. The cost multiplies by how many days late it is,
+# so forgetting one door is cheap and abandoning the calendar is not.
+catch-up:
+  enabled: true
+  cost-per-day: 150
+
+# A bonus every N days opened in a row. The payout scales with the streak tier,
+# so a 20-day streak pays four times what a 5-day streak does.
+streak:
+  bonus-every: 5
+  bonus-shards: 100
+
+menu:
+  # %day% and %doors% are available.
+  title: "&c&lAdvent Calendar &7- Day %day%/%doors%"
+  icons:
+    opened: LIME_STAINED_GLASS_PANE
+    today: CHEST
+    missed: RED_STAINED_GLASS_PANE
+    locked: GRAY_STAINED_GLASS_PANE
+  names:
+    opened: "&aDay %day% &7- opened"
+    today: "&e&lDay %day% &7- open me!"
+    missed: "&cDay %day% &7- missed"
+    locked: "&8Day %day% &7- locked"
+
+# ----------------------------------------------------------------------------
+#  Fix a specific reward to a specific door. Any door not listed here rolls at
+#  random from the weighted table below, so you can hand-pick the big days and
+#  leave the rest to chance.
+# ----------------------------------------------------------------------------
+#  'doors' maps a day number to a reward id below.
+doors:
+  "1": welcome_gift
+  "6": saint_nicholas
+  "12": midwinter_haul
+  "24": christmas_eve
+  "25": christmas_morning
+
+# ----------------------------------------------------------------------------
+#  Rewards. Every prize in this plugin uses this same shape, so anything here
+#  also works in shop.yml, bosses.yml, presents.yml and the rest.
+#
+#    weight          relative chance within this table (0 = never rolled, but
+#                    still grantable by being named in 'doors' above)
+#    display         how it looks in the calendar menu
+#    shards          a number, or an inclusive range like "50-120"
+#    xp              vanilla experience
+#    pass-xp         festive pass progress
+#    naughty-nice    nudge the player's standing
+#    items           given directly; anything that will not fit is dropped
+#    commands        run from console, %player% substituted
+#    player-commands run as the player
+#    messages        sent to the player
+#    broadcast       sent to everyone
+#    title/subtitle  on-screen title
+#    sound           any vanilla sound name
+#    particle        any vanilla particle name
+#    firework        true for a festive firework
+#    effects         ["SPEED:600:1", "REGENERATION:200:0"]  TYPE:ticks:amplifier
+# ----------------------------------------------------------------------------
+rewards:
+
+  welcome_gift:
+    weight: 0
+    display:
+      material: CAKE
+      name: "&a&lWelcome to the season!"
+      lore:
+        - "&7A little something to start you off."
+    shards: 250
+    pass-xp: 100
+    items:
+      - { material: COOKIE, amount: 8 }
+    messages:
+      - "&aWelcome to the festive season! Here are 250 shards to get you going."
+    sound: ENTITY_PLAYER_LEVELUP
+    firework: true
+
+  saint_nicholas:
+    weight: 0
+    display:
+      material: GOLDEN_BOOTS
+      name: "&6&lSaint Nicholas Day"
+      lore:
+        - "&7Shoes left by the fire, filled overnight."
+    shards: 400
+    pass-xp: 150
+    items:
+      - { material: GOLDEN_APPLE, amount: 3 }
+    messages:
+      - "&6Saint Nicholas has filled your boots!"
+    sound: ENTITY_PLAYER_LEVELUP
+    firework: true
+
+  midwinter_haul:
+    weight: 0
+    display:
+      material: DIAMOND
+      name: "&b&lMidwinter Haul"
+      lore:
+        - "&7Halfway there. Have something shiny."
+    shards: 600
+    xp: 200
+    pass-xp: 200
+    items:
+      - { material: DIAMOND, amount: 6 }
+    messages:
+      - "&bHalfway through the season - here is a proper haul."
+    firework: true
+
+  christmas_eve:
+    weight: 0
+    display:
+      material: CLOCK
+      name: "&e&lChristmas Eve"
+      lore:
+        - "&7One more sleep."
+    shards: 900
+    pass-xp: 300
+    naughty-nice: 5
+    items:
+      - { material: ENCHANTED_GOLDEN_APPLE, amount: 1 }
+    effects: ["REGENERATION:600:1", "NIGHT_VISION:1200:0"]
+    title: "&e&lChristmas Eve"
+    subtitle: "&7One more sleep..."
+    sound: BLOCK_BELL_USE
+    firework: true
+
+  christmas_morning:
+    weight: 0
+    display:
+      material: CHEST
+      name: "&c&lChristmas Morning"
+      lore:
+        - "&7The big one."
+    shards: 2500
+    xp: 500
+    pass-xp: 500
+    naughty-nice: 10
+    items:
+      - { material: NETHERITE_INGOT, amount: 2 }
+      - { material: ENCHANTED_GOLDEN_APPLE, amount: 4 }
+    messages:
+      - "&c&lMerry Christmas! &aThank you for playing through the whole season."
+    broadcast:
+      - "&6%player% &eopened the final door of the advent calendar!"
+    title: "&c&lMerry Christmas!"
+    subtitle: "&7From everyone on the server"
+    sound: UI_TOAST_CHALLENGE_COMPLETE
+    firework: true
+
+  # --- the random pool, for every unmapped door ---
+
+  lump_of_coal:
+    weight: 18
+    display:
+      material: COAL
+      name: "&8Lump of Coal"
+      lore:
+        - "&7Somebody has been naughty."
+    shards: 10-25
+    naughty-nice: -1
+    items:
+      - { material: COAL, amount: 8 }
+    messages:
+      - "&8A lump of coal. Better behave tomorrow."
+    sound: ENTITY_WITCH_DRINK
+
+  candy_handful:
+    weight: 30
+    display:
+      material: COOKIE
+      name: "&dHandful of Sweets"
+    shards: 40-80
+    pass-xp: 25
+    items:
+      - { material: COOKIE, amount: 6 }
+      - { material: PUMPKIN_PIE, amount: 2 }
+    messages:
+      - "&dSweets! Mind your teeth."
+    sound: ENTITY_GENERIC_EAT
+
+  warm_mittens:
+    weight: 22
+    display:
+      material: LEATHER
+      name: "&6Warm Mittens"
+    shards: 90-160
+    pass-xp: 40
+    effects: ["FIRE_RESISTANCE:1200:0"]
+    messages:
+      - "&6Warm mittens - you will not feel the cold for a while."
+    sound: ITEM_ARMOR_EQUIP_LEATHER
+
+  silver_bells:
+    weight: 15
+    display:
+      material: IRON_INGOT
+      name: "&7Silver Bells"
+    shards: 180-300
+    pass-xp: 60
+    items:
+      - { material: IRON_INGOT, amount: 6 }
+    messages:
+      - "&7Silver bells, ringing bright."
+    sound: BLOCK_BELL_USE
+    particle: END_ROD
+
+  golden_star:
+    weight: 10
+    display:
+      material: GOLD_INGOT
+      name: "&eGolden Star"
+    shards: 320-520
+    xp: 150
+    pass-xp: 100
+    items:
+      - { material: GOLD_INGOT, amount: 8 }
+    messages:
+      - "&eA golden star for the top of the tree."
+    sound: ENTITY_PLAYER_LEVELUP
+    firework: true
+
+  frozen_treasure:
+    weight: 5
+    display:
+      material: DIAMOND
+      name: "&b&lFrozen Treasure"
+      lore:
+        - "&7Rare. Lucky you."
+    shards: 700-1100
+    xp: 300
+    pass-xp: 200
+    naughty-nice: 2
+    items:
+      - { material: DIAMOND, amount: 4 }
+    messages:
+      - "&b&lFrozen treasure! &aThat is a rare one."
+    broadcast:
+      - "&b%player% &7found frozen treasure in the advent calendar!"
+    sound: UI_TOAST_CHALLENGE_COMPLETE
+    firework: true

@@ -1,0 +1,11 @@
+# ============================================================================
+#  modules/admin.yml - administration and diagnostics
+#  Reload with: /christmas module reload admin
+# ============================================================================
+
+# Re-apply the modules disabled in config.yml (modules.disabled) once the
+# server has fully started.
+apply-disabled-on-start: true
+
+# Allow /christmas architecture to export the module dependency graph.
+expose-architecture: true

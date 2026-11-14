@@ -1,417 +1,401 @@
-// File: src/main/java/fr/elias/ultimateChristmas/UltimateChristmas.java
 package fr.elias.ultimateChristmas;
 
-import fr.elias.ultimateChristmas.boss.GrinchBossListener;
-import fr.elias.ultimateChristmas.boss.GrinchBossManager;
-import fr.elias.ultimateChristmas.commands.PlayFestiveMusicCommand;
-import fr.elias.ultimateChristmas.commands.SantaAdminCommand;
-import fr.elias.ultimateChristmas.commands.ShardsCommand;
-import fr.elias.ultimateChristmas.commands.SnowCommand;
-import fr.elias.ultimateChristmas.commands.UltimateChristmasCommand;
-import fr.elias.ultimateChristmas.daily.AdventCalendarCommand;
-import fr.elias.ultimateChristmas.daily.DailyGiftCommand;
-import fr.elias.ultimateChristmas.daily.DailyGiftListener;
-import fr.elias.ultimateChristmas.daily.DailyGiftManager;
-import fr.elias.ultimateChristmas.daily.DailyProgressStore;
-import fr.elias.ultimateChristmas.debug.DebugCombatListener;
-import fr.elias.ultimateChristmas.economy.ShardManager;
-import fr.elias.ultimateChristmas.economy.ShardShopGUI;
-import fr.elias.ultimateChristmas.economy.ShardShopListener;
-import fr.elias.ultimateChristmas.effects.SnowEffectManager;
-import fr.elias.ultimateChristmas.integration.WorldGuardIntegration;
-import fr.elias.ultimateChristmas.listeners.*;
-import fr.elias.ultimateChristmas.music.MusicManager;
-import fr.elias.ultimateChristmas.santa.SantaManager;
-import fr.elias.ultimateChristmas.santa.SantaProtectionListener;
-import fr.elias.ultimateChristmas.santa.SantaWalkController;
-import fr.elias.ultimateChristmas.util.ConfigUtil;
-import fr.elias.ultimateChristmas.util.Debug;
-import fr.elias.ultimateChristmas.util.Lang;
-import fr.elias.ultimateChristmas.util.Msg;
-import fr.minuskube.inv.InventoryManager;
-import fr.minuskube.inv.SmartInvsPlugin;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
+import dev.oreo.modulith.core.ModuleRuntime;
+import dev.oreo.modulith.core.ModuleState;
+import dev.oreo.modulith.paper.PaperModulith;
+import fr.elias.ultimateChristmas.core.command.CommandRouter;
+import fr.elias.ultimateChristmas.core.config.ConfigManager;
+import fr.elias.ultimateChristmas.core.economy.EconomyService;
+import fr.elias.ultimateChristmas.core.hook.Hooks;
+import fr.elias.ultimateChristmas.core.item.Keys;
+import fr.elias.ultimateChristmas.core.menu.MenuManager;
+import fr.elias.ultimateChristmas.core.progress.ProgressService;
+import fr.elias.ultimateChristmas.core.reward.RewardService;
+import fr.elias.ultimateChristmas.core.season.Season;
+import fr.elias.ultimateChristmas.core.storage.ProfileManager;
+import fr.elias.ultimateChristmas.core.storage.ProfileStore;
+import fr.elias.ultimateChristmas.core.storage.SqliteProfileStore;
+import fr.elias.ultimateChristmas.core.storage.YamlProfileStore;
+import fr.elias.ultimateChristmas.core.text.Messages;
+import fr.elias.ultimateChristmas.modules.ModuleWiring;
+import fr.elias.ultimateChristmas.modules.platform.infra.PlatformServices;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Locale;
+import java.util.logging.Level;
 
-public class UltimateChristmas extends JavaPlugin {
+/**
+ * Plugin entry point.
+ *
+ * <p>Deliberately thin. It builds the core services, hands them to
+ * MinecraftModulith as the {@code platform} module, and lets the Modulith
+ * runtime own module discovery, dependency ordering and per-module lifecycle.
+ * Nothing here knows how any individual feature works.
+ *
+ * @see ModuleWiring the functor bindings
+ * @see fr.elias.ultimateChristmas.core.modulith.FeatureModule
+ */
+public final class UltimateChristmas extends JavaPlugin {
 
-    /* -------------------------------------------------
-     * STATIC INSTANCE
-     * ------------------------------------------------- */
-    private static UltimateChristmas instance;
+    private ConfigManager configs;
+    private Messages messages;
+    private Season season;
+    private Hooks hooks;
+    private ProfileManager profiles;
+    private EconomyService economy;
+    private ProgressService progress;
+    private RewardService rewards;
+    private MenuManager menus;
+    private CommandRouter commands;
+    private fr.elias.ultimateChristmas.core.model.RigRegistry rigs;
+    private fr.elias.ultimateChristmas.core.model.DisplayModelRenderer modelRenderer;
+    private org.bukkit.scheduler.BukkitTask modelTask;
 
-    public static UltimateChristmas get() {
-        return instance;
-    }
+    private PaperModulith modulith;
 
-    /* -------------------------------------------------
-     * MANAGERS / CORE COMPONENTS
-     * ------------------------------------------------- */
-    private ShardManager shardManager;
-    private InventoryManager invManager;
-    private ShardShopGUI shardShopGUI;
-    private DailyGiftManager dailyGiftManager;
-    private DailyProgressStore dailyProgressStore;
-    private MusicManager musicManager;
-    private WorldGuardIntegration wgIntegration;
-    private SantaManager santaManager;
-    private GrinchBossManager grinchBossManager;
-    private SnowEffectManager snowEffectManager;
-
-    // active pathfinder walker for Santa (Paper only)
-    private SantaWalkController activeWalkController;
-
-    // capability detection
-    private boolean paperPathfinderAvailable;
-    private DebugCombatListener debugListener;
-
-    /* -------------------------------------------------
-     * ENABLE / DISABLE
-     * ------------------------------------------------- */
     @Override
     public void onEnable() {
-        instance = this;
+        long startedAt = System.currentTimeMillis();
 
-        // Ensure data folder + music subfolder exist
-        getDataFolder().mkdirs();
-        new File(getDataFolder(), "music").mkdirs();
-
-        /*
-         * 1) Load / create all configs
-         */
-        saveDefaultConfig();                      // config.yml
-        ConfigUtil.load(this, "shards.yml");
-        ConfigUtil.load(this, "shop.yml");
-        ConfigUtil.load(this, "daily_gifts.yml");
-        ConfigUtil.load(this, "music.yml");
-        ConfigUtil.load(this, "santa.yml");
-        ConfigUtil.load(this, "snowball.yml");
-        ConfigUtil.load(this, "grinchboss.yml");
-        ConfigUtil.load(this, "snow.yml");        // snow settings
-        ConfigUtil.load(this, "lang.yml");        // messages
-
-        /*
-         * 2) Init debug + lang
-         */
-        Debug.init(this);
-        Lang.init(this);
-
-        /*
-         * 3) Detect optional server capabilities
-         */
-        this.paperPathfinderAvailable = checkPaperPathfinder();
-
-        Debug.info("Server brand: " + Bukkit.getName() + " " + Bukkit.getBukkitVersion());
-        Debug.info("Paper pathfinder API available: " + paperPathfinderAvailable);
-        Debug.info("LibsDisguises present: " + isPluginEnabled("LibsDisguises"));
-        Debug.info("WorldGuard present: " + isPluginEnabled("WorldGuard"));
-
-        /*
-         * 4) Core managers
-         */
-        // Shard economy
-        this.shardManager = new ShardManager(this);
-        this.shardManager.reloadConfig(); // load balances / config from shards.yml
-
-        // Daily gift claim / cooldown logic
-        this.dailyProgressStore = new DailyProgressStore(this);
-        this.dailyGiftManager = new DailyGiftManager(this);
-        this.dailyGiftManager.setProgressStore(this.dailyProgressStore);
-
-        // Music / festive song playback
-        this.musicManager = new MusicManager(this);
-
-        // Region leash + safety integration for Santa / Grinch
-        this.wgIntegration = new WorldGuardIntegration(this);
-
-        // Snow effect manager + /snowify command
-        this.snowEffectManager = new SnowEffectManager(this);
-        if (getCommand("snowify") != null) {
-            getCommand("snowify").setExecutor(new SnowCommand(snowEffectManager));
+        if (!setUpCore()) {
+            getServer().getPluginManager().disablePlugin(this);
+            return;
         }
 
-        /*
-         * 5) SmartInvs / ShardShop GUI setup
-         */
-        this.invManager = new InventoryManager(this);
-        this.invManager.init();
-
-        // Some versions of SmartInvs require informing the static plugin holder.
-        SmartInvsPlugin.setPlugin(this);
-
-        // Shard shop GUI (uses invManager + shardManager)
-        this.shardShopGUI = new ShardShopGUI(this, this.shardManager, this.invManager);
-
-        /*
-         * 6) Santa & Grinch managers
-         */
-        this.santaManager = new SantaManager(this, this.wgIntegration, this.shardManager);
-        this.grinchBossManager = new GrinchBossManager(this);
-
-        /*
-         * 7) Register listeners
-         */
-        var pm = getServer().getPluginManager();
-
-        // earn shards from breaking blocks / killing mobs etc
-        pm.registerEvents(new BlockBreakListener(this, shardManager), this);
-        pm.registerEvents(new EntityKillListener(this, shardManager), this);
-
-        // SmartInvs-based daily gift/advent GUI interactions
-        pm.registerEvents(new DailyGiftListener(this, dailyGiftManager, invManager), this);
-
-        // snowball fights / villager hit rewards
-        pm.registerEvents(new SnowballHitListener(this), this);
-
-        // shop close hook (currently placeholder for future cleanup)
-        pm.registerEvents(new ShardShopListener(this, shardShopGUI), this);
-
-        // join/quit etc player events, messages, etc
-        pm.registerEvents(new PlayerListener(this), this);
-
-        // protect Santa from damage / block renames / hologram bars etc
-        pm.registerEvents(new SantaProtectionListener(this, santaManager), this);
-        pm.registerEvents(new PresentOpenListener(this, santaManager), this);
-
-        // custom “uses left” durability system
-        pm.registerEvents(new CustomDurabilityListener(this), this);
-
-        // Grinch combat lifecycle (hit + death → rewards)
-        pm.registerEvents(new GrinchBossListener(this, grinchBossManager), this);
-
-
-        // Debug combat overlay (optional)
-        boolean debug = getConfig().getBoolean("debug", false);
-        if (debug) {
-            debugListener = new DebugCombatListener(this, true);
-            pm.registerEvents(debugListener, this);
+        try {
+            modulith = ModuleWiring.start(this, new PlatformServices(this));
+        } catch (Exception ex) {
+            getLogger().log(Level.SEVERE, "The module runtime failed to start", ex);
+            getServer().getPluginManager().disablePlugin(this);
+            return;
         }
 
-        /*
-         * 8) Register commands
-         */
-        // /shards
-        if (getCommand("shards") != null) {
-            getCommand("shards").setExecutor(
-                    new ShardsCommand(this, shardManager, shardShopGUI)
-            );
-        }
-
-        // /grinchboss
-        if (getCommand("grinchboss") != null) {
-            var cmd = new fr.elias.ultimateChristmas.commands.GrinchBossCommand(this, grinchBossManager, wgIntegration);
-            getCommand("grinchboss").setExecutor(cmd);
-            getCommand("grinchboss").setTabCompleter(cmd);
-        }
-
-        // /advent
-        if (getCommand("advent") != null) {
-            AdventCalendarCommand adventCmd =
-                    new AdventCalendarCommand(invManager, dailyGiftManager, dailyProgressStore);
-            getCommand("advent").setExecutor(adventCmd);
-            getCommand("advent").setTabCompleter(adventCmd);
-        }
-
-        // /playchristmas
-        if (getCommand("playchristmas") != null) {
-            PlayFestiveMusicCommand cmdExec = new PlayFestiveMusicCommand(this, musicManager);
-            getCommand("playchristmas").setExecutor(cmdExec);
-            getCommand("playchristmas").setTabCompleter(cmdExec);
-        }
-
-        // /santaadmin
-        if (getCommand("santaadmin") != null) {
-            getCommand("santaadmin").setExecutor(
-                    new SantaAdminCommand(this, santaManager)
-            );
-        }
-
-        // /ucgift (optional helper)
-        if (getCommand("ucgift") != null) {
-            getCommand("ucgift").setExecutor(new DailyGiftCommand(this));
-        }
-
-        // /ultimatechristmas (or alias /uc) – reload command
-        if (getCommand("ultimatechristmas") != null) {
-            UltimateChristmasCommand mainCmd = new UltimateChristmasCommand(this);
-            getCommand("ultimatechristmas").setExecutor(mainCmd);
-        }
-
-        /*
-         * 9) Start Santa's repeating task
-         */
-        santaManager.startScheduler();
-
-        Msg.info("ultimateChristmas enabled. Ho ho ho!");
+        reportStartup(System.currentTimeMillis() - startedAt);
     }
+
+    private void reportStartup(long elapsedMs) {
+        var states = modulith.runtime().states();
+        long running = states.values().stream().filter(state -> state == ModuleState.RUNNING).count();
+        getLogger().info("UltimateChristmas " + getPluginMeta().getVersion()
+                + " enabled in " + elapsedMs + "ms - " + running + "/" + states.size()
+                + " modules running.");
+
+        var failures = modulith.runtime().failures();
+        if (!failures.isEmpty()) {
+            getLogger().warning("These modules did not start: " + failures.keySet()
+                    + ". Run /christmas modules for details.");
+        }
+        getLogger().info(season.toString());
+        if (!season.active()) {
+            getLogger().info("Outside the configured season window (" + season.start()
+                    + " to " + season.end() + "); seasonal features stay quiet until it starts.");
+        }
+    }
+
+    /**
+     * Builds the core services.
+     *
+     * @return false if the plugin cannot run at all, which only happens when
+     *         player storage will not open
+     */
+    private boolean setUpCore() {
+        if (!getDataFolder().exists() && !getDataFolder().mkdirs()) {
+            getLogger().severe("Could not create the plugin data folder.");
+            return false;
+        }
+
+        configs = new ConfigManager(this);
+        configs.loadAll();
+
+        messages = new Messages(configs.lang());
+        season = new Season(configs.main(), getLogger());
+        Keys.init(this);
+
+        hooks = new Hooks(this);
+        hooks.detectAll();
+
+        ProfileStore store = openStore();
+        if (store == null) {
+            return false;
+        }
+        profiles = new ProfileManager(this, store);
+        profiles.start(configs.main().getInt("storage.auto-save-seconds", 300));
+
+        economy = new EconomyService(this);
+        progress = new ProgressService(this);
+        rewards = new RewardService(this);
+        menus = new MenuManager(this);
+        commands = new CommandRouter(this);
+
+        PluginCommand root = getCommand("christmas");
+        if (root == null) {
+            getLogger().severe("The 'christmas' command is missing from plugin.yml; "
+                    + "no commands will work.");
+        } else {
+            root.setExecutor(commands);
+            root.setTabCompleter(commands);
+        }
+
+        unpackMusic();
+        unpackModels();
+        unpackJarFolder("rigs/");
+        unpackJarFolder("pack/");
+
+        // Our own custom-model provider: an animation engine over display
+        // entities, driven once a tick for every attached model.
+        rigs = new fr.elias.ultimateChristmas.core.model.RigRegistry(this);
+        rigs.reload();
+        modelRenderer = new fr.elias.ultimateChristmas.core.model.DisplayModelRenderer(this, rigs);
+        modelTask = getServer().getScheduler().runTaskTimer(this, modelRenderer::tickAll, 1L, 1L);
+
+        // Optionally push the model resource pack to players on join.
+        var packSender = fr.elias.ultimateChristmas.core.model.ResourcePackSender.createIfConfigured(
+                this, configs.main().getString("resource-pack.url", ""),
+                configs.main().getBoolean("resource-pack.required", false),
+                new File(getDataFolder(), "pack/UltimateChristmas-Models.zip"));
+        if (packSender != null) {
+            getServer().getPluginManager().registerEvents(packSender, this);
+            getLogger().info("Sending the model resource pack to players on join.");
+        }
+        return true;
+    }
+
+    /**
+     * Unpacks every bundled resource under a jar folder into the data folder.
+     *
+     * <p>Used for the compiled rigs and the resource-pack zip, whose names are
+     * not known ahead of time (an owner can add models), so the jar is scanned
+     * rather than a hard-coded list walked. Existing files are left untouched.
+     */
+    private void unpackJarFolder(String prefix) {
+        try (java.util.zip.ZipFile jar = new java.util.zip.ZipFile(getFile())) {
+            var entries = jar.entries();
+            while (entries.hasMoreElements()) {
+                var entry = entries.nextElement();
+                String name = entry.getName();
+                if (entry.isDirectory() || !name.startsWith(prefix)) {
+                    continue;
+                }
+                if (new File(getDataFolder(), name).exists()) {
+                    continue;
+                }
+                saveResource(name, false);
+            }
+        } catch (Exception ex) {
+            getLogger().log(Level.WARNING, "Could not unpack bundled '" + prefix + "'", ex);
+        }
+    }
+
+    /**
+     * Copies the bundled boss models into the data folder on first run.
+     *
+     * <p>ModelEngine and BetterModel read models from their own folders, so this
+     * is only so an owner can find {@code grinch.bbmodel} (and the import guide)
+     * without opening the jar. Existing files are left untouched.
+     */
+    private void unpackModels() {
+        File folder = new File(getDataFolder(), "models");
+        if (!folder.exists() && !folder.mkdirs()) {
+            return;
+        }
+        for (String resource : new String[]{"models/grinch.bbmodel", "models/README.txt"}) {
+            if (new File(getDataFolder(), resource).exists()) {
+                continue;
+            }
+            try {
+                saveResource(resource, false);
+            } catch (IllegalArgumentException ex) {
+                getLogger().warning("Bundled resource " + resource + " is missing from the jar.");
+            }
+        }
+    }
+
+    /**
+     * Opens player storage, falling back from SQLite to YAML.
+     *
+     * @return the open store, or {@code null} if neither backend would open
+     */
+    private ProfileStore openStore() {
+        String type = configs.main().getString("storage.type", "yaml")
+                .trim().toLowerCase(Locale.ROOT);
+        ProfileStore store = switch (type) {
+            case "sqlite", "sql", "db" -> new SqliteProfileStore(this);
+            case "yaml", "yml", "file" -> new YamlProfileStore(this);
+            default -> {
+                getLogger().warning("Unknown storage.type '" + type
+                        + "'; using yaml. Valid values: yaml, sqlite.");
+                yield new YamlProfileStore(this);
+            }
+        };
+
+        try {
+            store.open();
+            return store;
+        } catch (Exception ex) {
+            getLogger().log(Level.SEVERE, "Could not open " + type + " player storage", ex);
+        }
+        if (store instanceof YamlProfileStore) {
+            return null;
+        }
+        getLogger().severe("Falling back to YAML storage for this session.");
+        ProfileStore fallback = new YamlProfileStore(this);
+        try {
+            fallback.open();
+            return fallback;
+        } catch (Exception ex) {
+            getLogger().log(Level.SEVERE, "YAML storage failed too", ex);
+            return null;
+        }
+    }
+
+    /**
+     * Copies the bundled {@code .nbs} tracks into the data folder on first run.
+     *
+     * <p>NoteBlockAPI plays from real files, so the soundtrack has to exist on
+     * disk. Existing files are never overwritten, which leaves an owner's own
+     * tracks and their edits alone.
+     */
+    private void unpackMusic() {
+        File folder = new File(getDataFolder(), "music");
+        if (!folder.exists() && !folder.mkdirs()) {
+            getLogger().warning("Could not create the music folder.");
+            return;
+        }
+        int copied = 0;
+        for (String track : BUNDLED_TRACKS) {
+            if (new File(folder, track).exists()) {
+                continue;
+            }
+            try {
+                saveResource("music/" + track, false);
+                copied++;
+            } catch (IllegalArgumentException ex) {
+                getLogger().warning("Bundled track music/" + track + " is missing from the jar.");
+            }
+        }
+        if (copied > 0) {
+            getLogger().info("Unpacked " + copied + " bundled carol(s) into music/.");
+        }
+    }
+
+    /** Bundled soundtrack, generated by {@code tools/generate_music.py}. */
+    private static final String[] BUNDLED_TRACKS = {
+            "angels_we_have_heard_on_high.nbs", "away_in_a_manger.nbs",
+            "carol_of_the_bells.nbs", "coventry_carol.nbs", "deck_the_halls.nbs",
+            "ding_dong_merrily_on_high.nbs", "god_rest_ye_merry_gentlemen.nbs",
+            "good_king_wenceslas.nbs", "hark_the_herald_angels_sing.nbs",
+            "i_saw_three_ships.nbs", "jingle_bells.nbs",
+            "jolly_old_saint_nicholas.nbs", "joy_to_the_world.nbs",
+            "o_christmas_tree.nbs", "o_come_all_ye_faithful.nbs",
+            "silent_night.nbs", "the_first_noel.nbs", "uc_fanfare.nbs",
+            "uc_sleigh_bells.nbs", "uc_winter_siege.nbs", "uc_workshop_theme.nbs",
+            "up_on_the_housetop.nbs", "we_wish_you_a_merry_christmas.nbs"
+    };
 
     @Override
     public void onDisable() {
-        /*
-         * Graceful shutdown:
-         * - Despawn Santa and cancel his timers
-         * - Stop any music loops
-         * - Persist shard balances & daily progress
-         */
-        if (santaManager != null) {
-            santaManager.despawnSantaIfAny();
+        if (menus != null) {
+            menus.closeAll();
         }
-
-        if (musicManager != null) {
-            musicManager.stopAll();
+        if (modelTask != null) {
+            modelTask.cancel();
         }
-
-        if (shardManager != null) {
-            shardManager.save();
+        if (modelRenderer != null) {
+            // Detaches every model and reveals its entity, so no display is
+            // orphaned and no boss is left permanently invisible.
+            modelRenderer.clear();
         }
-
-        if (dailyProgressStore != null) {
-            dailyProgressStore.save();
+        if (modulith != null) {
+            // Stops every running module in reverse start order, closing each
+            // module's lifecycle scope and with it its listeners and tasks.
+            modulith.close();
         }
-
-        Msg.info("ultimateChristmas disabled.");
-    }
-
-    /* -------------------------------------------------
-     * RELOAD LOGIC
-     * ------------------------------------------------- */
-
-    /**
-     * Reload all plugin configs and refresh managers that support it.
-     */
-    public void reloadAll() {
-        // 1) Reload all YMLs
-        ConfigUtil.reloadAll(this);
-
-        // 2) Re-init debug + lang
-        Debug.init(this);
-        Lang.reload();
-
-        // 3) Managers that cache config
-        if (shardManager != null) {
-            shardManager.reloadConfig();
+        if (profiles != null) {
+            profiles.shutdown();
         }
-        if (snowEffectManager != null) {
-            snowEffectManager.reloadConfig();
-        }
-        if (musicManager != null) {
-            musicManager.reloadTracks();      // ← HERE
-        }
-
-        getLogger().info("[UltimateChristmas] All configs reloaded.");
-    }
-
-
-    /* -------------------------------------------------
-     * WALK CONTROLLER HOOK
-     * ------------------------------------------------- */
-
-    /**
-     * Called by SantaManager when Paper async walking AI is started/stopped.
-     */
-    public void setActiveWalkController(SantaWalkController controller) {
-        if (this.activeWalkController != null) {
-            this.activeWalkController.stopWalking();
-        }
-        this.activeWalkController = controller;
-    }
-
-    /* -------------------------------------------------
-     * GETTERS / HELPERS
-     * ------------------------------------------------- */
-
-    /**
-     * Wrapper to get custom YMLs we loaded with ConfigUtil.load(...).
-     * Example: getConfig("shop.yml"), getConfig("santa.yml")
-     */
-    public FileConfiguration getConfig(String fileName) {
-        return ConfigUtil.get(this, fileName);
-    }
-
-    public ShardManager getShardManager() {
-        return shardManager;
-    }
-
-    public ShardShopGUI getShardShopGUI() {
-        return shardShopGUI;
-    }
-
-    public DailyGiftManager getDailyGiftManager() {
-        return dailyGiftManager;
-    }
-
-    public DailyProgressStore getDailyProgressStore() {
-        return dailyProgressStore;
-    }
-
-    public MusicManager getMusicManager() {
-        return musicManager;
-    }
-
-    public WorldGuardIntegration getWgIntegration() {
-        return wgIntegration;
-    }
-
-    public SantaManager getSantaManager() {
-        return santaManager;
-    }
-
-    public InventoryManager getInvManager() {
-        return invManager;
-    }
-
-    public GrinchBossManager getGrinchBossManager() {
-        return grinchBossManager;
+        getLogger().info("UltimateChristmas disabled. See you next season.");
     }
 
     /**
-     * Convenience so other plugins/listeners can ask
-     * "is this entity THE Santa NPC?"
+     * Reloads the global configs and every running module's own config.
+     *
+     * <p>A config-only refresh. To replace a module's listeners and tasks, use
+     * {@code /christmas module restart <id>} for that one module.
      */
-    public boolean isSantaEntity(org.bukkit.entity.Entity e) {
-        return santaManager != null && santaManager.isSanta(e);
+    public void reloadEverything() {
+        menus.closeAll();
+        configs.reloadAll();
+        messages.reload();
+        season.reload();
+        rigs.reload();
+
+        ModuleRuntime runtime = modulith.runtime();
+        runtime.states().forEach((id, state) -> {
+            if (state == ModuleState.RUNNING) {
+                try {
+                    runtime.reload(id);
+                } catch (Exception ex) {
+                    getLogger().log(Level.WARNING, "Module '" + id + "' failed to reload", ex);
+                }
+            }
+        });
     }
 
-    /**
-     * Convenience so other plugins/listeners can ask
-     * "is this entity THE Grinch boss?"
-     */
-    public boolean isGrinchEntity(org.bukkit.entity.Entity e) {
-        try {
-            return grinchBossManager != null && grinchBossManager.isGrinch(e);
-        } catch (Throwable ignored) {
-            return false;
-        }
+    // ------------------------------------------------------------- accessors
+
+    public ConfigManager configs() {
+        return configs;
     }
 
-    /**
-     * True if server looks like Paper/Purpur and supports Mob#getPathfinder().
-     */
-    public boolean hasPaperPathfinder() {
-        return paperPathfinderAvailable;
+    public Messages messages() {
+        return messages;
     }
 
-    /**
-     * Check if optional plugin is present & enabled (WorldGuard, LibsDisguises, etc).
-     */
-    private boolean isPluginEnabled(String name) {
-        Plugin p = getServer().getPluginManager().getPlugin(name);
-        return p != null && p.isEnabled();
+    public Season season() {
+        return season;
     }
 
-    /**
-     * Detect whether Paper's pathfinder API exists on this server build.
-     */
-    private boolean checkPaperPathfinder() {
-        try {
-            Class.forName("org.bukkit.entity.Mob").getMethod("getPathfinder");
-            return true;
-        } catch (Throwable t) {
-            return false;
-        }
+    public Hooks hooks() {
+        return hooks;
+    }
+
+    public ProfileManager profiles() {
+        return profiles;
+    }
+
+    public EconomyService economy() {
+        return economy;
+    }
+
+    public ProgressService progress() {
+        return progress;
+    }
+
+    public RewardService rewards() {
+        return rewards;
+    }
+
+    public MenuManager menus() {
+        return menus;
+    }
+
+    /** The plugin's own animated-model renderer (display-entity provider). */
+    public fr.elias.ultimateChristmas.core.model.DisplayModelRenderer modelRenderer() {
+        return modelRenderer;
+    }
+
+    public fr.elias.ultimateChristmas.core.model.RigRegistry rigs() {
+        return rigs;
+    }
+
+    public CommandRouter commands() {
+        return commands;
+    }
+
+    /** The Modulith runtime, for per-module lifecycle and diagnostics. */
+    public ModuleRuntime runtime() {
+        return modulith == null ? null : modulith.runtime();
     }
 }

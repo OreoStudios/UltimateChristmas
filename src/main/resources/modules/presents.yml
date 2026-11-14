@@ -1,0 +1,76 @@
+# ============================================================================
+#  modules/presents.yml - hidden presents to find
+#  Reload with: /christmas module reload presents
+# ----------------------------------------------------------------------------
+#  Presents are marker entities (no blocks placed), hidden near players and
+#  opened by right-clicking or hitting them. The reward table below decides
+#  what is inside.
+# ============================================================================
+
+# How often a wave of presents appears, and how many per wave.
+spawn-interval-seconds: 600
+per-spawn: 2
+
+# Most presents hidden at once.
+max-active: 12
+
+# The block shown floating on each present marker.
+icon: RED_SHULKER_BOX
+
+# Hide presents near online players (recommended) rather than near world spawn.
+near-players: true
+min-distance: 24
+max-distance: 120
+
+# Broadcast when a wave appears.
+announce: true
+
+# A floating label above each present.
+hologram:
+  enabled: true
+  text: "&c&l✦ &aPresent &c&l✦"
+
+# Confine presents to a WorldGuard region (blank = anywhere in the worlds below).
+region: ""
+
+# Worlds presents may appear in (empty = all).
+worlds: []
+
+# ----------------------------------------------------------------------------
+#  What is inside. Rolled fresh for each present opened.
+# ----------------------------------------------------------------------------
+rewards:
+  common:
+    weight: 45
+    shards: 25-75
+    items:
+      - { material: COOKIE, amount: 4 }
+    sound: ENTITY_ITEM_PICKUP
+  uncommon:
+    weight: 30
+    shards: 75-200
+    pass-xp: 25
+    items:
+      - { material: IRON_INGOT, amount: 3 }
+  rare:
+    weight: 18
+    shards: 200-400
+    pass-xp: 50
+    items:
+      - { material: DIAMOND, amount: 2 }
+    firework: true
+  epic:
+    weight: 6
+    shards: 500-800
+    pass-xp: 100
+    items:
+      - { material: ENCHANTED_GOLDEN_APPLE, amount: 1 }
+    broadcast: ["&6%player% &efound an epic present!"]
+    firework: true
+  coal:
+    weight: 1
+    shards: 5
+    naughty-nice: -1
+    items:
+      - { material: COAL, amount: 2 }
+    messages: ["&8Just a lump of coal. Unlucky!"]

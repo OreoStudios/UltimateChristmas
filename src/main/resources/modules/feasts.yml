@@ -1,0 +1,55 @@
+# ============================================================================
+#  modules/feasts.yml - festive food and drink
+#  Reload with: /christmas module reload feasts
+# ----------------------------------------------------------------------------
+#  Each food is an edible item that applies buffs when eaten. Hand it out with
+#  /christmas feast give <food> <player>. The 'material' should be edible.
+#
+#  effects: ["TYPE:ticks:amplifier", ...]
+# ============================================================================
+
+particles-on-eat: true
+
+foods:
+
+  hot_cocoa:
+    material: HONEY_BOTTLE
+    name: "&6&lHot Cocoa"
+    lore: ["&7Warms you to the core."]
+    effects: ["FIRE_RESISTANCE:2400:0", "REGENERATION:100:0"]
+    restore-food: 4
+    cooldown: 60
+    message: "&6You sip the hot cocoa and feel cosy."
+
+  gingerbread:
+    material: COOKIE
+    name: "&e&lGingerbread Man"
+    lore: ["&7Run, run, as fast as you can."]
+    effects: ["SPEED:600:0"]
+    restore-food: 6
+    message: "&eThe gingerbread gives you a spring in your step."
+
+  candy_cane:
+    material: SUGAR
+    name: "&c&lCandy Cane"
+    lore: ["&7A minty sugar rush."]
+    effects: ["SPEED:300:1", "JUMP_BOOST:300:0"]
+    message: "&cSugar rush!"
+
+  roast_dinner:
+    material: COOKED_BEEF
+    name: "&6&lChristmas Roast"
+    lore: ["&7A proper festive feast.", "&7Fills you right up."]
+    effects: ["REGENERATION:200:1", "SATURATION:200:2"]
+    restore-food: 10
+    heal-hearts: 6
+    cooldown: 300
+    message: "&6You tuck into the Christmas roast. Delicious!"
+
+  mulled_wine:
+    material: POTION
+    name: "&5&lMulled Wine"
+    lore: ["&7Spiced and warming.", "&7For the grown-up elves."]
+    effects: ["FIRE_RESISTANCE:3600:0", "RESISTANCE:200:0"]
+    cooldown: 120
+    message: "&5The mulled wine warms you against the cold."
