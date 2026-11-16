@@ -19,7 +19,7 @@ import java.util.Map;
  * BetterModel, playing whatever animations the source model defined.
  *
  * <p>Deliberately a plain data holder: all the maths lives in
- * {@link RiggedEntity}, and the format is whatever the compiler emits, so a new
+ * {@link RigPose}, and the format is whatever the compiler emits, so a new
  * model is a config-and-asset change with no code.
  */
 public final class ModelRig {
@@ -33,7 +33,8 @@ public final class ModelRig {
      * @param model  the item-model key this bone renders, or {@code null} for a
      *               pure joint that only moves its children
      */
-    public record Bone(String name, String parent, float[] pivot, NamespacedKey model) {
+    public record Bone(String name, String parent, float[] pivot, float[] rest,
+                       float[] modelOffset, NamespacedKey model) {
 
         public boolean hasModel() {
             return model != null;
@@ -41,7 +42,10 @@ public final class ModelRig {
     }
 
     /** One keyframe: a time in seconds and an (x, y, z) value. */
-    public record Keyframe(double time, float x, float y, float z) {
+    public record Keyframe(double time, float x, float y, float z, String interpolation) {
+        public Keyframe(double time, float x, float y, float z) {
+            this(time, x, y, z, "linear");
+        }
     }
 
     /** The rotation, position and scale tracks for one bone in one animation. */
@@ -57,7 +61,7 @@ public final class ModelRig {
      * @param loop    whether it repeats (otherwise it plays once and ends)
      * @param bones   per-bone channel tracks, keyed by bone name
      */
-    public record Animation(String name, double length, boolean loop,
+    public record Animation(String name, double length, boolean loop, boolean hold,
                             Map<String, Channels> bones) {
     }
 
@@ -81,11 +85,12 @@ public final class ModelRig {
     }
 
     public Animation animation(String animationName) {
-        return animationName == null ? null : animations.get(animationName);
+        return animationName == null ? null : animations.get(
+                animationName.startsWith("animation.") ? animationName.substring(10) : animationName);
     }
 
     public boolean has(String animationName) {
-        return animationName != null && animations.containsKey(animationName);
+        return animation(animationName) != null;
     }
 
     public java.util.Set<String> animationNames() {
@@ -109,11 +114,19 @@ public final class ModelRig {
             String parent = boneJson.has("parent") && !boneJson.get("parent").isJsonNull()
                     ? boneJson.get("parent").getAsString() : null;
             float[] pivot = readVector(boneJson.getAsJsonArray("pivot"));
+            // A bone's own (rest) rotation in Blockbench euler degrees, and the
+            // shift the compiler applied to the bone's geometry to fit it inside
+            // the item-model coordinate box (undone at render time). Both are
+            // optional, so a rig compiled by an older tool still loads.
+            float[] rest = boneJson.has("rotation")
+                    ? readVector(boneJson.getAsJsonArray("rotation")) : new float[]{0, 0, 0};
+            float[] modelOffset = boneJson.has("model_offset")
+                    ? readVector(boneJson.getAsJsonArray("model_offset")) : new float[]{0, 0, 0};
             NamespacedKey model = null;
             if (boneJson.has("model") && !boneJson.get("model").isJsonNull()) {
                 model = keys.resolve(boneJson.get("model").getAsString());
             }
-            bones.add(new Bone(boneName, parent, pivot, model));
+            bones.add(new Bone(boneName, parent, pivot, rest, modelOffset, model));
         }
         if (bones.isEmpty()) {
             throw new IllegalArgumentException("rig '" + name + "' has no bones");
@@ -145,7 +158,8 @@ public final class ModelRig {
                         readKeyframes(channels, "scale")));
             }
         }
-        return new Animation(name, Math.max(0.001, length), loop, bones);
+        boolean hold = json.has("hold") && json.get("hold").getAsBoolean();
+        return new Animation(name, Math.max(0.001, length), loop && !hold, hold, bones);
     }
 
     private static List<Keyframe> readKeyframes(JsonObject channels, String channel) {
@@ -155,10 +169,12 @@ public final class ModelRig {
                 JsonArray frame = element.getAsJsonArray();
                 frames.add(new Keyframe(frame.get(0).getAsDouble(),
                         frame.get(1).getAsFloat(), frame.get(2).getAsFloat(),
-                        frame.get(3).getAsFloat()));
+                        frame.get(3).getAsFloat(), frame.size() > 4
+                                ? frame.get(4).getAsString() : "linear"));
             }
         }
-        return frames;
+        frames.sort(java.util.Comparator.comparingDouble(Keyframe::time));
+        return List.copyOf(frames);
     }
 
     private static float[] readVector(JsonArray array) {

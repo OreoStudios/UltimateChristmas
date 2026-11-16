@@ -5,354 +5,2307 @@
       "name": "root",
       "parent": null,
       "pivot": [
-        0,
-        0,
-        0
+        0.0,
+        0.0,
+        0.0
       ],
-      "model": null
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": null,
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
     },
     {
-      "name": "leg_right",
+      "name": "hips",
       "parent": "root",
       "pivot": [
-        -2,
-        12,
-        0
+        0.0,
+        19.0,
+        0.0
       ],
-      "model": "ultimatechristmas:boss/grinch_leg_right"
-    },
-    {
-      "name": "leg_left",
-      "parent": "root",
-      "pivot": [
-        2,
-        12,
-        0
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
       ],
-      "model": "ultimatechristmas:boss/grinch_leg_left"
+      "model": null,
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
     },
     {
       "name": "body",
-      "parent": "root",
+      "parent": "hips",
       "pivot": [
-        0,
-        12,
-        0
+        0.0,
+        20.0,
+        0.0
       ],
-      "model": "ultimatechristmas:boss/grinch_body"
+      "rotation": [
+        -7.0,
+        2.0,
+        1.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
     },
     {
-      "name": "arm_right",
-      "parent": "root",
+      "name": "body__c0",
+      "source_element": "f0a20e7e-a103-9d26-1442-45a4bb3b6fc6",
+      "parent": "body",
       "pivot": [
-        -4,
-        21,
-        0
+        0.0,
+        29.0,
+        0.0
       ],
-      "model": "ultimatechristmas:boss/grinch_arm_right"
+      "rotation": [
+        -6.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
     },
     {
-      "name": "arm_left",
-      "parent": "root",
+      "name": "body__c1",
+      "source_element": "e01744ae-6ce2-3e45-106c-39207b4e61a5",
+      "parent": "body",
       "pivot": [
-        4,
-        21,
-        0
+        0.0,
+        24.0,
+        -2.5
       ],
-      "model": "ultimatechristmas:boss/grinch_arm_left"
+      "rotation": [
+        5.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c2",
+      "source_element": "d7dc80fa-6aa6-150d-c092-68e59a2e0dad",
+      "parent": "body",
+      "pivot": [
+        3.6,
+        23.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c2",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c3",
+      "source_element": "b3da4a99-f309-3bc5-7b29-36b1a7abd5b3",
+      "parent": "body",
+      "pivot": [
+        -3.6,
+        23.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -9.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c3",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c4",
+      "source_element": "9c841cfb-d372-bbbd-a797-ddc4cd69a02b",
+      "parent": "body",
+      "pivot": [
+        0.0,
+        30.0,
+        2.0
+      ],
+      "rotation": [
+        -13.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c4",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c5",
+      "source_element": "9760921f-9a61-ab2c-10f2-145012bac9be",
+      "parent": "body",
+      "pivot": [
+        -2.025,
+        19.4,
+        2.4
+      ],
+      "rotation": [
+        -8.0,
+        0.0,
+        -5.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c5",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c6",
+      "source_element": "fc1a7b89-cfc6-5dac-2ff3-8861b0bd367b",
+      "parent": "body",
+      "pivot": [
+        1.975,
+        19.7,
+        2.4
+      ],
+      "rotation": [
+        -5.0,
+        0.0,
+        5.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c6",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c7",
+      "source_element": "fa417646-2a55-61ca-d4b8-9896286af0a3",
+      "parent": "body",
+      "pivot": [
+        0.0,
+        32.25,
+        2.2
+      ],
+      "rotation": [
+        -8.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c7",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c8",
+      "source_element": "9b572da0-3e00-9ecc-b3a8-0889c7469ca2",
+      "parent": "body",
+      "pivot": [
+        2.275,
+        32.3,
+        -1.35
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        9.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c8",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c9",
+      "source_element": "c2f843fe-e80a-fb68-9dd4-23769f7ebadd",
+      "parent": "body",
+      "pivot": [
+        -2.275,
+        32.05,
+        -1.35
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c9",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c10",
+      "source_element": "1199bf23-c7a3-4a3d-ab0e-3e07b5f610a8",
+      "parent": "body",
+      "pivot": [
+        0.0,
+        29.0,
+        0.0
+      ],
+      "rotation": [
+        -6.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c10",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c11",
+      "source_element": "8f01f79b-4438-5723-3ed6-586e8ac2e5ec",
+      "parent": "body",
+      "pivot": [
+        0.0,
+        25.0,
+        -3.8
+      ],
+      "rotation": [
+        12.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c11",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c12",
+      "source_element": "89bc025f-b911-ab56-8514-d472351e5f93",
+      "parent": "body",
+      "pivot": [
+        0.0,
+        24.0,
+        -2.5
+      ],
+      "rotation": [
+        5.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c12",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c13",
+      "source_element": "679f65a9-51b2-ca04-a397-60ef506800cb",
+      "parent": "body",
+      "pivot": [
+        3.6,
+        23.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c13",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c14",
+      "source_element": "ad5d87ca-72b4-be37-5c9c-f10be97b8c7a",
+      "parent": "body",
+      "pivot": [
+        -3.6,
+        23.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -9.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c14",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c15",
+      "source_element": "57da3aa8-7f1a-5a23-271b-62e13dbc190a",
+      "parent": "body",
+      "pivot": [
+        3.475,
+        19.55,
+        0.15
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c15",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c16",
+      "source_element": "62188610-88db-e63b-b2cb-07e0c66fa5b7",
+      "parent": "body",
+      "pivot": [
+        -3.475,
+        19.55,
+        0.15
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c16",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c17",
+      "source_element": "5248291f-db28-125a-7b1f-82e973f04797",
+      "parent": "body",
+      "pivot": [
+        -2.025,
+        17.6,
+        2.425
+      ],
+      "rotation": [
+        -8.0,
+        0.0,
+        -5.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c17",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body__c18",
+      "source_element": "3e7b9a9e-7972-9b3e-95ba-b87a47bcdd84",
+      "parent": "body",
+      "pivot": [
+        1.975,
+        18.2,
+        2.425
+      ],
+      "rotation": [
+        -5.0,
+        0.0,
+        5.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_body__c18",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "neck",
+      "parent": "body",
+      "pivot": [
+        0.0,
+        32.5,
+        -0.6
+      ],
+      "rotation": [
+        4.0,
+        -2.0,
+        -1.0
+      ],
+      "model": null,
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "neck__c0",
+      "source_element": "4fd7bb26-888e-76c5-52c1-f7afa7e39838",
+      "parent": "neck",
+      "pivot": [
+        0.0,
+        33.0,
+        0.0
+      ],
+      "rotation": [
+        -12.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_neck__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
     },
     {
       "name": "head",
-      "parent": "root",
+      "parent": "neck",
       "pivot": [
-        0,
-        23,
-        0
+        0.0,
+        34.0,
+        -1.0
       ],
-      "model": "ultimatechristmas:boss/grinch_head"
+      "rotation": [
+        2.0,
+        0.0,
+        -3.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c0",
+      "source_element": "0449678b-2183-6d2a-c47d-b6371d801f98",
+      "parent": "head",
+      "pivot": [
+        0.0,
+        41.7,
+        0.0
+      ],
+      "rotation": [
+        -8.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c1",
+      "source_element": "f9db5097-7c43-07c0-d8b5-1b8912a92fc7",
+      "parent": "head",
+      "pivot": [
+        2.788,
+        37.74,
+        -1.4
+      ],
+      "rotation": [
+        0.0,
+        -18.0,
+        12.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c2",
+      "source_element": "2e0b34c6-99b3-6909-c807-3522991246e4",
+      "parent": "head",
+      "pivot": [
+        -2.788,
+        37.74,
+        -1.4
+      ],
+      "rotation": [
+        0.0,
+        18.0,
+        -9.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c2",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c3",
+      "source_element": "8c6e4e9b-3660-e737-1133-7b9addcaf749",
+      "parent": "head",
+      "pivot": [
+        2.542,
+        37.3,
+        -4.2
+      ],
+      "rotation": [
+        0.0,
+        -18.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c3",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c4",
+      "source_element": "4322d33d-3bce-9660-f4bc-9ecbf9744a9e",
+      "parent": "head",
+      "pivot": [
+        -2.542,
+        37.3,
+        -4.2
+      ],
+      "rotation": [
+        0.0,
+        18.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c4",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c5",
+      "source_element": "f3e5d619-416f-2ead-8cab-30daf905b32f",
+      "parent": "head",
+      "pivot": [
+        0.0,
+        35.43,
+        -3.2
+      ],
+      "rotation": [
+        8.0,
+        0.0,
+        -12.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c5",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c6",
+      "source_element": "be96ebd8-fcc6-d7ba-fdd1-92f532877782",
+      "parent": "head",
+      "pivot": [
+        0.0,
+        35.43,
+        -3.2
+      ],
+      "rotation": [
+        8.0,
+        0.0,
+        -12.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c6",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c7",
+      "source_element": "ea453cdd-d919-2e4e-af1d-b425f48f4cd2",
+      "parent": "head",
+      "pivot": [
+        -1.64,
+        36.2,
+        -3.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -25.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c7",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c8",
+      "source_element": "0af8c4f0-2b14-3a03-6816-6f68d8f68f39",
+      "parent": "head",
+      "pivot": [
+        -3.936,
+        37.3,
+        -1.0
+      ],
+      "rotation": [
+        0.0,
+        8.0,
+        -29.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c8",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c9",
+      "source_element": "684725f5-747a-3209-a7d2-488e6ab1750c",
+      "parent": "head",
+      "pivot": [
+        -3.936,
+        37.3,
+        -1.0
+      ],
+      "rotation": [
+        0.0,
+        8.0,
+        -29.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c9",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c10",
+      "source_element": "ae351ef4-2665-b372-b938-01e25d3880bf",
+      "parent": "head",
+      "pivot": [
+        -3.198,
+        36.2,
+        -2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -31.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c10",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c11",
+      "source_element": "9c35befd-eac0-08cb-ea76-34344c4ddaa5",
+      "parent": "head",
+      "pivot": [
+        -1.886,
+        40.985,
+        -4.4
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -9.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c11",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c12",
+      "source_element": "4b744bfe-b83d-c1d4-565a-d220df31d32b",
+      "parent": "head",
+      "pivot": [
+        1.64,
+        36.2,
+        -3.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        25.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c12",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c13",
+      "source_element": "aa75e76b-d2a4-1826-ad3e-322bab0cec75",
+      "parent": "head",
+      "pivot": [
+        3.936,
+        37.3,
+        -1.0
+      ],
+      "rotation": [
+        0.0,
+        -8.0,
+        29.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c13",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c14",
+      "source_element": "d23121d4-291d-7e46-673f-9a04737c08d6",
+      "parent": "head",
+      "pivot": [
+        3.936,
+        37.3,
+        -1.0
+      ],
+      "rotation": [
+        0.0,
+        -8.0,
+        29.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c14",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c15",
+      "source_element": "aec66956-9324-2fb3-a6a2-07306d84f21b",
+      "parent": "head",
+      "pivot": [
+        3.198,
+        36.2,
+        -2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        31.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c15",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c16",
+      "source_element": "f910ab32-5ed1-fea0-47b9-6d2038d82829",
+      "parent": "head",
+      "pivot": [
+        1.886,
+        40.985,
+        -4.4
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        13.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c16",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c17",
+      "source_element": "92425432-eb00-936c-66ed-fa711ea49507",
+      "parent": "head",
+      "pivot": [
+        0.0,
+        39.665,
+        -4.525
+      ],
+      "rotation": [
+        15.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c17",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c18",
+      "source_element": "debd8e8d-52b0-782a-ca99-998f8f1fe00c",
+      "parent": "head",
+      "pivot": [
+        0.0,
+        39.291,
+        -5.05
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        8.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_head__c18",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
     },
     {
       "name": "hat",
       "parent": "head",
       "pivot": [
-        0,
-        31,
-        0
+        0.0,
+        42.8,
+        -0.3
       ],
-      "model": "ultimatechristmas:boss/grinch_hat"
+      "rotation": [
+        0.0,
+        0.0,
+        -8.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hat",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hat__c0",
+      "source_element": "ebc84f32-857d-594e-4469-224346415cf8",
+      "parent": "hat",
+      "pivot": [
+        0.41,
+        46.1,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -24.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hat__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hat__c1",
+      "source_element": "108a77fc-76d7-b375-803b-fbc742e93e9f",
+      "parent": "hat",
+      "pivot": [
+        2.46,
+        47.64,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        15.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hat__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hat__c2",
+      "source_element": "f82c4a34-9112-4086-ab4f-9f76278a64a6",
+      "parent": "hat",
+      "pivot": [
+        3.485,
+        46.43,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        9.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hat__c2",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hat__c3",
+      "source_element": "64cdde52-1edc-c925-9037-f5a9c69af6dd",
+      "parent": "hat",
+      "pivot": [
+        3.649,
+        44.34,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        12.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hat__c3",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "eyelid_r",
+      "parent": "head",
+      "pivot": [
+        -1.804,
+        41.37,
+        -4.46
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_eyelid_r",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "eyelid_l",
+      "parent": "head",
+      "pivot": [
+        1.804,
+        41.37,
+        -4.46
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_eyelid_l",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "arm_l",
+      "parent": "body",
+      "pivot": [
+        4.3,
+        31.8,
+        0.0
+      ],
+      "rotation": [
+        3.0,
+        0.0,
+        13.0
+      ],
+      "model": null,
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "arm_l__c0",
+      "source_element": "954b128a-8c06-515c-7f51-cbdbef64cde6",
+      "parent": "arm_l",
+      "pivot": [
+        4.3,
+        31.8,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        13.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_arm_l__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "arm_l__c1",
+      "source_element": "398ac6c3-c373-1170-833d-3827e36ed316",
+      "parent": "arm_l",
+      "pivot": [
+        4.3,
+        31.8,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -3.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_arm_l__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "forearm_l",
+      "parent": "arm_l",
+      "pivot": [
+        4.3,
+        25.6,
+        0.0
+      ],
+      "rotation": [
+        20.0,
+        0.0,
+        -4.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_forearm_l",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_l",
+      "parent": "forearm_l",
+      "pivot": [
+        4.3,
+        19.6,
+        0.0
+      ],
+      "rotation": [
+        -8.0,
+        3.0,
+        5.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_l",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_l__c0",
+      "source_element": "072bb657-7e6f-4a0b-e3a1-7a860d2eef3f",
+      "parent": "hand_l",
+      "pivot": [
+        3.53,
+        17.4,
+        -0.45
+      ],
+      "rotation": [
+        8.0,
+        0.0,
+        6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_l__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_l__c1",
+      "source_element": "2135e74d-c4a4-0059-0f58-baf74e25749a",
+      "parent": "hand_l",
+      "pivot": [
+        3.53,
+        17.4,
+        -0.45
+      ],
+      "rotation": [
+        30.0,
+        0.0,
+        6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_l__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_l__c2",
+      "source_element": "03b76d81-d797-1bb7-78b4-29114cd9011d",
+      "parent": "hand_l",
+      "pivot": [
+        4.38,
+        17.4,
+        -0.45
+      ],
+      "rotation": [
+        8.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_l__c2",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_l__c3",
+      "source_element": "fbe193ab-a14b-ac68-7ccc-dbded66c6fdc",
+      "parent": "hand_l",
+      "pivot": [
+        4.38,
+        17.4,
+        -0.45
+      ],
+      "rotation": [
+        30.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_l__c3",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_l__c4",
+      "source_element": "f1ccb9ba-4cd1-a2de-8961-cd0f83ce1db7",
+      "parent": "hand_l",
+      "pivot": [
+        5.23,
+        17.4,
+        -0.45
+      ],
+      "rotation": [
+        8.0,
+        0.0,
+        -6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_l__c4",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_l__c5",
+      "source_element": "f39193bb-da43-b639-25b0-258293148430",
+      "parent": "hand_l",
+      "pivot": [
+        5.23,
+        17.4,
+        -0.45
+      ],
+      "rotation": [
+        30.0,
+        0.0,
+        -6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_l__c5",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_l__c6",
+      "source_element": "337d8316-cd67-015d-dbc0-c2954825fd15",
+      "parent": "hand_l",
+      "pivot": [
+        3.2,
+        19.6,
+        0.0
+      ],
+      "rotation": [
+        10.0,
+        0.0,
+        28.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_l__c6",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "arm_r",
+      "parent": "body",
+      "pivot": [
+        -4.3,
+        32.4,
+        0.0
+      ],
+      "rotation": [
+        8.0,
+        0.0,
+        -8.0
+      ],
+      "model": null,
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "arm_r__c0",
+      "source_element": "b3467a03-2a82-32e1-0465-98eb61f28511",
+      "parent": "arm_r",
+      "pivot": [
+        -4.3,
+        32.4,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -13.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_arm_r__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "arm_r__c1",
+      "source_element": "3699f9c2-5efd-2cd4-6094-de226cdfa436",
+      "parent": "arm_r",
+      "pivot": [
+        -4.3,
+        32.4,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_arm_r__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "forearm_r",
+      "parent": "arm_r",
+      "pivot": [
+        -4.3,
+        26.2,
+        0.0
+      ],
+      "rotation": [
+        12.0,
+        0.0,
+        4.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_forearm_r",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_r",
+      "parent": "forearm_r",
+      "pivot": [
+        -4.3,
+        20.2,
+        0.0
+      ],
+      "rotation": [
+        -8.0,
+        -3.0,
+        -5.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_r",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_r__c0",
+      "source_element": "f2f5729f-bd99-a18b-94ff-ab76c943b67e",
+      "parent": "hand_r",
+      "pivot": [
+        -5.07,
+        18.0,
+        -0.45
+      ],
+      "rotation": [
+        8.0,
+        0.0,
+        6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_r__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_r__c1",
+      "source_element": "e4687db4-9f2d-20f4-d2e1-de2e23647d31",
+      "parent": "hand_r",
+      "pivot": [
+        -5.07,
+        18.0,
+        -0.45
+      ],
+      "rotation": [
+        30.0,
+        0.0,
+        6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_r__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_r__c2",
+      "source_element": "a1e76b72-d27b-6012-076e-df52e2ea5721",
+      "parent": "hand_r",
+      "pivot": [
+        -4.22,
+        18.0,
+        -0.45
+      ],
+      "rotation": [
+        8.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_r__c2",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_r__c3",
+      "source_element": "7feaee25-2233-1f34-7be0-2fa55011f995",
+      "parent": "hand_r",
+      "pivot": [
+        -4.22,
+        18.0,
+        -0.45
+      ],
+      "rotation": [
+        30.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_r__c3",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_r__c4",
+      "source_element": "d716005d-a99d-91d4-1cac-f6e628b3992e",
+      "parent": "hand_r",
+      "pivot": [
+        -3.37,
+        18.0,
+        -0.45
+      ],
+      "rotation": [
+        8.0,
+        0.0,
+        -6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_r__c4",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_r__c5",
+      "source_element": "3c7fab39-1b05-84ab-a623-4b420d4343ba",
+      "parent": "hand_r",
+      "pivot": [
+        -3.37,
+        18.0,
+        -0.45
+      ],
+      "rotation": [
+        30.0,
+        0.0,
+        -6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_r__c5",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hand_r__c6",
+      "source_element": "d6cc1335-019b-bd46-edb2-c9ae9e1b776f",
+      "parent": "hand_r",
+      "pivot": [
+        -3.2,
+        20.2,
+        0.0
+      ],
+      "rotation": [
+        10.0,
+        0.0,
+        -28.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_hand_r__c6",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "leg_l",
+      "parent": "hips",
+      "pivot": [
+        2.25,
+        19.0,
+        0.0
+      ],
+      "rotation": [
+        11.0,
+        -8.0,
+        3.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_leg_l",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "knee_l",
+      "parent": "leg_l",
+      "pivot": [
+        2.25,
+        10.5,
+        0.0
+      ],
+      "rotation": [
+        -18.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_knee_l",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "foot_l",
+      "parent": "knee_l",
+      "pivot": [
+        2.25,
+        4.0,
+        0.0
+      ],
+      "rotation": [
+        7.0,
+        0.0,
+        -3.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_foot_l",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "foot_l__c0",
+      "source_element": "47aaff79-ccb7-0190-6556-c01b0c72eda1",
+      "parent": "foot_l",
+      "pivot": [
+        2.25,
+        1.0,
+        -1.0
+      ],
+      "rotation": [
+        -7.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_foot_l__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "foot_l__c1",
+      "source_element": "68af5683-cbd2-44f6-a58d-78d9a1b7585b",
+      "parent": "foot_l",
+      "pivot": [
+        2.25,
+        1.0,
+        -2.8
+      ],
+      "rotation": [
+        -25.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_foot_l__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "leg_r",
+      "parent": "hips",
+      "pivot": [
+        -2.25,
+        19.0,
+        0.0
+      ],
+      "rotation": [
+        6.0,
+        5.0,
+        -4.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_leg_r",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "knee_r",
+      "parent": "leg_r",
+      "pivot": [
+        -2.25,
+        10.5,
+        0.0
+      ],
+      "rotation": [
+        -13.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_knee_r",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "foot_r",
+      "parent": "knee_r",
+      "pivot": [
+        -2.25,
+        4.0,
+        0.0
+      ],
+      "rotation": [
+        7.0,
+        0.0,
+        4.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_foot_r",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "foot_r__c0",
+      "source_element": "9ea571e6-2b96-4265-d0d5-24dc11b646d9",
+      "parent": "foot_r",
+      "pivot": [
+        -2.25,
+        1.0,
+        -1.0
+      ],
+      "rotation": [
+        -7.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_foot_r__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "foot_r__c1",
+      "source_element": "c8a32b8f-5d84-e5fa-4e64-8b72a932cc75",
+      "parent": "foot_r",
+      "pivot": [
+        -2.25,
+        1.0,
+        -2.8
+      ],
+      "rotation": [
+        -25.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_foot_r__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
     }
   ],
   "animations": {
     "idle": {
-      "length": 3.0,
+      "length": 3.2,
       "loop": true,
       "hold": false,
       "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.6,
+              -1.7,
+              0.0,
+              0.6,
+              "linear"
+            ],
+            [
+              3.2,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
         "head": {
           "rotation": [
             [
               0.0,
               0.0,
-              0.0,
-              0.0
+              -3.0,
+              -2.0,
+              "linear"
             ],
             [
-              1.5,
-              4.0,
+              1.6,
+              2.0,
               3.0,
-              0.0
+              -1.0,
+              "linear"
             ],
             [
-              3.0,
+              3.2,
               0.0,
-              0.0,
-              0.0
+              -3.0,
+              -2.0,
+              "linear"
             ]
           ]
         },
-        "arm_right": {
+        "arm_l": {
           "rotation": [
             [
               0.0,
               0.0,
               0.0,
-              2.0
+              0.0,
+              "linear"
             ],
             [
-              1.5,
-              -3.0,
+              1.6,
+              -2.0,
               0.0,
-              2.0
+              2.0,
+              "linear"
             ],
             [
-              3.0,
+              3.2,
               0.0,
               0.0,
-              2.0
+              0.0,
+              "linear"
             ]
           ]
         },
-        "arm_left": {
+        "arm_r": {
           "rotation": [
             [
               0.0,
               0.0,
               0.0,
-              -2.0
+              0.0,
+              "linear"
             ],
             [
-              1.5,
-              -3.0,
+              1.6,
+              2.0,
               0.0,
-              -2.0
+              -2.0,
+              "linear"
             ],
             [
-              3.0,
+              3.2,
               0.0,
               0.0,
-              -2.0
+              0.0,
+              "linear"
             ]
           ]
         },
-        "body": {
-          "position": [
+        "eyelid_l": {
+          "scale": [
             [
               0.0,
-              0.0,
-              0.0,
-              0.0
+              1.0,
+              1.0,
+              1.0,
+              "linear"
             ],
             [
-              1.5,
-              0.0,
-              0.4,
-              0.0
+              2.35,
+              1.0,
+              1.0,
+              1.0,
+              "linear"
             ],
             [
-              3.0,
+              2.43,
+              1.0,
+              235.0,
+              1.0,
+              "linear"
+            ],
+            [
+              2.53,
+              1.0,
+              1.0,
+              1.0,
+              "linear"
+            ],
+            [
+              3.2,
+              1.0,
+              1.0,
+              1.0,
+              "linear"
+            ]
+          ]
+        },
+        "eyelid_r": {
+          "scale": [
+            [
               0.0,
-              0.0,
-              0.0
+              1.0,
+              1.0,
+              1.0,
+              "linear"
+            ],
+            [
+              2.35,
+              1.0,
+              1.0,
+              1.0,
+              "linear"
+            ],
+            [
+              2.43,
+              1.0,
+              235.0,
+              1.0,
+              "linear"
+            ],
+            [
+              2.53,
+              1.0,
+              1.0,
+              1.0,
+              "linear"
+            ],
+            [
+              3.2,
+              1.0,
+              1.0,
+              1.0,
+              "linear"
             ]
           ]
         }
       }
     },
     "walk": {
-      "length": 1.0,
+      "length": 1.2,
       "loop": true,
       "hold": false,
       "bones": {
-        "leg_right": {
+        "leg_l": {
           "rotation": [
             [
               0.0,
-              32.0,
+              27.0,
               0.0,
-              0.0
+              0.0,
+              "linear"
             ],
             [
-              0.5,
-              -32.0,
+              0.3,
               0.0,
-              0.0
+              0.0,
+              0.0,
+              "linear"
             ],
             [
-              1.0,
-              32.0,
+              0.6,
+              -27.0,
               0.0,
-              0.0
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              27.0,
+              0.0,
+              0.0,
+              "linear"
             ]
           ]
         },
-        "leg_left": {
+        "leg_r": {
           "rotation": [
             [
               0.0,
-              -32.0,
+              -27.0,
               0.0,
-              0.0
+              0.0,
+              "linear"
             ],
             [
-              0.5,
-              32.0,
+              0.3,
               0.0,
-              0.0
+              0.0,
+              0.0,
+              "linear"
             ],
             [
-              1.0,
-              -32.0,
+              0.6,
+              27.0,
               0.0,
-              0.0
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              -27.0,
+              0.0,
+              0.0,
+              "linear"
             ]
           ]
         },
-        "arm_right": {
+        "knee_l": {
           "rotation": [
             [
               0.0,
-              -28.0,
+              -3.2,
               0.0,
-              2.0
+              0.0,
+              "linear"
             ],
             [
-              0.5,
-              28.0,
+              0.3,
+              -22.400000000000002,
               0.0,
-              2.0
+              0.0,
+              "linear"
             ],
             [
-              1.0,
-              -28.0,
+              0.6,
+              -2.4000000000000004,
               0.0,
-              2.0
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              -3.2,
+              0.0,
+              0.0,
+              "linear"
             ]
           ]
         },
-        "arm_left": {
+        "knee_r": {
           "rotation": [
             [
               0.0,
-              28.0,
+              -2.4000000000000004,
               0.0,
-              -2.0
+              0.0,
+              "linear"
             ],
             [
-              0.5,
-              -28.0,
+              0.3,
               0.0,
-              -2.0
+              0.0,
+              0.0,
+              "linear"
             ],
             [
-              1.0,
-              28.0,
+              0.6,
+              -3.2,
               0.0,
-              -2.0
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              -22.400000000000002,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              -2.4000000000000004,
+              0.0,
+              0.0,
+              "linear"
             ]
           ]
         },
-        "head": {
+        "arm_l": {
           "rotation": [
             [
               0.0,
+              18.9,
               0.0,
-              0.0,
-              0.0
+              7.0,
+              "linear"
             ],
             [
-              0.5,
+              0.3,
+              0.0,
+              0.0,
               3.0,
-              0.0,
-              0.0
-            ],
-            [
-              1.0,
-              0.0,
-              0.0,
-              0.0
-            ]
-          ]
-        }
-      }
-    },
-    "attack": {
-      "length": 0.6,
-      "loop": false,
-      "hold": false,
-      "bones": {
-        "arm_right": {
-          "rotation": [
-            [
-              0.0,
-              0.0,
-              0.0,
-              2.0
-            ],
-            [
-              0.15,
-              -150.0,
-              0.0,
-              2.0
-            ],
-            [
-              0.35,
-              -150.0,
-              0.0,
-              2.0
+              "linear"
             ],
             [
               0.6,
+              -18.9,
+              0.0,
+              7.0,
+              "linear"
+            ],
+            [
+              0.9,
               0.0,
               0.0,
-              2.0
+              3.0,
+              "linear"
+            ],
+            [
+              1.2,
+              18.9,
+              0.0,
+              7.0,
+              "linear"
             ]
           ]
         },
-        "arm_left": {
+        "arm_r": {
           "rotation": [
             [
               0.0,
+              -18.9,
               0.0,
-              0.0,
-              -2.0
+              -7.0,
+              "linear"
             ],
             [
-              0.2,
-              -120.0,
+              0.3,
               0.0,
-              -2.0
+              0.0,
+              -3.0,
+              "linear"
             ],
             [
-              0.4,
-              -120.0,
+              0.6,
+              18.9,
               0.0,
-              -2.0
+              -7.0,
+              "linear"
+            ],
+            [
+              0.9,
+              0.0,
+              0.0,
+              -3.0,
+              "linear"
+            ],
+            [
+              1.2,
+              -18.9,
+              0.0,
+              -7.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_l": {
+          "rotation": [
+            [
+              0.0,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.3,
+              30.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              8.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            [
+              0.0,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.3,
+              8.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              30.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "hips": {
+          "position": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.3,
+              0.0,
+              0.5,
+              0.0,
+              "linear"
             ],
             [
               0.6,
               0.0,
               0.0,
-              -2.0
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              0.0,
+              0.5,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
             ]
           ]
         },
@@ -360,21 +2313,637 @@
           "rotation": [
             [
               0.0,
-              0.0,
-              0.0,
-              0.0
+              -4.0,
+              -4.0,
+              2.0,
+              "linear"
             ],
             [
-              0.15,
-              -8.0,
+              0.3,
+              -6.0,
               0.0,
-              0.0
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              -4.0,
+              4.0,
+              -2.0,
+              "linear"
+            ],
+            [
+              0.9,
+              -6.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              -4.0,
+              -4.0,
+              2.0,
+              "linear"
+            ]
+          ]
+        },
+        "hat": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              -3.0,
+              "linear"
+            ],
+            [
+              0.3,
+              4.0,
+              0.0,
+              2.0,
+              "linear"
             ],
             [
               0.6,
               0.0,
               0.0,
-              0.0
+              -3.0,
+              "linear"
+            ],
+            [
+              0.9,
+              4.0,
+              0.0,
+              2.0,
+              "linear"
+            ],
+            [
+              1.2,
+              0.0,
+              0.0,
+              -3.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "run": {
+      "length": 0.64,
+      "loop": true,
+      "hold": false,
+      "bones": {
+        "leg_l": {
+          "rotation": [
+            [
+              0.0,
+              48.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.16,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.32,
+              -48.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.48,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.64,
+              48.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "leg_r": {
+          "rotation": [
+            [
+              0.0,
+              -48.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.16,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.32,
+              48.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.48,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.64,
+              -48.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "knee_l": {
+          "rotation": [
+            [
+              0.0,
+              -3.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.16,
+              -22.400000000000002,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.32,
+              -2.4000000000000004,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.48,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.64,
+              -3.2,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "knee_r": {
+          "rotation": [
+            [
+              0.0,
+              -2.4000000000000004,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.16,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.32,
+              -3.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.48,
+              -22.400000000000002,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.64,
+              -2.4000000000000004,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              33.6,
+              0.0,
+              7.0,
+              "linear"
+            ],
+            [
+              0.16,
+              0.0,
+              0.0,
+              3.0,
+              "linear"
+            ],
+            [
+              0.32,
+              -33.6,
+              0.0,
+              7.0,
+              "linear"
+            ],
+            [
+              0.48,
+              0.0,
+              0.0,
+              3.0,
+              "linear"
+            ],
+            [
+              0.64,
+              33.6,
+              0.0,
+              7.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              -33.6,
+              0.0,
+              -7.0,
+              "linear"
+            ],
+            [
+              0.16,
+              0.0,
+              0.0,
+              -3.0,
+              "linear"
+            ],
+            [
+              0.32,
+              33.6,
+              0.0,
+              -7.0,
+              "linear"
+            ],
+            [
+              0.48,
+              0.0,
+              0.0,
+              -3.0,
+              "linear"
+            ],
+            [
+              0.64,
+              -33.6,
+              0.0,
+              -7.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_l": {
+          "rotation": [
+            [
+              0.0,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.16,
+              30.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.32,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.48,
+              8.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.64,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            [
+              0.0,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.16,
+              8.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.32,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.48,
+              30.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.64,
+              15.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "hips": {
+          "position": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.16,
+              0.0,
+              0.5,
+              0.0,
+              "linear"
+            ],
+            [
+              0.32,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.48,
+              0.0,
+              0.5,
+              0.0,
+              "linear"
+            ],
+            [
+              0.64,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              -12.0,
+              -4.0,
+              2.0,
+              "linear"
+            ],
+            [
+              0.16,
+              -14.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.32,
+              -12.0,
+              4.0,
+              -2.0,
+              "linear"
+            ],
+            [
+              0.48,
+              -14.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.64,
+              -12.0,
+              -4.0,
+              2.0,
+              "linear"
+            ]
+          ]
+        },
+        "hat": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              -3.0,
+              "linear"
+            ],
+            [
+              0.16,
+              4.0,
+              0.0,
+              2.0,
+              "linear"
+            ],
+            [
+              0.32,
+              0.0,
+              0.0,
+              -3.0,
+              "linear"
+            ],
+            [
+              0.48,
+              4.0,
+              0.0,
+              2.0,
+              "linear"
+            ],
+            [
+              0.64,
+              0.0,
+              0.0,
+              -3.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "attack": {
+      "length": 0.95,
+      "loop": false,
+      "hold": false,
+      "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.24,
+              -8.0,
+              -25.0,
+              4.0,
+              "linear"
+            ],
+            [
+              0.48,
+              14.0,
+              28.0,
+              -6.0,
+              "linear"
+            ],
+            [
+              0.71,
+              6.0,
+              12.0,
+              -2.0,
+              "linear"
+            ],
+            [
+              0.95,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.24,
+              90.0,
+              -35.0,
+              -35.0,
+              "linear"
+            ],
+            [
+              0.48,
+              45.0,
+              50.0,
+              12.0,
+              "linear"
+            ],
+            [
+              0.71,
+              20.0,
+              25.0,
+              8.0,
+              "linear"
+            ],
+            [
+              0.95,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.24,
+              27.5,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.48,
+              5.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.71,
+              10.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.95,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
             ]
           ]
         },
@@ -384,19 +2953,1749 @@
               0.0,
               0.0,
               0.0,
-              0.0
+              0.0,
+              "linear"
             ],
             [
-              0.15,
-              -10.0,
+              0.24,
               0.0,
-              0.0
+              15.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.48,
+              8.0,
+              -18.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.71,
+              3.0,
+              -8.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.95,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "laugh": {
+      "length": 1.6,
+      "loop": true,
+      "hold": false,
+      "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              -3.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.4,
+              -7.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.8,
+              -2.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              -7.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.6,
+              -3.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              8.0,
+              0.0,
+              -4.0,
+              "linear"
+            ],
+            [
+              0.4,
+              14.0,
+              2.0,
+              -2.0,
+              "linear"
+            ],
+            [
+              0.8,
+              7.0,
+              -2.0,
+              2.0,
+              "linear"
+            ],
+            [
+              1.2,
+              14.0,
+              2.0,
+              -2.0,
+              "linear"
+            ],
+            [
+              1.6,
+              8.0,
+              0.0,
+              -4.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              20.0,
+              0.0,
+              12.0,
+              "linear"
+            ],
+            [
+              0.4,
+              24.0,
+              0.0,
+              16.0,
+              "linear"
+            ],
+            [
+              0.8,
+              20.0,
+              0.0,
+              12.0,
+              "linear"
+            ],
+            [
+              1.2,
+              24.0,
+              0.0,
+              16.0,
+              "linear"
+            ],
+            [
+              1.6,
+              20.0,
+              0.0,
+              12.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              20.0,
+              0.0,
+              -12.0,
+              "linear"
+            ],
+            [
+              0.4,
+              24.0,
+              0.0,
+              -16.0,
+              "linear"
+            ],
+            [
+              0.8,
+              20.0,
+              0.0,
+              -12.0,
+              "linear"
+            ],
+            [
+              1.2,
+              24.0,
+              0.0,
+              -16.0,
+              "linear"
+            ],
+            [
+              1.6,
+              20.0,
+              0.0,
+              -12.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "summon": {
+      "length": 2.4,
+      "loop": false,
+      "hold": false,
+      "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              -12.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              8.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              8.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              2.4,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              35.0,
+              0.0,
+              -30.0,
+              "linear"
+            ],
+            [
+              1.2,
+              145.0,
+              0.0,
+              -35.0,
+              "linear"
+            ],
+            [
+              1.8,
+              150.0,
+              -10.0,
+              -40.0,
+              "linear"
+            ],
+            [
+              2.4,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              35.0,
+              0.0,
+              30.0,
+              "linear"
+            ],
+            [
+              1.2,
+              145.0,
+              0.0,
+              35.0,
+              "linear"
+            ],
+            [
+              1.8,
+              150.0,
+              10.0,
+              40.0,
+              "linear"
+            ],
+            [
+              2.4,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              8.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              -18.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              -15.0,
+              8.0,
+              0.0,
+              "linear"
+            ],
+            [
+              2.4,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.44,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              2.4,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_l": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.44,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              2.4,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "steal": {
+      "length": 1.8,
+      "loop": false,
+      "hold": false,
+      "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.45,
+              -15.0,
+              -8.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              -18.0,
+              -8.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.35,
+              5.0,
+              8.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.45,
+              65.0,
+              -10.0,
+              5.0,
+              "linear"
+            ],
+            [
+              0.9,
+              80.0,
+              -10.0,
+              5.0,
+              "linear"
+            ],
+            [
+              1.35,
+              30.0,
+              -15.0,
+              10.0,
+              "linear"
+            ],
+            [
+              1.8,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.45,
+              60.0,
+              10.0,
+              -5.0,
+              "linear"
+            ],
+            [
+              0.9,
+              80.0,
+              10.0,
+              -5.0,
+              "linear"
+            ],
+            [
+              1.35,
+              30.0,
+              15.0,
+              -10.0,
+              "linear"
+            ],
+            [
+              1.8,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_l": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.45,
+              10.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              5.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.35,
+              75.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.45,
+              10.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              5.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.35,
+              75.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "hurt": {
+      "length": 0.6,
+      "loop": false,
+      "hold": false,
+      "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              16.0,
+              9.0,
+              5.0,
+              "linear"
+            ],
+            [
+              0.4,
+              5.0,
+              3.0,
+              1.0,
+              "linear"
             ],
             [
               0.6,
               0.0,
               0.0,
-              0.0
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              12.0,
+              -10.0,
+              -8.0,
+              "linear"
+            ],
+            [
+              0.4,
+              -2.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              15.0,
+              0.0,
+              15.0,
+              "linear"
+            ],
+            [
+              0.4,
+              6.0,
+              0.0,
+              7.0,
+              "linear"
+            ],
+            [
+              0.6,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "rage": {
+      "length": 1.8,
+      "loop": true,
+      "hold": false,
+      "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              -10.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              -13.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              -10.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              -4.0,
+              -6.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              -7.0,
+              6.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              -4.0,
+              -6.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              25.0,
+              0.0,
+              22.0,
+              "linear"
+            ],
+            [
+              0.9,
+              30.0,
+              0.0,
+              27.0,
+              "linear"
+            ],
+            [
+              1.8,
+              25.0,
+              0.0,
+              22.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              25.0,
+              0.0,
+              -22.0,
+              "linear"
+            ],
+            [
+              0.9,
+              30.0,
+              0.0,
+              -27.0,
+              "linear"
+            ],
+            [
+              1.8,
+              25.0,
+              0.0,
+              -22.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_l": {
+          "rotation": [
+            [
+              0.0,
+              25.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              35.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              25.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            [
+              0.0,
+              25.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              35.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              25.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "death": {
+      "length": 2.4,
+      "loop": false,
+      "hold": true,
+      "bones": {
+        "root": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              -45.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              2.4,
+              -90.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ],
+          "position": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.03333,
+              0.0,
+              0.0686,
+              0.0,
+              "linear"
+            ],
+            [
+              0.06667,
+              0.0,
+              0.1798,
+              0.0,
+              "linear"
+            ],
+            [
+              0.1,
+              0.0,
+              0.2909,
+              0.0,
+              "linear"
+            ],
+            [
+              0.13333,
+              0.0,
+              0.402,
+              0.0,
+              "linear"
+            ],
+            [
+              0.16667,
+              0.0,
+              0.5131,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              0.0,
+              0.6242,
+              0.0,
+              "linear"
+            ],
+            [
+              0.23333,
+              0.0,
+              0.7353,
+              0.0,
+              "linear"
+            ],
+            [
+              0.26667,
+              0.0,
+              0.8464,
+              0.0,
+              "linear"
+            ],
+            [
+              0.3,
+              0.0,
+              0.9575,
+              0.0,
+              "linear"
+            ],
+            [
+              0.33333,
+              0.0,
+              1.0686,
+              0.0,
+              "linear"
+            ],
+            [
+              0.36667,
+              0.0,
+              1.1798,
+              0.0,
+              "linear"
+            ],
+            [
+              0.4,
+              0.0,
+              1.2909,
+              0.0,
+              "linear"
+            ],
+            [
+              0.43333,
+              0.0,
+              1.402,
+              0.0,
+              "linear"
+            ],
+            [
+              0.46667,
+              0.0,
+              1.5131,
+              0.0,
+              "linear"
+            ],
+            [
+              0.5,
+              0.0,
+              1.6242,
+              0.0,
+              "linear"
+            ],
+            [
+              0.53333,
+              0.0,
+              1.7353,
+              0.0,
+              "linear"
+            ],
+            [
+              0.56667,
+              0.0,
+              1.8464,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              0.0,
+              1.9575,
+              0.0,
+              "linear"
+            ],
+            [
+              0.63333,
+              0.0,
+              2.1242,
+              0.0,
+              "linear"
+            ],
+            [
+              0.66667,
+              0.0,
+              2.2909,
+              0.0,
+              "linear"
+            ],
+            [
+              0.7,
+              0.0,
+              2.4575,
+              0.0,
+              "linear"
+            ],
+            [
+              0.73333,
+              0.0,
+              2.6242,
+              0.0,
+              "linear"
+            ],
+            [
+              0.76667,
+              0.0,
+              2.7909,
+              0.0,
+              "linear"
+            ],
+            [
+              0.8,
+              0.0,
+              2.9575,
+              0.0,
+              "linear"
+            ],
+            [
+              0.83333,
+              0.0,
+              3.1242,
+              0.0,
+              "linear"
+            ],
+            [
+              0.86667,
+              0.0,
+              3.2909,
+              0.0,
+              "linear"
+            ],
+            [
+              0.9,
+              0.0,
+              3.4575,
+              0.0,
+              "linear"
+            ],
+            [
+              0.93333,
+              0.0,
+              3.6242,
+              0.0,
+              "linear"
+            ],
+            [
+              0.96667,
+              0.0,
+              3.7909,
+              0.0,
+              "linear"
+            ],
+            [
+              1.0,
+              0.0,
+              3.9575,
+              0.0,
+              "linear"
+            ],
+            [
+              1.03333,
+              0.0,
+              4.1242,
+              0.0,
+              "linear"
+            ],
+            [
+              1.06667,
+              0.0,
+              4.2909,
+              0.0,
+              "linear"
+            ],
+            [
+              1.1,
+              0.0,
+              4.4575,
+              0.0,
+              "linear"
+            ],
+            [
+              1.13333,
+              0.0,
+              4.6242,
+              0.0,
+              "linear"
+            ],
+            [
+              1.16667,
+              0.0,
+              4.7909,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              0.0,
+              4.9575,
+              0.0,
+              "linear"
+            ],
+            [
+              1.23333,
+              0.0,
+              4.9177,
+              0.0,
+              "linear"
+            ],
+            [
+              1.26667,
+              0.0,
+              4.9009,
+              0.0,
+              "linear"
+            ],
+            [
+              1.3,
+              0.0,
+              4.8762,
+              0.0,
+              "linear"
+            ],
+            [
+              1.33333,
+              0.0,
+              4.8772,
+              0.0,
+              "linear"
+            ],
+            [
+              1.36667,
+              0.0,
+              4.8728,
+              0.0,
+              "linear"
+            ],
+            [
+              1.4,
+              0.0,
+              4.8624,
+              0.0,
+              "linear"
+            ],
+            [
+              1.43333,
+              0.0,
+              4.8467,
+              0.0,
+              "linear"
+            ],
+            [
+              1.46667,
+              0.0,
+              4.8263,
+              0.0,
+              "linear"
+            ],
+            [
+              1.5,
+              0.0,
+              4.8018,
+              0.0,
+              "linear"
+            ],
+            [
+              1.53333,
+              0.0,
+              4.7739,
+              0.0,
+              "linear"
+            ],
+            [
+              1.56667,
+              0.0,
+              4.7432,
+              0.0,
+              "linear"
+            ],
+            [
+              1.6,
+              0.0,
+              4.7103,
+              0.0,
+              "linear"
+            ],
+            [
+              1.63333,
+              0.0,
+              4.677,
+              0.0,
+              "linear"
+            ],
+            [
+              1.66667,
+              0.0,
+              4.6719,
+              0.0,
+              "linear"
+            ],
+            [
+              1.7,
+              0.0,
+              4.6663,
+              0.0,
+              "linear"
+            ],
+            [
+              1.73333,
+              0.0,
+              4.6609,
+              0.0,
+              "linear"
+            ],
+            [
+              1.76667,
+              0.0,
+              4.656,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              0.0,
+              4.6523,
+              0.0,
+              "linear"
+            ],
+            [
+              1.83333,
+              0.0,
+              4.6877,
+              0.0,
+              "linear"
+            ],
+            [
+              1.86667,
+              0.0,
+              4.7215,
+              0.0,
+              "linear"
+            ],
+            [
+              1.9,
+              0.0,
+              4.7539,
+              0.0,
+              "linear"
+            ],
+            [
+              1.93333,
+              0.0,
+              4.785,
+              0.0,
+              "linear"
+            ],
+            [
+              1.96667,
+              0.0,
+              4.8152,
+              0.0,
+              "linear"
+            ],
+            [
+              2.0,
+              0.0,
+              4.8445,
+              0.0,
+              "linear"
+            ],
+            [
+              2.03333,
+              0.0,
+              4.8731,
+              0.0,
+              "linear"
+            ],
+            [
+              2.06667,
+              0.0,
+              4.9012,
+              0.0,
+              "linear"
+            ],
+            [
+              2.1,
+              0.0,
+              4.9675,
+              0.0,
+              "linear"
+            ],
+            [
+              2.13333,
+              0.0,
+              5.0471,
+              0.0,
+              "linear"
+            ],
+            [
+              2.16667,
+              0.0,
+              5.1264,
+              0.0,
+              "linear"
+            ],
+            [
+              2.2,
+              0.0,
+              5.2053,
+              0.0,
+              "linear"
+            ],
+            [
+              2.23333,
+              0.0,
+              5.2838,
+              0.0,
+              "linear"
+            ],
+            [
+              2.26667,
+              0.0,
+              5.3619,
+              0.0,
+              "linear"
+            ],
+            [
+              2.3,
+              0.0,
+              5.4395,
+              0.0,
+              "linear"
+            ],
+            [
+              2.33333,
+              0.0,
+              5.5164,
+              0.0,
+              "linear"
+            ],
+            [
+              2.36667,
+              0.0,
+              6.1488,
+              0.0,
+              "linear"
+            ],
+            [
+              2.4,
+              0.0,
+              7.1678,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "hips": {
+          "position": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              0.0,
+              -2.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              0.0,
+              -5.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.8,
+              0.0,
+              -2.0,
+              0.0,
+              "linear"
+            ],
+            [
+              2.4,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              -15.0,
+              0.0,
+              -12.0,
+              "linear"
+            ],
+            [
+              1.2,
+              15.0,
+              0.0,
+              10.0,
+              "linear"
+            ],
+            [
+              1.8,
+              8.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              2.4,
+              5.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              45.0,
+              0.0,
+              25.0,
+              "linear"
+            ],
+            [
+              1.2,
+              10.0,
+              0.0,
+              45.0,
+              "linear"
+            ],
+            [
+              1.8,
+              0.0,
+              0.0,
+              45.0,
+              "linear"
+            ],
+            [
+              2.4,
+              0.0,
+              0.0,
+              45.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              45.0,
+              0.0,
+              -25.0,
+              "linear"
+            ],
+            [
+              1.2,
+              10.0,
+              0.0,
+              -45.0,
+              "linear"
+            ],
+            [
+              1.8,
+              0.0,
+              0.0,
+              -45.0,
+              "linear"
+            ],
+            [
+              2.4,
+              0.0,
+              0.0,
+              -45.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "celebrate": {
+      "length": 2.0,
+      "loop": true,
+      "hold": false,
+      "bones": {
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              110.0,
+              0.0,
+              -25.0,
+              "linear"
+            ],
+            [
+              1.0,
+              145.0,
+              0.0,
+              -35.0,
+              "linear"
+            ],
+            [
+              2.0,
+              110.0,
+              0.0,
+              -25.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              145.0,
+              0.0,
+              35.0,
+              "linear"
+            ],
+            [
+              1.0,
+              110.0,
+              0.0,
+              25.0,
+              "linear"
+            ],
+            [
+              2.0,
+              145.0,
+              0.0,
+              35.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              -10.0,
+              -12.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.0,
+              -10.0,
+              12.0,
+              0.0,
+              "linear"
+            ],
+            [
+              2.0,
+              -10.0,
+              -12.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            [
+              0.0,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.5,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              2.0,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_l": {
+          "rotation": [
+            [
+              0.0,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.5,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              2.0,
+              -15.0,
+              0.0,
+              0.0,
+              "linear"
             ]
           ]
         }

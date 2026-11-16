@@ -34,12 +34,18 @@
 #        run: run
 #        attack: attack      # played when the boss lands a hit
 #        spawn: laugh        # played once when it appears (optional)
+#        hurt: hurt
+#        death: death        # finishes even after the base mob dies
+#        rage: rage          # once when crossing rage-health-threshold
+#        victory: celebrate  # when this boss kills a player
+#        carry: carry_present # minion idle pose outside combat
 #      ability-animations:  # play a clip when an ability fires
-#        summon: laugh
+#        summon: summon
 #        roar: celebrate
 #
 #  MINION MODELS
-#  A boss's summoned minions can wear their own animated model too:
+#  minions.types can cycle through configured boss ids (models and stats).
+#  Legacy single-minion model configuration is also supported:
 #    minions:
 #      model:
 #        id: grinch_minion     # a rig compiled from grinch_minion.bbmodel
@@ -52,6 +58,8 @@
 # ============================================================================
 
 # Seconds between a boss using one of its abilities.
+model-assets-revision: grinch-remastered-20261116
+
 ability-interval-seconds: 12
 
 # Broadcast each boss's spawn and death lines.
@@ -66,7 +74,8 @@ bosses:
     display-name: "&2&lThe Grinch"
     entity-type: WITHER_SKELETON
     health: 800
-    speed: 0.30
+    speed: 0.18
+    hitbox-scale: 1.25
     attack-damage: 9
     glowing: true
     abilities: [roar, frost, summon]
@@ -77,15 +86,29 @@ bosses:
     model:
       id: grinch
       provider: display
-      scale: 1.0
+      scale: 1
       offset-y: 0.0
       yaw-offset: 180
+      run-speed-threshold: .32
+      movement-animation-speed: .85
       animations:
         idle: idle
         walk: walk
+        run: run
         attack: attack
+        spawn: laugh
+        hurt: hurt
+        death: death
+        rage: rage
+        victory: celebrate
+      rage-health-threshold: .35
       ability-animations:
-        summon: attack
+        summon: summon
+        roar: laugh
+        frost: steal       # reaching/pulling gesture accompanies the frost cast
+    minions:
+      types: [grinch_sneaky, grinch_strong, grinch_crazy]
+      health-multiplier: .35
     spawn-messages:
       - "&2The Grinch:&7 Ho ho - NO. No Christmas this year!"
     death-messages:
@@ -112,6 +135,119 @@ bosses:
         pass-xp: 300
         messages: ["&6You are now a &eGrinch Slayer&6!"]
         firework: true
+
+  # --------------------------------------------------------------------------
+  # The Grinch's three minions, each summonable on its own as a mini-boss so
+  # you can see its model and animations:  /christmas boss spawn <id>
+  # Each wears the plugin's own animated model (no ModelEngine / BetterModel).
+  # --------------------------------------------------------------------------
+  grinch_sneaky:
+    display-name: "&2The Sneaky Elf"
+    entity-type: ZOMBIE
+    health: 120
+    speed: 0.24
+    hitbox-scale: 0.7
+    attack-damage: 5
+    glowing: false
+    abilities: []
+    reward-top-contributors: 3
+    model:
+      id: grinch_minion_sneaky
+      provider: display
+      scale: 0.8
+      offset-y: 0.0
+      yaw-offset: 180
+      run-speed-threshold: .24
+      movement-animation-speed: 1.0
+      animations:
+        idle: idle
+        walk: walk
+        run: run
+        attack: attack
+        spawn: laugh
+        hurt: hurt
+        death: death
+        carry: carry_present  # while resting without a combat target
+    spawn-messages:
+      - "&2The Sneaky Elf:&7 Heh heh... what's in the box?"
+    death-messages:
+      - "&aThe Sneaky Elf drops his stolen loot and scurries off."
+    rewards:
+      shards:
+        weight: 100
+        shards: 40-90
+
+  grinch_strong:
+    display-name: "&cThe Strong Minion"
+    entity-type: ZOMBIE
+    health: 300
+    speed: 0.20
+    hitbox-scale: 0.9
+    attack-damage: 9
+    glowing: false
+    abilities: []
+    reward-top-contributors: 3
+    model:
+      id: grinch_minion_strong
+      provider: display
+      scale: 0.95
+      offset-y: 0.0
+      yaw-offset: 180
+      run-speed-threshold: .24
+      movement-animation-speed: 1.0
+      animations:
+        idle: idle
+        walk: walk
+        run: run
+        attack: attack
+        spawn: laugh
+        hurt: hurt
+        death: death
+        carry: carry_present  # while resting without a combat target
+    spawn-messages:
+      - "&cThe Strong Minion:&7 RRRAAGH! No presents for you!"
+    death-messages:
+      - "&aThe Strong Minion drops his giant sack and lumbers away."
+    rewards:
+      shards:
+        weight: 100
+        shards: 80-160
+
+  grinch_crazy:
+    display-name: "&dThe Crazy Minion"
+    entity-type: ZOMBIE
+    health: 90
+    speed: 0.26
+    hitbox-scale: 0.55
+    attack-damage: 4
+    glowing: false
+    abilities: []
+    reward-top-contributors: 3
+    model:
+      id: grinch_minion_crazy
+      provider: display
+      scale: 0.7
+      offset-y: 0.0
+      yaw-offset: 180
+      run-speed-threshold: .24
+      movement-animation-speed: 1.0
+      animations:
+        idle: idle
+        walk: walk
+        run: run
+        attack: attack
+        spawn: laugh
+        hurt: hurt
+        death: death
+        carry: carry_present  # while resting without a combat target
+    spawn-messages:
+      - "&dThe Crazy Minion:&7 Hehehe! Candy cane goes WHACK!"
+    death-messages:
+      - "&aThe Crazy Minion giggles and vanishes in a puff of snow."
+    rewards:
+      shards:
+        weight: 100
+        shards: 30-70
 
   krampus:
     display-name: "&4&lKrampus"

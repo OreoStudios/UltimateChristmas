@@ -60,8 +60,8 @@ public final class BossControlMenu extends PagedMenu {
                 .addLore("<gray>Shift-click to teleport to a live boss")
                 .addBlankLore()
                 .addLore(control.modelPluginAvailable()
-                        ? "<green>A model plugin is installed"
-                        : "<dark_gray>No model plugin - bosses use vanilla mobs")
+                        ? "<green>Custom model rendering is available"
+                        : "<dark_gray>No custom model renderer is available")
                 .hideAll()
                 .build()));
 

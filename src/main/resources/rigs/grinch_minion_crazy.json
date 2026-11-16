@@ -1,0 +1,2848 @@
+{
+  "name": "grinch_minion_crazy",
+  "bones": [
+    {
+      "name": "root",
+      "parent": null,
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": null,
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hips",
+      "parent": "root",
+      "pivot": [
+        0.0,
+        6.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": null,
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "body",
+      "parent": "hips",
+      "pivot": [
+        0.0,
+        6.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_body",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head",
+      "parent": "body",
+      "pivot": [
+        0.0,
+        11.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_head",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c0",
+      "source_element": "bee62eff-b732-f9b5-3452-bedb32ec930d",
+      "parent": "head",
+      "pivot": [
+        0.1,
+        12.2,
+        -0.6
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        6.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_head__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c1",
+      "source_element": "50c8ea2c-68dc-2775-9c2c-b9bedbf8b8d1",
+      "parent": "head",
+      "pivot": [
+        0.0,
+        14.4,
+        -3.65
+      ],
+      "rotation": [
+        12.0,
+        0.0,
+        -10.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_head__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c2",
+      "source_element": "257f0adf-d207-6380-e4a0-a93514cf43c3",
+      "parent": "head",
+      "pivot": [
+        -4.1,
+        15.25,
+        0.4
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -12.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_head__c2",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "head__c3",
+      "source_element": "bad422a8-6c35-b5cc-7ba7-27bda65082c7",
+      "parent": "head",
+      "pivot": [
+        4.1,
+        15.25,
+        0.4
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        30.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_head__c3",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hat",
+      "parent": "head",
+      "pivot": [
+        0.0,
+        17.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        17.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_hat",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hat__c0",
+      "source_element": "1ecae892-d260-8fe8-cc45-10d5194a89ac",
+      "parent": "hat",
+      "pivot": [
+        -1.5,
+        22.8,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        24.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_hat__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hat__c1",
+      "source_element": "3861b50d-b453-c0e3-099b-7b1b0be10e29",
+      "parent": "hat",
+      "pivot": [
+        -3.6,
+        22.9,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -18.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_hat__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "hat__c2",
+      "source_element": "70a8baed-1567-7193-54e0-d0c06374acc9",
+      "parent": "hat",
+      "pivot": [
+        -4.15,
+        20.65,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        12.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_hat__c2",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "arm_l",
+      "parent": "body",
+      "pivot": [
+        3.4,
+        10.8,
+        0.0
+      ],
+      "rotation": [
+        8.0,
+        0.0,
+        16.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_arm_l",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "forearm_l",
+      "parent": "arm_l",
+      "pivot": [
+        3.4,
+        8.3,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_forearm_l",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "forearm_l__c0",
+      "source_element": "683c8959-a687-dc6c-4214-a5ea3612ee29",
+      "parent": "forearm_l",
+      "pivot": [
+        3.4,
+        4.8,
+        -0.4
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        8.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_forearm_l__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "forearm_l__c1",
+      "source_element": "4fd9e831-c73a-73ad-648a-70114c26ef5a",
+      "parent": "forearm_l",
+      "pivot": [
+        3.4,
+        4.8,
+        -0.4
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -8.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_forearm_l__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "arm_r",
+      "parent": "body",
+      "pivot": [
+        -3.4,
+        10.8,
+        0.0
+      ],
+      "rotation": [
+        18.0,
+        0.0,
+        -16.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_arm_r",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "forearm_r",
+      "parent": "arm_r",
+      "pivot": [
+        -3.4,
+        8.3,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_forearm_r",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "forearm_r__c0",
+      "source_element": "7d826db4-e140-eb36-6e88-c0ca221acaea",
+      "parent": "forearm_r",
+      "pivot": [
+        -3.4,
+        4.8,
+        -0.4
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        8.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_forearm_r__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "forearm_r__c1",
+      "source_element": "d39b4c78-3090-7c9d-6b22-0030d9d099e3",
+      "parent": "forearm_r",
+      "pivot": [
+        -3.4,
+        4.8,
+        -0.4
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -8.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_forearm_r__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "cane",
+      "parent": "forearm_r",
+      "pivot": [
+        -4.0,
+        6.0,
+        -1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_cane",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "scarf",
+      "parent": "body",
+      "pivot": [
+        2.0,
+        11.0,
+        -3.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_scarf",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "scarf__c0",
+      "source_element": "dac108c5-7dce-b185-9981-07f9e6dc7284",
+      "parent": "scarf",
+      "pivot": [
+        2.0,
+        11.0,
+        -3.65
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -12.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_scarf__c0",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "scarf__c1",
+      "source_element": "fc22675c-bccd-1a0c-42b4-1236077edad5",
+      "parent": "scarf",
+      "pivot": [
+        2.0,
+        6.0,
+        -3.65
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -18.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_scarf__c1",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "scarf__c2",
+      "source_element": "40360245-1e95-f818-338b-9a9411ded1db",
+      "parent": "scarf",
+      "pivot": [
+        -1.4,
+        11.0,
+        3.0
+      ],
+      "rotation": [
+        10.0,
+        0.0,
+        15.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_scarf__c2",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "leg_l",
+      "parent": "hips",
+      "pivot": [
+        1.5,
+        6.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_leg_l",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "knee_l",
+      "parent": "leg_l",
+      "pivot": [
+        1.5,
+        3.2,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_knee_l",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "leg_r",
+      "parent": "hips",
+      "pivot": [
+        -1.5,
+        6.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_leg_r",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "knee_r",
+      "parent": "leg_r",
+      "pivot": [
+        -1.5,
+        3.2,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "model": "ultimatechristmas:boss/grinch_minion_crazy_knee_r",
+      "model_offset": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "animations": {
+    "idle": {
+      "length": 2.08,
+      "loop": true,
+      "hold": false,
+      "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.04,
+              -1.955,
+              0.0,
+              0.69,
+              "linear"
+            ],
+            [
+              2.08,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              -3.45,
+              -2.3,
+              "linear"
+            ],
+            [
+              1.04,
+              2.3,
+              3.45,
+              -1.15,
+              "linear"
+            ],
+            [
+              2.08,
+              0.0,
+              -3.45,
+              -2.3,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.04,
+              -2.3,
+              0.0,
+              2.3,
+              "linear"
+            ],
+            [
+              2.08,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.04,
+              2.3,
+              0.0,
+              -2.3,
+              "linear"
+            ],
+            [
+              2.08,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "scarf": {
+          "rotation": [
+            [
+              0.0,
+              -8.0,
+              0.0,
+              -8.0,
+              "linear"
+            ],
+            [
+              1.04,
+              12.0,
+              0.0,
+              12.0,
+              "linear"
+            ],
+            [
+              2.08,
+              -8.0,
+              0.0,
+              -8.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "walk": {
+      "length": 0.78,
+      "loop": true,
+      "hold": false,
+      "bones": {
+        "leg_l": {
+          "rotation": [
+            [
+              0.0,
+              31.05,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              -31.05,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.59,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              31.05,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "leg_r": {
+          "rotation": [
+            [
+              0.0,
+              -31.05,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              31.05,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.59,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              -31.05,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "knee_l": {
+          "rotation": [
+            [
+              0.0,
+              4.6,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              32.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              3.45,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.59,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              4.6,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "knee_r": {
+          "rotation": [
+            [
+              0.0,
+              3.45,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              4.6,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.59,
+              32.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              3.45,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              21.735,
+              0.0,
+              8.05,
+              "linear"
+            ],
+            [
+              0.2,
+              0.0,
+              0.0,
+              3.45,
+              "linear"
+            ],
+            [
+              0.39,
+              -21.735,
+              0.0,
+              8.05,
+              "linear"
+            ],
+            [
+              0.59,
+              0.0,
+              0.0,
+              3.45,
+              "linear"
+            ],
+            [
+              0.78,
+              21.735,
+              0.0,
+              8.05,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              -21.735,
+              0.0,
+              -8.05,
+              "linear"
+            ],
+            [
+              0.2,
+              0.0,
+              0.0,
+              -3.45,
+              "linear"
+            ],
+            [
+              0.39,
+              21.735,
+              0.0,
+              -8.05,
+              "linear"
+            ],
+            [
+              0.59,
+              0.0,
+              0.0,
+              -3.45,
+              "linear"
+            ],
+            [
+              0.78,
+              -21.735,
+              0.0,
+              -8.05,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_l": {
+          "rotation": [
+            [
+              0.0,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              34.5,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.59,
+              9.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            [
+              0.0,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              9.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.59,
+              34.5,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "hips": {
+          "position": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              0.0,
+              0.175,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.59,
+              0.0,
+              0.175,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              4.6,
+              -4.6,
+              2.3,
+              "linear"
+            ],
+            [
+              0.2,
+              6.9,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              4.6,
+              4.6,
+              -2.3,
+              "linear"
+            ],
+            [
+              0.59,
+              6.9,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              4.6,
+              -4.6,
+              2.3,
+              "linear"
+            ]
+          ]
+        },
+        "hat": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              -3.45,
+              "linear"
+            ],
+            [
+              0.2,
+              4.6,
+              0.0,
+              2.3,
+              "linear"
+            ],
+            [
+              0.39,
+              0.0,
+              0.0,
+              -3.45,
+              "linear"
+            ],
+            [
+              0.59,
+              4.6,
+              0.0,
+              2.3,
+              "linear"
+            ],
+            [
+              0.78,
+              0.0,
+              0.0,
+              -3.45,
+              "linear"
+            ]
+          ]
+        },
+        "scarf": {
+          "rotation": [
+            [
+              0.0,
+              -8.0,
+              0.0,
+              -8.0,
+              "linear"
+            ],
+            [
+              0.39,
+              12.0,
+              0.0,
+              12.0,
+              "linear"
+            ],
+            [
+              0.78,
+              -8.0,
+              0.0,
+              -8.0,
+              "linear"
+            ]
+          ]
+        },
+        "root": {
+          "position": [
+            [
+              0.0,
+              0.0,
+              0.294,
+              0.0,
+              "linear"
+            ],
+            [
+              0.05,
+              0.0,
+              0.339,
+              0.0,
+              "linear"
+            ],
+            [
+              0.1,
+              0.0,
+              0.283,
+              0.0,
+              "linear"
+            ],
+            [
+              0.15,
+              0.0,
+              0.124,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ],
+            [
+              0.24,
+              0.0,
+              0.067,
+              0.0,
+              "linear"
+            ],
+            [
+              0.29,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ],
+            [
+              0.34,
+              0.0,
+              0.158,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              0.0,
+              0.294,
+              0.0,
+              "linear"
+            ],
+            [
+              0.44,
+              0.0,
+              0.339,
+              0.0,
+              "linear"
+            ],
+            [
+              0.49,
+              0.0,
+              0.283,
+              0.0,
+              "linear"
+            ],
+            [
+              0.54,
+              0.0,
+              0.124,
+              0.0,
+              "linear"
+            ],
+            [
+              0.59,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ],
+            [
+              0.63,
+              0.0,
+              0.067,
+              0.0,
+              "linear"
+            ],
+            [
+              0.68,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ],
+            [
+              0.73,
+              0.0,
+              0.158,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              0.0,
+              0.294,
+              0.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "run": {
+      "length": 0.42,
+      "loop": true,
+      "hold": false,
+      "bones": {
+        "leg_l": {
+          "rotation": [
+            [
+              0.0,
+              55.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.1,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.21,
+              -55.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.31,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.42,
+              55.2,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "leg_r": {
+          "rotation": [
+            [
+              0.0,
+              -55.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.1,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.21,
+              55.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.31,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.42,
+              -55.2,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "knee_l": {
+          "rotation": [
+            [
+              0.0,
+              4.6,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.1,
+              32.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.21,
+              3.45,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.31,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.42,
+              4.6,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "knee_r": {
+          "rotation": [
+            [
+              0.0,
+              3.45,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.1,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.21,
+              4.6,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.31,
+              32.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.42,
+              3.45,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              38.64,
+              0.0,
+              8.05,
+              "linear"
+            ],
+            [
+              0.1,
+              0.0,
+              0.0,
+              3.45,
+              "linear"
+            ],
+            [
+              0.21,
+              -38.64,
+              0.0,
+              8.05,
+              "linear"
+            ],
+            [
+              0.31,
+              0.0,
+              0.0,
+              3.45,
+              "linear"
+            ],
+            [
+              0.42,
+              38.64,
+              0.0,
+              8.05,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              -38.64,
+              0.0,
+              -8.05,
+              "linear"
+            ],
+            [
+              0.1,
+              0.0,
+              0.0,
+              -3.45,
+              "linear"
+            ],
+            [
+              0.21,
+              38.64,
+              0.0,
+              -8.05,
+              "linear"
+            ],
+            [
+              0.31,
+              0.0,
+              0.0,
+              -3.45,
+              "linear"
+            ],
+            [
+              0.42,
+              -38.64,
+              0.0,
+              -8.05,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_l": {
+          "rotation": [
+            [
+              0.0,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.1,
+              34.5,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.21,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.31,
+              9.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.42,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            [
+              0.0,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.1,
+              9.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.21,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.31,
+              34.5,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.42,
+              17.25,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "hips": {
+          "position": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.1,
+              0.0,
+              0.175,
+              0.0,
+              "linear"
+            ],
+            [
+              0.21,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.31,
+              0.0,
+              0.175,
+              0.0,
+              "linear"
+            ],
+            [
+              0.42,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              13.8,
+              -4.6,
+              2.3,
+              "linear"
+            ],
+            [
+              0.1,
+              16.1,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.21,
+              13.8,
+              4.6,
+              -2.3,
+              "linear"
+            ],
+            [
+              0.31,
+              16.1,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.42,
+              13.8,
+              -4.6,
+              2.3,
+              "linear"
+            ]
+          ]
+        },
+        "hat": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              -3.45,
+              "linear"
+            ],
+            [
+              0.1,
+              4.6,
+              0.0,
+              2.3,
+              "linear"
+            ],
+            [
+              0.21,
+              0.0,
+              0.0,
+              -3.45,
+              "linear"
+            ],
+            [
+              0.31,
+              4.6,
+              0.0,
+              2.3,
+              "linear"
+            ],
+            [
+              0.42,
+              0.0,
+              0.0,
+              -3.45,
+              "linear"
+            ]
+          ]
+        },
+        "scarf": {
+          "rotation": [
+            [
+              0.0,
+              -8.0,
+              0.0,
+              -8.0,
+              "linear"
+            ],
+            [
+              0.21,
+              12.0,
+              0.0,
+              12.0,
+              "linear"
+            ],
+            [
+              0.42,
+              -8.0,
+              0.0,
+              -8.0,
+              "linear"
+            ]
+          ]
+        },
+        "root": {
+          "position": [
+            [
+              0.0,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ],
+            [
+              0.05,
+              0.0,
+              0.273,
+              0.0,
+              "linear"
+            ],
+            [
+              0.09,
+              0.0,
+              0.055,
+              0.0,
+              "linear"
+            ],
+            [
+              0.14,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ],
+            [
+              0.19,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ],
+            [
+              0.23,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ],
+            [
+              0.28,
+              0.0,
+              0.273,
+              0.0,
+              "linear"
+            ],
+            [
+              0.33,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ],
+            [
+              0.37,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ],
+            [
+              0.42,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "attack": {
+      "length": 0.62,
+      "loop": false,
+      "hold": false,
+      "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.15,
+              -9.2,
+              -28.75,
+              4.6,
+              "linear"
+            ],
+            [
+              0.31,
+              16.1,
+              32.2,
+              -6.9,
+              "linear"
+            ],
+            [
+              0.46,
+              6.9,
+              13.8,
+              -2.3,
+              "linear"
+            ],
+            [
+              0.62,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.15,
+              103.5,
+              -40.25,
+              -40.25,
+              "linear"
+            ],
+            [
+              0.31,
+              51.75,
+              57.5,
+              13.8,
+              "linear"
+            ],
+            [
+              0.46,
+              23.0,
+              28.75,
+              9.2,
+              "linear"
+            ],
+            [
+              0.62,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "forearm_r": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.15,
+              63.25,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.31,
+              11.5,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.46,
+              23.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.62,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.15,
+              0.0,
+              17.25,
+              0.0,
+              "linear"
+            ],
+            [
+              0.31,
+              9.2,
+              -20.7,
+              0.0,
+              "linear"
+            ],
+            [
+              0.46,
+              3.45,
+              -9.2,
+              0.0,
+              "linear"
+            ],
+            [
+              0.62,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "laugh": {
+      "length": 1.04,
+      "loop": true,
+      "hold": false,
+      "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              -3.45,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.26,
+              -8.05,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.52,
+              -2.3,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              -8.05,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.04,
+              -3.45,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              -9.2,
+              0.0,
+              -4.6,
+              "linear"
+            ],
+            [
+              0.26,
+              -16.1,
+              2.3,
+              -2.3,
+              "linear"
+            ],
+            [
+              0.52,
+              -8.05,
+              -2.3,
+              2.3,
+              "linear"
+            ],
+            [
+              0.78,
+              -16.1,
+              2.3,
+              -2.3,
+              "linear"
+            ],
+            [
+              1.04,
+              -9.2,
+              0.0,
+              -4.6,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              23.0,
+              0.0,
+              13.8,
+              "linear"
+            ],
+            [
+              0.26,
+              27.6,
+              0.0,
+              18.4,
+              "linear"
+            ],
+            [
+              0.52,
+              23.0,
+              0.0,
+              13.8,
+              "linear"
+            ],
+            [
+              0.78,
+              27.6,
+              0.0,
+              18.4,
+              "linear"
+            ],
+            [
+              1.04,
+              23.0,
+              0.0,
+              13.8,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              23.0,
+              0.0,
+              -13.8,
+              "linear"
+            ],
+            [
+              0.26,
+              27.6,
+              0.0,
+              -18.4,
+              "linear"
+            ],
+            [
+              0.52,
+              23.0,
+              0.0,
+              -13.8,
+              "linear"
+            ],
+            [
+              0.78,
+              27.6,
+              0.0,
+              -18.4,
+              "linear"
+            ],
+            [
+              1.04,
+              23.0,
+              0.0,
+              -13.8,
+              "linear"
+            ]
+          ]
+        },
+        "scarf": {
+          "rotation": [
+            [
+              0.0,
+              -8.0,
+              0.0,
+              -8.0,
+              "linear"
+            ],
+            [
+              0.52,
+              12.0,
+              0.0,
+              12.0,
+              "linear"
+            ],
+            [
+              1.04,
+              -8.0,
+              0.0,
+              -8.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "hurt": {
+      "length": 0.39,
+      "loop": false,
+      "hold": false,
+      "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.13,
+              -18.4,
+              10.35,
+              5.75,
+              "linear"
+            ],
+            [
+              0.26,
+              -5.75,
+              3.45,
+              1.15,
+              "linear"
+            ],
+            [
+              0.39,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.13,
+              -13.8,
+              -11.5,
+              -9.2,
+              "linear"
+            ],
+            [
+              0.26,
+              2.3,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.13,
+              17.25,
+              0.0,
+              17.25,
+              "linear"
+            ],
+            [
+              0.26,
+              6.9,
+              0.0,
+              8.05,
+              "linear"
+            ],
+            [
+              0.39,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "death": {
+      "length": 1.56,
+      "loop": false,
+      "hold": true,
+      "bones": {
+        "root": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.17,
+              -51.75,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.56,
+              -90.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ],
+          "position": [
+            [
+              0.0,
+              0.0,
+              0.04,
+              0.0,
+              "linear"
+            ],
+            [
+              0.05,
+              0.0,
+              0.13,
+              0.0,
+              "linear"
+            ],
+            [
+              0.1,
+              0.0,
+              0.219,
+              0.0,
+              "linear"
+            ],
+            [
+              0.15,
+              0.0,
+              0.309,
+              0.0,
+              "linear"
+            ],
+            [
+              0.2,
+              0.0,
+              0.399,
+              0.0,
+              "linear"
+            ],
+            [
+              0.24,
+              0.0,
+              0.471,
+              0.0,
+              "linear"
+            ],
+            [
+              0.29,
+              0.0,
+              0.561,
+              0.0,
+              "linear"
+            ],
+            [
+              0.34,
+              0.0,
+              0.65,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              0.0,
+              0.74,
+              0.0,
+              "linear"
+            ],
+            [
+              0.44,
+              0.0,
+              0.875,
+              0.0,
+              "linear"
+            ],
+            [
+              0.49,
+              0.0,
+              1.009,
+              0.0,
+              "linear"
+            ],
+            [
+              0.54,
+              0.0,
+              1.144,
+              0.0,
+              "linear"
+            ],
+            [
+              0.59,
+              0.0,
+              1.278,
+              0.0,
+              "linear"
+            ],
+            [
+              0.63,
+              0.0,
+              1.386,
+              0.0,
+              "linear"
+            ],
+            [
+              0.68,
+              0.0,
+              1.521,
+              0.0,
+              "linear"
+            ],
+            [
+              0.73,
+              0.0,
+              1.655,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              0.0,
+              1.79,
+              0.0,
+              "linear"
+            ],
+            [
+              0.83,
+              0.0,
+              1.899,
+              0.0,
+              "linear"
+            ],
+            [
+              0.88,
+              0.0,
+              1.986,
+              0.0,
+              "linear"
+            ],
+            [
+              0.93,
+              0.0,
+              2.055,
+              0.0,
+              "linear"
+            ],
+            [
+              0.98,
+              0.0,
+              2.107,
+              0.0,
+              "linear"
+            ],
+            [
+              1.02,
+              0.0,
+              2.138,
+              0.0,
+              "linear"
+            ],
+            [
+              1.07,
+              0.0,
+              2.168,
+              0.0,
+              "linear"
+            ],
+            [
+              1.12,
+              0.0,
+              2.188,
+              0.0,
+              "linear"
+            ],
+            [
+              1.17,
+              0.0,
+              2.201,
+              0.0,
+              "linear"
+            ],
+            [
+              1.22,
+              0.0,
+              2.213,
+              0.0,
+              "linear"
+            ],
+            [
+              1.27,
+              0.0,
+              2.227,
+              0.0,
+              "linear"
+            ],
+            [
+              1.32,
+              0.0,
+              2.538,
+              0.0,
+              "linear"
+            ],
+            [
+              1.37,
+              0.0,
+              2.845,
+              0.0,
+              "linear"
+            ],
+            [
+              1.41,
+              0.0,
+              3.086,
+              0.0,
+              "linear"
+            ],
+            [
+              1.46,
+              0.0,
+              3.381,
+              0.0,
+              "linear"
+            ],
+            [
+              1.51,
+              0.0,
+              3.666,
+              0.0,
+              "linear"
+            ],
+            [
+              1.56,
+              0.0,
+              4.053,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "hips": {
+          "position": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              0.0,
+              -0.7,
+              0.0,
+              "linear"
+            ],
+            [
+              0.78,
+              0.0,
+              -1.75,
+              0.0,
+              "linear"
+            ],
+            [
+              1.17,
+              0.0,
+              -0.7,
+              0.0,
+              "linear"
+            ],
+            [
+              1.56,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              -17.25,
+              0.0,
+              -13.8,
+              "linear"
+            ],
+            [
+              0.78,
+              17.25,
+              0.0,
+              11.5,
+              "linear"
+            ],
+            [
+              1.17,
+              9.2,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.56,
+              5.75,
+              0.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              51.75,
+              0.0,
+              28.75,
+              "linear"
+            ],
+            [
+              0.78,
+              11.5,
+              0.0,
+              51.75,
+              "linear"
+            ],
+            [
+              1.17,
+              0.0,
+              0.0,
+              69.0,
+              "linear"
+            ],
+            [
+              1.56,
+              0.0,
+              0.0,
+              45.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.39,
+              51.75,
+              0.0,
+              -28.75,
+              "linear"
+            ],
+            [
+              0.78,
+              11.5,
+              0.0,
+              -51.75,
+              "linear"
+            ],
+            [
+              1.17,
+              0.0,
+              0.0,
+              -69.0,
+              "linear"
+            ],
+            [
+              1.56,
+              0.0,
+              0.0,
+              -45.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    },
+    "carry_present": {
+      "length": 1.2,
+      "loop": true,
+      "hold": false,
+      "bones": {
+        "body": {
+          "rotation": [
+            [
+              0.0,
+              6.0,
+              0.0,
+              -2.0,
+              "linear"
+            ],
+            [
+              0.6,
+              8.0,
+              0.0,
+              2.0,
+              "linear"
+            ],
+            [
+              1.2,
+              6.0,
+              0.0,
+              -2.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            [
+              0.0,
+              30.0,
+              0.0,
+              8.0,
+              "linear"
+            ],
+            [
+              0.6,
+              34.0,
+              0.0,
+              10.0,
+              "linear"
+            ],
+            [
+              1.2,
+              30.0,
+              0.0,
+              8.0,
+              "linear"
+            ]
+          ]
+        },
+        "arm_r": {
+          "rotation": [
+            [
+              0.0,
+              45.0,
+              0.0,
+              -10.0,
+              "linear"
+            ],
+            [
+              0.6,
+              48.0,
+              0.0,
+              -12.0,
+              "linear"
+            ],
+            [
+              1.2,
+              45.0,
+              0.0,
+              -10.0,
+              "linear"
+            ]
+          ]
+        },
+        "head": {
+          "rotation": [
+            [
+              0.0,
+              0.0,
+              -5.0,
+              0.0,
+              "linear"
+            ],
+            [
+              0.6,
+              3.0,
+              5.0,
+              0.0,
+              "linear"
+            ],
+            [
+              1.2,
+              0.0,
+              -5.0,
+              0.0,
+              "linear"
+            ]
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "0": "ultimatechristmas:item/grinch_minion_strong",
+    "particle": "ultimatechristmas:item/grinch_minion_strong"
+  },
+  "display": {
+    "fixed": {
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "elements": [
+    {
+      "from": [
+        6.6,
+        6.599999999999998,
+        6.65
+      ],
+      "to": [
+        9.4,
+        9.399999999999999,
+        9.35
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            15.0,
+            10.75,
+            15.375,
+            11.125
+          ],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            0.0625,
+            11.75,
+            0.4375,
+            12.125
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            15.4375,
+            10.75,
+            15.8125,
+            11.125
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            0.5,
+            11.75,
+            0.875,
+            12.125
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            0.9375,
+            11.75,
+            1.3125,
+            12.125
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            1.375,
+            11.75,
+            1.75,
+            12.125
+          ],
+          "texture": "#0"
+        }
+      }
+    }
+  ]
+}

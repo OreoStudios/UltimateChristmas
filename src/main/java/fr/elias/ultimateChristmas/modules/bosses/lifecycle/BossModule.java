@@ -55,6 +55,11 @@ public final class BossModule extends FeatureModule implements BossService, Boss
     private volatile BossParameters parameters;
 
     private int abilityCounter;
+    private final Map<UUID, BossType.ModelSettings> modelSettings = new LinkedHashMap<>();
+    private final Map<UUID, UUID> summonedOwners = new LinkedHashMap<>();
+    private final Map<UUID, Integer> minionSequence = new LinkedHashMap<>();
+    private final java.util.Set<UUID> ownedModels = new java.util.HashSet<>();
+    private final java.util.Set<UUID> enraged = new java.util.HashSet<>();
 
     public BossModule(ChristmasPlatform platform, BossParameters parameters) {
         super(platform);
@@ -85,7 +90,17 @@ public final class BossModule extends FeatureModule implements BossService, Boss
                 fight.entity().remove();
             }
         }
+        for (UUID id : new ArrayList<>(summonedOwners.keySet())) {
+            var minion = Bukkit.getEntity(id);
+            if (minion != null) minion.remove();
+        }
+        for (UUID id : ownedModels) platform.modelRenderer().detach(id);
         fights.clear();
+        modelSettings.clear();
+        summonedOwners.clear();
+        minionSequence.clear();
+        ownedModels.clear();
+        enraged.clear();
     }
 
     @Override
@@ -112,6 +127,12 @@ public final class BossModule extends FeatureModule implements BossService, Boss
 
     /** The per-second loop: refresh bars, drop dead fights, fire abilities. */
     private void tick() {
+        ownedModels.removeIf(id -> !platform.modelRenderer().has(id));
+        modelSettings.keySet().removeIf(id -> !ownedModels.contains(id));
+        summonedOwners.keySet().removeIf(id -> {
+            var entity = Bukkit.getEntity(id);
+            return entity == null || !entity.isValid();
+        });
         if (fights.isEmpty()) {
             return;
         }
@@ -129,6 +150,8 @@ public final class BossModule extends FeatureModule implements BossService, Boss
                 fight.releaseChunk();
                 platform.modelRenderer().detach(fight.entity().getUniqueId());
                 fights.remove(fight.entity().getUniqueId());
+                removeMinions(fight.entity().getUniqueId(), false);
+                enraged.remove(fight.entity().getUniqueId());
                 continue;
             }
             fight.updateBar();
@@ -140,19 +163,67 @@ public final class BossModule extends FeatureModule implements BossService, Boss
 
     private void fireAbility(BossFight fight) {
         List<String> abilities = fight.type().abilities();
-        if (abilities.isEmpty() || !(fight.entity() instanceof Mob mob)) {
-            return;
-        }
+        if (abilities.isEmpty() || !fight.alive()) return;
+        Mob mob = fight.entity();
         String ability = abilities.get(ThreadLocalRandom.current().nextInt(abilities.size()));
-        BossAbilities.run(ability, mob);
+        String clip = fight.type().modelSettings().abilityClips().get(ability.toLowerCase(Locale.ROOT));
+        if (clip == null) clip = fight.type().modelSettings().abilityClips().get(BossAbilities.canonicalName(ability));
+        boolean animated = platform.modelRenderer().play(mob.getUniqueId(), clip, 40);
+        long windup = animated ? Math.min(40, Math.round(
+                platform.modelRenderer().animationLength(mob.getUniqueId(), clip) * 10)) : 0;
+        later(() -> {
+            if (!fight.alive() || !fights.containsKey(mob.getUniqueId())) return;
+            int count = fight.type().minionTypes().isEmpty() ? 2 : fight.type().minionTypes().size();
+            BossAbilities.run(ability, mob, count, minion -> configureMinion(fight, minion));
+        }, Math.max(1, windup));
+    }
 
-        // Play the animation the config maps this ability to (laugh, celebrate...)
-        // on the boss's own model, if it has one.
-        String clip = fight.type().modelSettings().abilityClips()
-                .get(ability.toLowerCase(Locale.ROOT));
-        if (clip != null && platform.modelRenderer().has(mob.getUniqueId())) {
-            platform.modelRenderer().play(mob.getUniqueId(), clip);
+    private void configureMinion(BossFight owner, org.bukkit.entity.Zombie minion) {
+        BossType type = owner.type();
+        List<String> variants = type.minionTypes();
+        BossType variant = null;
+        if (!variants.isEmpty()) {
+            int index = minionSequence.merge(owner.entity().getUniqueId(), 1, Integer::sum) - 1;
+            variant = types.get(variants.get(index % variants.size()));
         }
+        summonedOwners.put(minion.getUniqueId(), owner.entity().getUniqueId());
+        if (variant != null) {
+            setAttribute(minion, org.bukkit.attribute.Attribute.MAX_HEALTH,
+                    variant.health() * type.minionHealthMultiplier());
+            minion.setHealth(minion.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH).getValue());
+            setAttribute(minion, org.bukkit.attribute.Attribute.MOVEMENT_SPEED, variant.speed());
+            setAttribute(minion, org.bukkit.attribute.Attribute.ATTACK_DAMAGE, variant.attackDamage());
+            setAttribute(minion, org.bukkit.attribute.Attribute.SCALE, variant.hitboxScale());
+            attachModel(minion, variant.model(), variant.modelProvider(), variant.modelSettings(),
+                    "minion '" + variant.id() + "'");
+        } else if (type.hasMinionModel()) {
+            attachModel(minion, type.minionModel(), type.minionProvider(), type.minionSettings(),
+                    "minion of '" + type.id() + "'");
+        }
+        if (owner.entity().getTarget() != null) minion.setTarget(owner.entity().getTarget());
+    }
+
+    private static void setAttribute(Mob mob, org.bukkit.attribute.Attribute attribute, double value) {
+        var instance = mob.getAttribute(attribute);
+        if (instance != null) instance.setBaseValue(value);
+    }
+
+    private void removeMinions(UUID owner, boolean animated) {
+        for (var entry : new ArrayList<>(summonedOwners.entrySet())) {
+            if (!owner.equals(entry.getValue())) continue;
+            UUID id = entry.getKey();
+            var entity = Bukkit.getEntity(id);
+            BossType.ModelSettings settings = modelSettings.remove(id);
+            if (animated && entity instanceof org.bukkit.entity.LivingEntity living && settings != null) {
+                platform.modelRenderer().finish(living, settings.deathClip());
+            } else {
+                platform.modelRenderer().detach(id);
+                ownedModels.remove(id);
+            }
+            if (entity != null) entity.remove();
+            summonedOwners.remove(id);
+        }
+        minionSequence.remove(owner);
     }
 
     // ------------------------------------------------------------ public API
@@ -231,6 +302,8 @@ public final class BossModule extends FeatureModule implements BossService, Boss
                     fight.entity().remove();
                 }
                 fights.remove(fight.entity().getUniqueId());
+                removeMinions(fight.entity().getUniqueId(), false);
+                enraged.remove(fight.entity().getUniqueId());
                 removed++;
             }
         }
@@ -244,7 +317,8 @@ public final class BossModule extends FeatureModule implements BossService, Boss
 
     @Override
     public boolean modelPluginAvailable() {
-        return platform.hooks().models().anyAvailable();
+        return platform.modelRenderer().registry().has("grinch")
+                || platform.hooks().models().anyAvailable();
     }
 
     /** Opens the boss control-center menu for an admin. */
@@ -290,9 +364,12 @@ public final class BossModule extends FeatureModule implements BossService, Boss
                     new fr.elias.ultimateChristmas.core.model.RiggedEntity.Placement(
                             settings.scale(), settings.offsetY(), settings.yawOffset()),
                     new fr.elias.ultimateChristmas.core.model.DisplayModelRenderer.StateClips(
-                            settings.idle(), settings.walk(), settings.run()));
+                            settings.idle(), settings.walk(), settings.run(), settings.carryClip(),
+                            settings.runThreshold(), settings.movementRate()));
+            modelSettings.put(entity.getUniqueId(), settings);
+            ownedModels.add(entity.getUniqueId());
             if (settings.spawnClip() != null) {
-                platform.modelRenderer().play(entity.getUniqueId(), settings.spawnClip());
+                platform.modelRenderer().play(entity.getUniqueId(), settings.spawnClip(), 10);
             }
             return;
         }
@@ -322,8 +399,10 @@ public final class BossModule extends FeatureModule implements BossService, Boss
         fights.remove(fight.entity().getUniqueId());
         fight.hideBar();
         fight.releaseChunk();
-        platform.modelRenderer().detach(fight.entity().getUniqueId());
         BossType type = fight.type();
+        platform.modelRenderer().finish(fight.entity(), type.modelSettings().deathClip());
+        modelSettings.remove(fight.entity().getUniqueId());
+        enraged.remove(fight.entity().getUniqueId());
         Location where = fight.location();
 
         if (parameters.taunt()) {
@@ -370,11 +449,7 @@ public final class BossModule extends FeatureModule implements BossService, Boss
         if (where != null) {
             Fx.fireworkShow(platform.plugin(), where, 8, 6L);
         }
-        if (parameters.removeMinionsOnDeath() && where != null && where.getWorld() != null) {
-            where.getWorld().getNearbyEntities(where, 24, 24, 24).stream()
-                    .filter(entity -> entity.hasMetadata("uc_boss_minion"))
-                    .forEach(org.bukkit.entity.Entity::remove);
-        }
+        if (parameters.removeMinionsOnDeath()) removeMinions(fight.entity().getUniqueId(), true);
 
         emit(new BossDefeatedEvent(type.id(), contributorIds));
     }
@@ -384,21 +459,10 @@ public final class BossModule extends FeatureModule implements BossService, Boss
         /** Tallies damage dealt to a boss, including by arrows. */
         @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
         public void onDamage(EntityDamageByEntityEvent event) {
-            // A boss or minion landing a hit plays its attack clip on its model.
             var damager = event.getDamager();
-            if (platform.modelRenderer().has(damager.getUniqueId())) {
-                BossFight dealer = fights.get(damager.getUniqueId());
-                String clip = null;
-                if (dealer != null) {
-                    clip = dealer.type().modelSettings().attackClip();
-                } else if (damager.hasMetadata("uc_boss_minion")) {
-                    BossType type = types.get(damager.getMetadata("uc_boss_minion")
-                            .get(0).asString().toLowerCase(Locale.ROOT));
-                    clip = type == null ? null : type.minionSettings().attackClip();
-                }
-                if (clip != null) {
-                    platform.modelRenderer().play(damager.getUniqueId(), clip);
-                }
+            BossType.ModelSettings settings = modelSettings.get(damager.getUniqueId());
+            if (settings != null && event.getFinalDamage() > 0) {
+                platform.modelRenderer().play(damager.getUniqueId(), settings.attackClip(), 30);
             }
 
             BossFight fight = fights.get(event.getEntity().getUniqueId());
@@ -413,37 +477,44 @@ public final class BossModule extends FeatureModule implements BossService, Boss
             }
         }
 
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+        public void onHurt(org.bukkit.event.entity.EntityDamageEvent event) {
+            if (!(event.getEntity() instanceof org.bukkit.entity.LivingEntity living)
+                    || event.getFinalDamage() <= 0 || living.getHealth() <= event.getFinalDamage()) return;
+            BossType.ModelSettings settings = modelSettings.get(living.getUniqueId());
+            if (settings == null) return;
+            BossFight fight = fights.get(living.getUniqueId());
+            if (fight != null && !enraged.contains(living.getUniqueId())
+                    && (living.getHealth() - event.getFinalDamage()) / fight.maxHealth() <= settings.rageThreshold()) {
+                if (platform.modelRenderer().play(living.getUniqueId(), settings.rageClip(), 50)) {
+                    enraged.add(living.getUniqueId());
+                    return;
+                }
+            }
+            platform.modelRenderer().play(living.getUniqueId(), settings.hurtClip(), 20);
+        }
+
         @EventHandler(priority = EventPriority.MONITOR)
         public void onDeath(EntityDeathEvent event) {
-            BossFight fight = fights.get(event.getEntity().getUniqueId());
+            UUID id = event.getEntity().getUniqueId();
+            BossFight fight = fights.get(id);
             if (fight != null) {
                 handleDeath(fight);
+            } else {
+                BossType.ModelSettings settings = modelSettings.remove(id);
+                if (settings != null) platform.modelRenderer().finish(event.getEntity(), settings.deathClip());
+                summonedOwners.remove(id);
             }
         }
 
-        /** Gives a freshly summoned minion its boss's configured minion model. */
-        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-        public void onMinionSpawn(org.bukkit.event.entity.CreatureSpawnEvent event) {
-            org.bukkit.entity.LivingEntity minion = event.getEntity();
-            if (!minion.hasMetadata("uc_boss_minion")) {
-                return;
-            }
-            String bossId = minion.getMetadata("uc_boss_minion").get(0).asString();
-            if (bossId == null || bossId.isBlank()) {
-                return;
-            }
-            BossType type = types.get(bossId.toLowerCase(Locale.ROOT));
-            if (type == null || !type.hasMinionModel()) {
-                return;
-            }
-            // Defer a tick so the minion is fully spawned before we attach
-            // display entities and hide it.
-            later(() -> {
-                if (minion.isValid() && !minion.isDead()) {
-                    attachModel(minion, type.minionModel(), type.minionProvider(),
-                            type.minionSettings(), "minion of '" + type.id() + "'");
-                }
-            }, 1L);
+        @EventHandler(priority = EventPriority.MONITOR)
+        public void onPlayerDeath(org.bukkit.event.entity.PlayerDeathEvent event) {
+            if (!(event.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent hit)) return;
+            org.bukkit.entity.Entity killer = hit.getDamager();
+            if (killer instanceof org.bukkit.entity.Projectile projectile
+                    && projectile.getShooter() instanceof org.bukkit.entity.Entity shooter) killer = shooter;
+            BossType.ModelSettings settings = modelSettings.get(killer.getUniqueId());
+            if (settings != null) platform.modelRenderer().play(killer.getUniqueId(), settings.victoryClip(), 60);
         }
 
         /** The player behind a hit, whether melee or a projectile they fired. */
@@ -481,7 +552,7 @@ public final class BossModule extends FeatureModule implements BossService, Boss
 
         @Override
         public String usage() {
-            return "[control|spawn|despawn|list] [id]";
+            return "[control|spawn|despawn|list|animate] [id] [clip]";
         }
 
         @Override
@@ -526,22 +597,21 @@ public final class BossModule extends FeatureModule implements BossService, Boss
                 }
                 case "despawn", "kill" -> {
                     int removed = 0;
-                    for (BossFight fight : new ArrayList<>(fights.values())) {
-                        if (args.length < 2
-                                || fight.type().id().equalsIgnoreCase(args[1])) {
-                            fight.hideBar();
-                            fight.releaseChunk();
-                            platform.modelRenderer().detach(fight.entity().getUniqueId());
-                            if (fight.alive()) {
-                                fight.entity().remove();
-                            }
-                            fights.remove(fight.entity().getUniqueId());
-                            removed++;
-                        }
+                    for (String id : new ArrayList<>(types.keySet())) {
+                        if (args.length < 2 || args[1].equalsIgnoreCase(id)) removed += despawn(id);
                     }
                     platform.messages().sendRaw(sender,
-                            "<green>Despawned <white>" + removed + "</white> boss(es).",
-                            Map.of());
+                            "<green>Despawned <white>" + removed + "</white> boss(es).", Map.of());
+                }
+                case "animate" -> {
+                    if (args.length < 3) throw new CommandError("Usage: /christmas boss animate <id> <clip>");
+                    BossFight fight = activeFight(args[1]);
+                    if (fight == null) throw new CommandError("Spawn that boss first.");
+                    if (!platform.modelRenderer().play(fight.entity().getUniqueId(), args[2], 70)) {
+                        throw new CommandError("Clip unavailable or already playing. Available: "
+                                + String.join(", ", platform.modelRenderer().animationNames(fight.entity().getUniqueId())));
+                    }
+                    platform.messages().sendRaw(sender, "<green>Playing <white>" + args[2], Map.of());
                 }
                 default -> throw new CommandError("Usage: /christmas boss " + usage());
             }
@@ -550,11 +620,16 @@ public final class BossModule extends FeatureModule implements BossService, Boss
         @Override
         public List<String> complete(CommandSender sender, String[] args) {
             if (args.length == 1) {
-                return List.of("control", "spawn", "despawn", "list");
+                return List.of("control", "spawn", "despawn", "list", "animate");
             }
             if (args.length == 2 && (args[0].equalsIgnoreCase("spawn")
-                    || args[0].equalsIgnoreCase("despawn"))) {
+                    || args[0].equalsIgnoreCase("despawn") || args[0].equalsIgnoreCase("animate"))) {
                 return new ArrayList<>(types.keySet());
+            }
+            if (args.length == 3 && args[0].equalsIgnoreCase("animate")) {
+                BossType type = types.get(args[1].toLowerCase(Locale.ROOT));
+                var rig = type == null ? null : platform.modelRenderer().registry().get(type.model());
+                if (rig != null) return rig.animationNames().stream().sorted().toList();
             }
             return List.of();
         }

@@ -6,7 +6,7 @@
 
     <groupId>fr.elias</groupId>
     <artifactId>UltimateChristmas</artifactId>
-    <version>4.0.0</version>
+    <version>4.1.0</version>
     <packaging>jar</packaging>
 
     <name>UltimateChristmas</name>
@@ -16,12 +16,30 @@
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <modulith.version>0.7.0</modulith.version>
+        <python.executable>python</python.executable>
     </properties>
 
     <build>
         <defaultGoal>clean package</defaultGoal>
         <finalName>${project.name}-${project.version}</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>compile-boss-models</id>
+                        <phase>generate-resources</phase>
+                        <goals><goal>exec</goal></goals>
+                        <configuration>
+                            <executable>${python.executable}</executable>
+                            <arguments><argument>${project.basedir}/tools/generate_resourcepack.py</argument></arguments>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

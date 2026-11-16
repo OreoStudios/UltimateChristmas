@@ -1,0 +1,86 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "0": "ultimatechristmas:item/grinch",
+    "particle": "ultimatechristmas:item/grinch"
+  },
+  "display": {
+    "fixed": {
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "elements": [
+    {
+      "from": [
+        6.7,
+        -0.9000000000000004,
+        6.75
+      ],
+      "to": [
+        9.3,
+        8.3,
+        9.25
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5.75,
+            0.0625,
+            6.125,
+            1.25
+          ],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            6.1875,
+            0.0625,
+            6.5,
+            1.25
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            6.5625,
+            0.0625,
+            6.9375,
+            1.25
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            7.0,
+            0.0625,
+            7.3125,
+            1.25
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            14.9375,
+            7.0625,
+            15.3125,
+            7.375
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            15.375,
+            7.0625,
+            15.75,
+            7.375
+          ],
+          "texture": "#0"
+        }
+      }
+    }
+  ]
+}

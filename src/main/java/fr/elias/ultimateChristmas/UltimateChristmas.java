@@ -139,9 +139,16 @@ public final class UltimateChristmas extends JavaPlugin {
         }
 
         unpackMusic();
-        unpackModels();
-        unpackJarFolder("rigs/");
-        unpackJarFolder("pack/");
+        try {
+            fr.elias.ultimateChristmas.core.model.BundledModelAssets.install(
+                    getDataFolder().toPath(), this::getResource);
+            fr.elias.ultimateChristmas.core.config.BossModelMigration.migrate(
+                    getDataFolder().toPath().resolve("modules/bosses.yml"),
+                    getResource("modules/bosses.yml"));
+        } catch (Exception ex) {
+            getLogger().log(Level.SEVERE, "Could not install matching boss models and configuration", ex);
+            return false;
+        }
 
         // Our own custom-model provider: an animation engine over display
         // entities, driven once a tick for every attached model.
@@ -160,56 +167,6 @@ public final class UltimateChristmas extends JavaPlugin {
             getLogger().info("Sending the model resource pack to players on join.");
         }
         return true;
-    }
-
-    /**
-     * Unpacks every bundled resource under a jar folder into the data folder.
-     *
-     * <p>Used for the compiled rigs and the resource-pack zip, whose names are
-     * not known ahead of time (an owner can add models), so the jar is scanned
-     * rather than a hard-coded list walked. Existing files are left untouched.
-     */
-    private void unpackJarFolder(String prefix) {
-        try (java.util.zip.ZipFile jar = new java.util.zip.ZipFile(getFile())) {
-            var entries = jar.entries();
-            while (entries.hasMoreElements()) {
-                var entry = entries.nextElement();
-                String name = entry.getName();
-                if (entry.isDirectory() || !name.startsWith(prefix)) {
-                    continue;
-                }
-                if (new File(getDataFolder(), name).exists()) {
-                    continue;
-                }
-                saveResource(name, false);
-            }
-        } catch (Exception ex) {
-            getLogger().log(Level.WARNING, "Could not unpack bundled '" + prefix + "'", ex);
-        }
-    }
-
-    /**
-     * Copies the bundled boss models into the data folder on first run.
-     *
-     * <p>ModelEngine and BetterModel read models from their own folders, so this
-     * is only so an owner can find {@code grinch.bbmodel} (and the import guide)
-     * without opening the jar. Existing files are left untouched.
-     */
-    private void unpackModels() {
-        File folder = new File(getDataFolder(), "models");
-        if (!folder.exists() && !folder.mkdirs()) {
-            return;
-        }
-        for (String resource : new String[]{"models/grinch.bbmodel", "models/README.txt"}) {
-            if (new File(getDataFolder(), resource).exists()) {
-                continue;
-            }
-            try {
-                saveResource(resource, false);
-            } catch (IllegalArgumentException ex) {
-                getLogger().warning("Bundled resource " + resource + " is missing from the jar.");
-            }
-        }
     }
 
     /**

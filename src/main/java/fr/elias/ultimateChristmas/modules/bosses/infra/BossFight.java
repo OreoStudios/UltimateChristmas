@@ -81,6 +81,9 @@ public final class BossFight {
         if (mob.getAttribute(Attribute.ATTACK_DAMAGE) != null) {
             mob.getAttribute(Attribute.ATTACK_DAMAGE).setBaseValue(type.attackDamage());
         }
+        if (mob.getAttribute(Attribute.SCALE) != null) {
+            mob.getAttribute(Attribute.SCALE).setBaseValue(type.hitboxScale());
+        }
         mob.setGlowing(type.glowing());
         mob.setRemoveWhenFarAway(false);
         mob.setPersistent(true);

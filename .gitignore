@@ -111,3 +111,8 @@ buildNumber.properties
 
 # Common working directory
 run/
+
+# Local Python compiler caches and editor backup copies
+__pycache__/
+*.pyc
+*.bak

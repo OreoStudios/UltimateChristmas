@@ -206,12 +206,38 @@ python tools/check_configs.py       # validate every YAML resource
 
 ## Building
 
+Requires JDK 21+ and Python 3.10+. Maven compiles the four bundled Blockbench
+projects into runtime rigs and a resource-pack zip during `generate-resources`.
+Use `-Dpython.executable=python3` when needed.
+
 ```
 mvn clean package
 ```
 
-Produces `target/UltimateChristmas-4.0.0.jar` with MinecraftModulith shaded in.
+Produces `target/UltimateChristmas-4.1.0.jar` with MinecraftModulith shaded in.
 Requires JDK 21.
+
+## Remastered Grinch encounter
+
+The Grinch and all three minions now use the remastered 256px source projects,
+with all 35 authored animations. The built-in renderer supports bone and cube
+rest rotations, blink scaling, animation priorities, and death poses after the
+base entity disappears. The Grinch moves at 0.18 and switches to the run clip
+only above 0.32 blocks/tick; rage does not speed him up.
+
+Summoning cycles through Sneaky, Strong and Crazy. Hurt, rage, victory and
+carrying states have event mappings. Preview any clip with
+`/christmas boss animate grinch <clip>` (tab completion lists all clips).
+
+Existing installations receive a backed-up model/config upgrade automatically.
+Rewards, health and spawn locations remain customized. Re-host or merge the new
+`plugins/UltimateChristmas/pack/UltimateChristmas-Models.zip` so clients receive
+the new models. The pack targets Java 1.21.8; no external hosting URL is supplied.
+See [the model guide](src/main/resources/models/README.txt) for migration details.
+
+The item-display centering and affine transforms follow
+[Paper's display entity documentation](https://docs.papermc.io/paper/dev/display-entities/).
+Pose regression fixtures were captured from the running Blockbench project.
 
 ---
 

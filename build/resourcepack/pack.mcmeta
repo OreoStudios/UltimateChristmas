@@ -1,10 +1,6 @@
 {
   "pack": {
-    "pack_format": 46,
-    "supported_formats": {
-      "min_inclusive": 46,
-      "max_inclusive": 99
-    },
-    "description": "UltimateChristmas boss models"
+    "pack_format": 64,
+    "description": "UltimateChristmas remastered Grinch and minions"
   }
 }

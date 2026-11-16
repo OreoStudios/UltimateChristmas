@@ -30,13 +30,25 @@ public final class BossAbilities {
     private BossAbilities() {
     }
 
+    /** Keeps legacy ability names on the same animation mapping as modern names. */
+    public static String canonicalName(String ability) {
+        return switch (ability.toLowerCase(java.util.Locale.ROOT)) {
+            case "roar_knockback" -> "roar";
+            case "snowstorm_slow" -> "frost";
+            case "shadow_dash" -> "leap";
+            case "summon_minions" -> "summon";
+            default -> ability.toLowerCase(java.util.Locale.ROOT);
+        };
+    }
+
     /** Runs the named ability, ignoring an unknown name. */
-    public static void run(String ability, Mob boss) {
-        switch (ability.toLowerCase(java.util.Locale.ROOT)) {
-            case "roar", "roar_knockback" -> roar(boss);
-            case "frost", "snowstorm_slow" -> frost(boss);
-            case "leap", "shadow_dash" -> leap(boss);
-            case "summon", "summon_minions" -> summon(boss);
+    public static void run(String ability, Mob boss, int summonCount,
+                           java.util.function.Consumer<org.bukkit.entity.Zombie> configureMinion) {
+        switch (canonicalName(ability)) {
+            case "roar" -> roar(boss);
+            case "frost" -> frost(boss);
+            case "leap" -> leap(boss);
+            case "summon" -> summon(boss, summonCount, configureMinion);
             default -> {
                 // Unknown ability name: do nothing rather than fail the loop.
             }
@@ -89,7 +101,8 @@ public final class BossAbilities {
     }
 
     /** Summons a couple of minions to back the boss up. */
-    private static void summon(Mob boss) {
+    private static void summon(Mob boss, int requested,
+                               java.util.function.Consumer<org.bukkit.entity.Zombie> configureMinion) {
         if (boss.getWorld() == null) {
             return;
         }
@@ -106,18 +119,21 @@ public final class BossAbilities {
                 fr.elias.ultimateChristmas.core.item.Keys.bossId());
         var plugin = org.bukkit.Bukkit.getPluginManager().getPlugin("UltimateChristmas");
 
-        int count = 2 + ThreadLocalRandom.current().nextInt(2);
+        int count = Math.min(Math.max(1, requested), (int) (8 - existing));
         for (int index = 0; index < count; index++) {
             Location spot = boss.getLocation().clone().add(
                     ThreadLocalRandom.current().nextDouble(-3, 3), 0,
                     ThreadLocalRandom.current().nextDouble(-3, 3));
-            boss.getWorld().spawn(spot, org.bukkit.entity.Zombie.class, minion -> {
+            var spawned = boss.getWorld().spawn(spot, org.bukkit.entity.Zombie.class, minion -> {
                 minion.setMetadata("uc_boss_minion",
                         new org.bukkit.metadata.FixedMetadataValue(plugin,
                                 bossId == null ? "" : bossId));
-                minion.setBaby();
+                minion.setAdult();
                 minion.setShouldBurnInDay(false);
+                minion.setCanPickupItems(false);
             });
+            // The entity now exists, so its display rig can be attached safely.
+            configureMinion.accept(spawned);
         }
         Fx.ring(boss.getLocation(), Particle.WITCH, 2.0, 16);
     }

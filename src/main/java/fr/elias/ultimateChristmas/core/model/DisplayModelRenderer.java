@@ -4,37 +4,24 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Mob;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
 
-/**
- * The plugin's own custom-model provider: plays a bone-rigged, animated model
- * on an entity using display entities, with no ModelEngine or BetterModel.
- *
- * <p>Holds every live rig instance and drives them from one tick loop. Each
- * instance auto-selects its looping clip from how fast the entity is moving
- * (idle / walk / run), while one-shot clips (attack, laugh, steal, ...) are
- * triggered by the gameplay that owns the entity and take over the bones they
- * animate until they finish.
- *
- * <p>Players only see the model with the resource pack installed; without it
- * the bones show as plain items. The base entity is hidden either way, so the
- * fallback is "an invisible mob", not a broken one.
- */
+/** Owns live display rigs, locomotion selection and detached death sequences. */
 public final class DisplayModelRenderer {
-
-    /** Movement thresholds (blocks moved per tick) that pick the looping clip. */
     private static final double WALK_SPEED = 0.015;
-    private static final double RUN_SPEED = 0.14;
     private static final double TICK_SECONDS = 0.05;
 
-    /** Clip names used for the three movement states, with sensible fallbacks. */
-    public record StateClips(String idle, String walk, String run) {
-
+    public record StateClips(String idle, String walk, String run, String carry,
+                             double runThreshold, double movementRate) {
+        public StateClips(String idle, String walk, String run) {
+            this(idle, walk, run, null, .14, 1);
+        }
         public static final StateClips DEFAULT = new StateClips("idle", "walk", "run");
     }
 
@@ -42,7 +29,9 @@ public final class DisplayModelRenderer {
         final RiggedEntity model;
         final StateClips clips;
         Location lastLocation;
-        boolean locked;        // true while a non-looping clip should hold the state
+        Location deathAnchor;
+        float deathYaw;
+        double deathRemaining;
 
         Instance(RiggedEntity model, StateClips clips) {
             this.model = model;
@@ -59,29 +48,19 @@ public final class DisplayModelRenderer {
         this.registry = registry;
     }
 
-    public RigRegistry registry() {
-        return registry;
-    }
+    public RigRegistry registry() { return registry; }
 
-    /**
-     * Attaches an animated model to an entity.
-     *
-     * @return true if a rig was found and spawned
-     */
-    public boolean attach(LivingEntity base, String rigId, RiggedEntity.Placement placement,
-                          StateClips clips) {
+    public boolean attach(LivingEntity base, String rigId, RiggedEntity.Placement placement, StateClips clips) {
         ModelRig rig = registry.get(rigId);
-        if (rig == null || base == null) {
-            return false;
-        }
+        if (rig == null || base == null) return false;
         detach(base.getUniqueId());
-
         RiggedEntity model = new RiggedEntity(plugin, rig, placement);
         model.spawn(base);
-        // Start in the best available resting clip.
         model.loop(firstPresent(rig, clips.idle(), clips.walk(), "idle"));
-
-        instances.put(base.getUniqueId(), new Instance(model, clips));
+        model.tick(0, base);
+        Instance instance = new Instance(model, clips);
+        instance.lastLocation = base.getLocation();
+        instances.put(base.getUniqueId(), instance);
         return true;
     }
 
@@ -89,98 +68,99 @@ public final class DisplayModelRenderer {
         return attach(base, rigId, placement, StateClips.DEFAULT);
     }
 
-    /** Triggers a one-shot clip (attack, laugh, steal, celebrate, ...). */
-    public void play(UUID baseId, String clip) {
-        Instance instance = instances.get(baseId);
-        if (instance != null) {
-            instance.model.playOnce(clip);
+    public boolean play(UUID id, String clip) { return play(id, clip, 30); }
+
+    public boolean play(UUID id, String clip, int priority) {
+        Instance instance = instances.get(id);
+        return instance != null && instance.model.playOnce(clip, priority);
+    }
+
+    /** Retains the model at the death location until its final pose has been shown. */
+    public boolean finish(LivingEntity base, String clip) {
+        Instance instance = instances.get(base.getUniqueId());
+        if (instance == null) return false;
+        if (!instance.model.finish(clip)) {
+            detach(base.getUniqueId());
+            return false;
         }
+        instance.deathAnchor = base.getLocation().clone();
+        instance.deathYaw = base.getBodyYaw();
+        instance.deathRemaining = instance.model.rig().animation(clip).length() + .3;
+        instance.model.tick(0, instance.deathAnchor, instance.deathYaw);
+        return true;
     }
 
-    public boolean has(UUID baseId) {
-        return instances.containsKey(baseId);
+    public Set<String> animationNames(UUID id) {
+        Instance instance = instances.get(id);
+        return instance == null ? Set.of() : instance.model.rig().animationNames();
     }
 
-    public int count() {
-        return instances.size();
+    public boolean has(UUID id) { return instances.containsKey(id); }
+    public double animationLength(UUID id, String clip) {
+        Instance instance = instances.get(id);
+        ModelRig.Animation animation = instance == null ? null : instance.model.rig().animation(clip);
+        return animation == null ? 0 : animation.length();
     }
+    public int count() { return instances.size(); }
 
-    /** Detaches a model and reveals the entity. */
-    public void detach(UUID baseId) {
-        Instance instance = instances.remove(baseId);
-        if (instance == null) {
-            return;
-        }
-        Entity base = Bukkit.getEntity(baseId);
+    public void detach(UUID id) {
+        Instance instance = instances.remove(id);
+        if (instance == null) return;
+        Entity base = Bukkit.getEntity(id);
         instance.model.remove(base instanceof LivingEntity living ? living : null);
     }
 
     public void clear() {
-        for (UUID id : Map.copyOf(instances).keySet()) {
-            detach(id);
-        }
-        instances.clear();
+        for (UUID id : Set.copyOf(instances.keySet())) detach(id);
     }
 
-    /**
-     * Advances every model one tick. Call once per server tick.
-     *
-     * <p>Instances whose entity has gone are detached here, so a boss killed by
-     * something the owning module did not route through {@link #detach} still
-     * cleans up its displays.
-     */
     public void tickAll() {
-        if (instances.isEmpty()) {
-            return;
-        }
         for (Map.Entry<UUID, Instance> entry : Map.copyOf(instances).entrySet()) {
+            Instance instance = entry.getValue();
+            if (instance.deathAnchor != null) {
+                instance.model.tick(TICK_SECONDS, instance.deathAnchor, instance.deathYaw);
+                instance.deathRemaining -= TICK_SECONDS;
+                if (instance.deathRemaining <= 0) detach(entry.getKey());
+                continue;
+            }
             Entity base = Bukkit.getEntity(entry.getKey());
             if (!(base instanceof LivingEntity living) || base.isDead() || !base.isValid()) {
                 detach(entry.getKey());
                 continue;
             }
-            Instance instance = entry.getValue();
             autoSelectClip(instance, living);
             instance.model.tick(TICK_SECONDS, living);
         }
     }
 
-    /** Picks idle/walk/run from how far the entity moved since last tick. */
     private void autoSelectClip(Instance instance, LivingEntity base) {
-        if (instance.model.isPlayingOnce()) {
-            return;  // a one-shot owns the pose; leave the loop as-is
-        }
-        double speed = 0;
         Location now = base.getLocation();
-        if (instance.lastLocation != null
-                && instance.lastLocation.getWorld() == now.getWorld()) {
+        double speed = 0;
+        if (instance.lastLocation != null && instance.lastLocation.getWorld() == now.getWorld()) {
             double dx = now.getX() - instance.lastLocation.getX();
             double dz = now.getZ() - instance.lastLocation.getZ();
-            speed = Math.sqrt(dx * dx + dz * dz);
+            speed = Math.hypot(dx, dz);
         }
-        instance.lastLocation = now.clone();
-
+        // Always advance the sample, including during attacks; otherwise the
+        // first tick afterwards sees the entire clip's travel as one fast step.
+        instance.lastLocation = now;
+        if (instance.model.isPlayingOnce()) return;
         ModelRig rig = instance.model.rig();
-        String clip;
-        if (speed >= RUN_SPEED && rig.has(instance.clips.run())) {
-            clip = instance.clips.run();
-        } else if (speed >= WALK_SPEED && rig.has(instance.clips.walk())) {
-            clip = instance.clips.walk();
-        } else {
-            clip = firstPresent(rig, instance.clips.idle(), instance.clips.walk(), null);
-        }
-        if (clip != null) {
-            instance.model.loop(clip);
-        }
+        boolean carrying = base instanceof Mob mob && mob.getTarget() == null;
+        String clip = movementClip(rig, instance.clips, speed, carrying);
+        instance.model.movementRate(speed >= WALK_SPEED ? instance.clips.movementRate() : 1);
+        instance.model.loop(clip);
+    }
+
+    public static String movementClip(ModelRig rig, StateClips clips, double speed, boolean carrying) {
+        if (speed >= clips.runThreshold() && rig.has(clips.run())) return clips.run();
+        if (speed >= WALK_SPEED && rig.has(clips.walk())) return clips.walk();
+        if (carrying && rig.has(clips.carry())) return clips.carry();
+        return firstPresent(rig, clips.idle(), clips.walk(), null);
     }
 
     private static String firstPresent(ModelRig rig, String... names) {
-        for (String name : names) {
-            if (name != null && rig.has(name)) {
-                return name;
-            }
-        }
-        // Fall back to any animation the rig has, so something always plays.
-        return rig.animationNames().stream().findFirst().orElse(null);
+        for (String name : names) if (rig.has(name)) return name;
+        return rig.animationNames().stream().sorted().findFirst().orElse(null);
     }
 }

@@ -25,6 +25,7 @@ public final class BossType {
     private final EntityType entityType;
     private final double health;
     private final double speed;
+    private final double hitboxScale;
     private final double attackDamage;
     private final boolean glowing;
     private final List<String> abilities;
@@ -39,6 +40,8 @@ public final class BossType {
     private final String minionModel;
     private final ModelHook.Provider minionProvider;
     private final ModelSettings minionSettings;
+    private final List<String> minionTypes;
+    private final double minionHealthMultiplier;
 
     private BossType(Builder builder) {
         this.id = builder.id;
@@ -46,6 +49,7 @@ public final class BossType {
         this.entityType = builder.entityType;
         this.health = builder.health;
         this.speed = builder.speed;
+        this.hitboxScale = builder.hitboxScale;
         this.attackDamage = builder.attackDamage;
         this.glowing = builder.glowing;
         this.abilities = List.copyOf(builder.abilities);
@@ -60,6 +64,8 @@ public final class BossType {
         this.minionModel = builder.minionModel;
         this.minionProvider = builder.minionProvider;
         this.minionSettings = builder.minionSettings;
+        this.minionTypes = List.copyOf(builder.minionTypes);
+        this.minionHealthMultiplier = builder.minionHealthMultiplier;
     }
 
     /**
@@ -78,6 +84,9 @@ public final class BossType {
     public record ModelSettings(float scale, double offsetY, float yawOffset,
                                 String idle, String walk, String run,
                                 String attackClip, String spawnClip,
+                                String hurtClip, String deathClip, String rageClip,
+                                String victoryClip, String carryClip, double rageThreshold,
+                                double runThreshold, double movementRate,
                                 java.util.Map<String, String> abilityClips) {
     }
 
@@ -102,7 +111,8 @@ public final class BossType {
         }
 
         builder.health = Math.max(1, section.getDouble("health", 500));
-        builder.speed = section.getDouble("speed", 0.28);
+        builder.speed = Math.max(0, section.getDouble("speed", 0.28));
+        builder.hitboxScale = Math.max(.1, Math.min(4, section.getDouble("hitbox-scale", 1)));
         builder.attackDamage = section.getDouble("attack-damage", 8);
         builder.glowing = section.getBoolean("glowing", true);
         builder.abilities.addAll(section.getStringList("abilities"));
@@ -128,6 +138,10 @@ public final class BossType {
         builder.minionProvider = ModelHook.Provider.parse(
                 minionModel == null ? "auto" : minionModel.getString("provider", "auto"));
         builder.minionSettings = readModelSettings(minionModel);
+        builder.minionTypes.addAll(section.getStringList("minions.types").stream()
+                .map(id -> id.toLowerCase(Locale.ROOT)).toList());
+        builder.minionHealthMultiplier = Math.max(.01,
+                section.getDouble("minions.health-multiplier", .35));
 
         if (builder.rewards.isEmpty()) {
             logger.warning("bosses.yml: '" + builder.id + "' has no rewards; "
@@ -140,7 +154,8 @@ public final class BossType {
     private static ModelSettings readModelSettings(ConfigurationSection section) {
         if (section == null) {
             return new ModelSettings(1.0f, 0.0, 180f, "idle", "walk", "run",
-                    "attack", null, java.util.Map.of());
+                    "attack", null, "hurt", "death", "rage", "celebrate", null,
+                    .35, .14, 1, java.util.Map.of());
         }
         ConfigurationSection anims = section.getConfigurationSection("animations");
         ConfigurationSection abilityAnims = section.getConfigurationSection("ability-animations");
@@ -159,6 +174,14 @@ public final class BossType {
                 anims == null ? "run" : anims.getString("run", "run"),
                 anims == null ? "attack" : anims.getString("attack", "attack"),
                 anims == null ? null : anims.getString("spawn"),
+                anims == null ? "hurt" : anims.getString("hurt", "hurt"),
+                anims == null ? "death" : anims.getString("death", "death"),
+                anims == null ? "rage" : anims.getString("rage", "rage"),
+                anims == null ? "celebrate" : anims.getString("victory", "celebrate"),
+                anims == null ? null : anims.getString("carry"),
+                Math.max(0, Math.min(1, section.getDouble("rage-health-threshold", .35))),
+                Math.max(.016, section.getDouble("run-speed-threshold", .14)),
+                Math.max(.1, Math.min(2, section.getDouble("movement-animation-speed", 1))),
                 abilityClips);
     }
 
@@ -193,6 +216,10 @@ public final class BossType {
     public double speed() {
         return speed;
     }
+
+    public double hitboxScale() { return hitboxScale; }
+    public List<String> minionTypes() { return minionTypes; }
+    public double minionHealthMultiplier() { return minionHealthMultiplier; }
 
     public double attackDamage() {
         return attackDamage;
@@ -266,6 +293,7 @@ public final class BossType {
         private EntityType entityType;
         private double health;
         private double speed;
+        private double hitboxScale;
         private double attackDamage;
         private boolean glowing;
         private final List<String> abilities = new ArrayList<>();
@@ -280,5 +308,7 @@ public final class BossType {
         private String minionModel = "";
         private ModelHook.Provider minionProvider = ModelHook.Provider.AUTO;
         private ModelSettings minionSettings;
+        private final List<String> minionTypes = new ArrayList<>();
+        private double minionHealthMultiplier;
     }
 }

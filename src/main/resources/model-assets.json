@@ -1,0 +1,15 @@
+{
+  "revision": "6b3e782e9a4da9d28a77e38b5ccfa3b31d7567e963db334e71f983d529b0bad0",
+  "files": {
+    "models/grinch.bbmodel": "a36469edd7b31eb4cef4c7cb02c12d7db670e81eeee1be219b9dc5522f58099d",
+    "models/grinch_minion_crazy.bbmodel": "7822085fa9064c2c60892e919bca0666a83731668df5caf2010ba9c59cabe174",
+    "models/grinch_minion_sneaky.bbmodel": "e577233ff82e8fcddc8ae41ac1130c98af6c0b25ea068ab40ed8a2303a91808b",
+    "models/grinch_minion_strong.bbmodel": "92b253bf556aaacdda0d825303c20a1c59cce4822499e8055264d1e8a2372da4",
+    "models/README.txt": "73bcd0165d6c06767df187e89adb103b6add60253514a095d5e14641b04e87c4",
+    "rigs/grinch.json": "80b040a8a05b479ede01da60e2a6e90cf4ac9795fc5e435079bcf79cbe175bdb",
+    "rigs/grinch_minion_crazy.json": "c3b173415beae05a89ba3c9cde4365eec6166b4807345c51b7417ccadf986dac",
+    "rigs/grinch_minion_sneaky.json": "f8ed1624e707702cc1961eb43f8502848d0802ba24e4e975069b3b23198ffe18",
+    "rigs/grinch_minion_strong.json": "baa32090583d709fb9ba1072e2af3740c95e559eeabbc66e2627e5f65f2fae59",
+    "pack/UltimateChristmas-Models.zip": "bc35291cccb7f09ed87c9407147b462ea6c5c1e6276d99a5b0f55a4bec7c5839"
+  }
+}
