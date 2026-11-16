@@ -4,6 +4,7 @@ import com.google.gson.*;
 import fr.elias.ultimateChristmas.core.model.*;
 import org.bukkit.NamespacedKey;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStreamReader;
@@ -48,6 +49,48 @@ class RigPoseTest {
         assertNotNull(actual, label);
         float[] values = actual.get(new float[16]);
         for (int i = 0; i < 16; i++) assertEquals(expected.get(i).getAsDouble(), values[i], .00015, label + " [" + i + "]");
+    }
+
+    @Test
+    void clientItemDisplayRotationPreservesEveryModelsAnimatedBonePose() {
+        // Minecraft applies an extra Y half-turn AFTER the server's matrix.
+        // Include it here: comparing the server matrix alone hid reversed faces.
+        for (String id : List.of("grinch", "grinch_minion_sneaky", "grinch_minion_strong", "grinch_minion_crazy")) {
+            ModelRig model = ModelRig.fromJson(JsonParser.parseReader(new InputStreamReader(
+                    getClass().getResourceAsStream("/rigs/" + id + ".json"), StandardCharsets.UTF_8))
+                    .getAsJsonObject(), NamespacedKey::fromString);
+            for (String clip : model.animationNames()) {
+                ModelRig.Animation animation = model.animation(clip);
+                for (double fraction : new double[]{0, .25, .5, 1}) {
+                    var pose = RigPose.evaluate(model, animation, animation.length() * fraction, null, 0);
+                    Matrix4f root = RigPose.rootTransform(.8f, .15, 37, 180);
+                    for (ModelRig.Bone bone : model.bones()) {
+                        if (!bone.hasModel()) continue;
+                        float[] offset = bone.modelOffset();
+                        Matrix4f expected = new Matrix4f(root).mul(pose.get(bone.name()))
+                                .translate(-offset[0] / 16f, -offset[1] / 16f, -offset[2] / 16f);
+                        Matrix4f onClient = RigPose.itemDisplayTransform(root, pose.get(bone.name()), offset)
+                                .rotateY((float) Math.PI);
+                        float[] want = expected.get(new float[16]);
+                        float[] got = onClient.get(new float[16]);
+                        assertArrayEquals(want, got, .00015f,
+                                id + " " + clip + " " + fraction + " " + bone.name());
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    void correctedModelFrontFollowsBukkitYawInAllFourDirections() {
+        float[][] expected = {{0, 0, 1}, {-1, 0, 0}, {0, 0, -1}, {1, 0, 0}};
+        for (int direction = 0; direction < 4; direction++) {
+            Matrix4f root = RigPose.rootTransform(1, 0, direction * 90, 180);
+            Matrix4f onClient = RigPose.itemDisplayTransform(root, new Matrix4f(), new float[3])
+                    .rotateY((float) Math.PI);
+            Vector3f forward = onClient.transformDirection(new Vector3f(0, 0, -1));
+            assertArrayEquals(expected[direction], new float[]{forward.x, forward.y, forward.z}, .00001f);
+        }
     }
 
     @Test

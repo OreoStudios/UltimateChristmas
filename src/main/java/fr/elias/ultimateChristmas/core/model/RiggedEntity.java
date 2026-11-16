@@ -109,15 +109,13 @@ public final class RiggedEntity {
         anchor.setPitch(0);
         // Item models are compiled around (8,8,8), the ItemDisplay center.
         // Full affine matrices preserve scale inheritance, including blinking.
-        Matrix4f root = new Matrix4f().translate(0, (float) placement.offsetY(), 0)
-                .rotateY((float) Math.toRadians(-(bodyYaw + placement.yawOffset())))
-                .scale(placement.scale());
+        Matrix4f root = RigPose.rootTransform(placement.scale(), placement.offsetY(),
+                bodyYaw, placement.yawOffset());
         for (ModelRig.Bone bone : rig.bones()) {
             ItemDisplay display = displays.get(bone.name());
             if (display == null || !display.isValid()) continue;
             float[] offset = bone.modelOffset();
-            Matrix4f transform = new Matrix4f(root).mul(pose.get(bone.name()))
-                    .translate(-offset[0] / 16f, -offset[1] / 16f, -offset[2] / 16f);
+            Matrix4f transform = RigPose.itemDisplayTransform(root, pose.get(bone.name()), offset);
             display.teleport(anchor);
             display.setInterpolationDelay(0);
             display.setInterpolationDuration(1);

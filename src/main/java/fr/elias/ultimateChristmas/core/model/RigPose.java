@@ -11,6 +11,24 @@ import java.util.Map;
 public final class RigPose {
     private RigPose() { }
 
+    /** Maps Blockbench's -Z front to Bukkit's body yaw (zero faces +Z). */
+    public static Matrix4f rootTransform(float scale, double offsetY, float bodyYaw, float yawOffset) {
+        return new Matrix4f().translate(0, (float) offsetY, 0)
+                .rotateY(radians(-(bodyYaw + yawOffset))).scale(scale);
+    }
+
+    /** Matrix sent to an ItemDisplay for one compiled bone. */
+    public static Matrix4f itemDisplayTransform(Matrix4f root, Matrix4f bone, float[] offset) {
+        // The client appends a Y half-turn before rendering each item. Cancel
+        // it in item-local space, after undoing the compiler's model offset.
+        // A root/yaw correction alone rotates bones around different pivots
+        // and leaves faces, boots and accessories pointing the wrong way.
+        // https://feedback.minecraft.net/hc/en-us/articles/15044886907149
+        return new Matrix4f(root).mul(bone)
+                .translate(-offset[0] / 16f, -offset[1] / 16f, -offset[2] / 16f)
+                .rotateY(-(float) Math.PI);
+    }
+
     public static Map<String, Matrix4f> evaluate(ModelRig rig, ModelRig.Animation loop,
                                                 double loopTime, ModelRig.Animation shot,
                                                 double shotTime) {

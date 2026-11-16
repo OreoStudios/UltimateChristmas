@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ForkJoinPool;
 import java.util.logging.Level;
 
 /**
@@ -37,6 +39,7 @@ public final class ProfileManager implements Listener {
 
     private final UltimateChristmas plugin;
     private final ProfileStore store;
+    private final Executor loadExecutor;
     private final Map<UUID, PlayerProfile> cache = new ConcurrentHashMap<>();
     /** Loads in flight, so two events for one player share a single read. */
     private final Map<UUID, CompletableFuture<PlayerProfile>> loading = new ConcurrentHashMap<>();
@@ -44,8 +47,14 @@ public final class ProfileManager implements Listener {
     private BukkitTask autoSaveTask;
 
     public ProfileManager(UltimateChristmas plugin, ProfileStore store) {
+        this(plugin, store, ForkJoinPool.commonPool());
+    }
+
+    /** Allows deterministic completion timing in storage regression tests. */
+    ProfileManager(UltimateChristmas plugin, ProfileStore store, Executor loadExecutor) {
         this.plugin = plugin;
         this.store = store;
+        this.loadExecutor = loadExecutor;
     }
 
     public void start(long autoSaveSeconds) {
@@ -131,7 +140,7 @@ public final class ProfileManager implements Listener {
         if (cached != null && !cached.dirty()) {
             return CompletableFuture.completedFuture(cached);
         }
-        return loading.computeIfAbsent(id, key -> CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<PlayerProfile> load = loading.computeIfAbsent(id, key -> CompletableFuture.supplyAsync(() -> {
             try {
                 PlayerProfile stored = store.load(key);
                 final PlayerProfile loaded;
@@ -151,7 +160,15 @@ public final class ProfileManager implements Listener {
                 plugin.getLogger().log(Level.SEVERE, "Could not load profile " + key, ex);
                 return cache.computeIfAbsent(key, ignored -> PlayerProfile.blank(key, name));
             }
-        }).whenComplete((profile, error) -> loading.remove(id)));
+        }, loadExecutor));
+        // A fast read can finish before computeIfAbsent publishes its result.
+        // Register cleanup afterwards: an already-completed future runs this
+        // callback inline, and mutating the map inside its mapping function
+        // causes ConcurrentHashMap's "Recursive update" exception.
+        // Match the future as well as the key so late cleanup cannot evict a
+        // newer load started for the same player.
+        load.whenComplete((profile, error) -> loading.remove(id, load));
+        return load;
     }
 
     public Collection<PlayerProfile> loaded() {
