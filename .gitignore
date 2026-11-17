@@ -116,3 +116,6 @@ run/
 __pycache__/
 *.pyc
 *.bak
+
+# Publish the complete Bedrock installation bundle alongside its loose files.
+!/bedrock/UltimateChristmas-Geyser-bundle.zip
