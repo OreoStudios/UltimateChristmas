@@ -239,6 +239,15 @@ The item-display centering and affine transforms follow
 [Paper's display entity documentation](https://docs.papermc.io/paper/dev/display-entities/).
 Pose regression fixtures were captured from the running Blockbench project.
 
+### Bedrock / Geyser assets
+
+The build also creates `target/geyser/packs/UltimateChristmas-Bedrock.mcpack`
+and `target/geyser/UltimateChristmas-Geyser-bundle.zip`, containing v2 item-model
+mappings for all 157 Grinch/minion parts and a GeyserDisplayEntity configuration.
+See [Bedrock setup and compatibility limits](docs/bedrock-geyser.md). Geyser alone
+cannot translate Java item displays; an extension and its companion pack are
+required, and complete animated-pose parity has not been verified on Bedrock.
+
 ---
 
 ## Credits
