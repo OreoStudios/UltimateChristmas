@@ -241,6 +241,11 @@ Pose regression fixtures were captured from the running Blockbench project.
 
 ### Bedrock / Geyser assets
 
+Download the [complete Bedrock installation bundle](bedrock/UltimateChristmas-Geyser-bundle.zip)
+or the [standalone .mcpack](bedrock/packs/UltimateChristmas-Bedrock.mcpack).
+The [published distribution](bedrock/README.md) includes both mapping formats,
+installation instructions, and a checksum report.
+
 The build also creates `target/geyser/packs/UltimateChristmas-Bedrock.mcpack`
 and `target/geyser/UltimateChristmas-Geyser-bundle.zip`, containing v2 item-model
 mappings for all 157 Grinch/minion parts and a GeyserDisplayEntity configuration.

@@ -1,0 +1,1572 @@
+# Companion configuration for GeyserDisplayEntity; not a Geyser JSON mapping.
+mappings:
+  boss_grinch_body:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c4:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c4"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c5:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c5"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c6:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c6"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c7:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c7"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c8:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c8"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c9:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c9"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c10:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c10"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c11:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c11"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c12:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c12"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c13:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c13"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c14:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c14"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c15:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c15"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c16:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c16"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c17:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c17"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_body__c18:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_body__c18"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_neck__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_neck__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c4:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c4"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c5:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c5"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c6:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c6"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c7:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c7"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c8:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c8"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c9:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c9"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c10:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c10"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c11:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c11"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c12:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c12"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c13:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c13"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c14:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c14"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c15:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c15"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c16:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c16"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c17:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c17"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_head__c18:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_head__c18"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hat:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hat"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hat__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hat__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hat__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hat__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hat__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hat__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hat__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hat__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_eyelid_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_eyelid_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_eyelid_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_eyelid_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_arm_l__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_arm_l__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_arm_l__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_arm_l__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_forearm_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_forearm_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_l__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_l__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_l__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_l__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_l__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_l__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_l__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_l__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_l__c4:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_l__c4"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_l__c5:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_l__c5"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_l__c6:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_l__c6"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_arm_r__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_arm_r__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_arm_r__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_arm_r__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_forearm_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_forearm_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_r__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_r__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_r__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_r__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_r__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_r__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_r__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_r__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_r__c4:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_r__c4"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_r__c5:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_r__c5"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_hand_r__c6:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_hand_r__c6"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_leg_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_leg_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_knee_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_knee_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_foot_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_foot_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_foot_l__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_foot_l__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_foot_l__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_foot_l__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_leg_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_leg_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_knee_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_knee_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_foot_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_foot_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_foot_r__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_foot_r__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_foot_r__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_foot_r__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_body:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_body"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_head:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_head"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_head__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_head__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_head__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_head__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_head__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_head__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_head__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_head__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_hat:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_hat"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_hat__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_hat__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_hat__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_hat__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_hat__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_hat__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_arm_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_arm_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_forearm_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_forearm_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_forearm_l__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_forearm_l__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_forearm_l__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_forearm_l__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_arm_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_arm_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_forearm_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_forearm_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_forearm_r__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_forearm_r__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_forearm_r__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_forearm_r__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_cane:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_cane"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_scarf:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_scarf"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_scarf__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_scarf__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_scarf__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_scarf__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_scarf__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_scarf__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_leg_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_leg_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_knee_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_knee_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_leg_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_leg_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_crazy_knee_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_crazy_knee_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_body:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_body"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_body__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_body__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_head:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_head"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_head__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_head__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_head__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_head__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_head__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_head__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_head__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_head__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_head__c4:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_head__c4"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_head__c5:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_head__c5"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_hat:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_hat"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_hat__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_hat__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_hat__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_hat__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_present:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_present"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_present__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_present__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_present__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_present__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_arm_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_arm_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_forearm_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_forearm_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_arm_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_arm_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_forearm_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_forearm_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_leg_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_leg_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_knee_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_knee_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_knee_l__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_knee_l__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_leg_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_leg_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_knee_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_knee_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_sneaky_knee_r__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_sneaky_knee_r__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_body:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_body"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_body__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_body__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_body__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_body__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_body__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_body__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_body__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_body__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_head:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_head"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_head__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_head__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_head__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_head__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_head__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_head__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_hat:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_hat"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_hat__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_hat__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_sack:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_sack"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_sack__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_sack__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_arm_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_arm_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_arm_l__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_arm_l__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_forearm_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_forearm_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_forearm_l__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_forearm_l__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_arm_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_arm_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_arm_r__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_arm_r__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_forearm_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_forearm_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_forearm_r__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_forearm_r__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_leg_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_leg_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_knee_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_knee_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_leg_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_leg_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_grinch_minion_strong_knee_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_grinch_minion_strong_knee_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
