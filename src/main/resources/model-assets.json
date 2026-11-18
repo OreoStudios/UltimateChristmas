@@ -1,5 +1,5 @@
 {
-  "revision": "0061ed7eeb95b3c320880252e28fcc39ee29fdb9cb704872181ea58c125ae168",
+  "revision": "27b82d31b36278b93e675e8b512401d163fe79a517ec613f9d194a74662447b4",
   "files": {
     "models/grinch.bbmodel": "a36469edd7b31eb4cef4c7cb02c12d7db670e81eeee1be219b9dc5522f58099d",
     "models/grinch_minion_crazy.bbmodel": "7822085fa9064c2c60892e919bca0666a83731668df5caf2010ba9c59cabe174",
@@ -12,12 +12,6 @@
     "rigs/grinch_minion_sneaky.json": "f8ed1624e707702cc1961eb43f8502848d0802ba24e4e975069b3b23198ffe18",
     "rigs/grinch_minion_strong.json": "baa32090583d709fb9ba1072e2af3740c95e559eeabbc66e2627e5f65f2fae59",
     "rigs/santa_claus.json": "b9c80520ce2fcd61dac142ba2c08689d3de4f4958ef6e4529b91d3b9bada2baa",
-    "pack/geyser/custom_mappings/ultimatechristmas.json": "0beff4fc7271a9e3498f49d01c6f4f394a9d7e274582f020219161284aef0422",
-    "pack/geyser/extensions/GeyserDisplayEntity/Mappings/ultimatechristmas.yml": "f344d0b8b78dfe9de0230361d76844764a6ecbf5379376c005deca7a963871c3",
-    "pack/geyser/README.md": "79c3fcac1a6ae3021619b1c4db454aec0358de376678b9277b9c66b38d3420a6",
-    "pack/geyser/report.json": "9dd7b2b9ae2f328aab65873b1804a309cd59dc5f7894933cda922e0160d8cc53",
-    "pack/UltimateChristmas-Bedrock.mcpack": "43b8dc9c4cbf9460c2f8edb62e3ffde81a51a059da2064cdd6bd219021cd862a",
-    "pack/UltimateChristmas-Geyser-bundle.zip": "8575eb1bddd5e3f3e39a6d07d523fe4a8511010cda4560d14b3fa4c84e1ffd2a",
     "pack/UltimateChristmas-Models.zip": "41312d9c1f317f26fac0786e74caaf1780be05294a62a4a8666a5d7ad940785b"
   }
 }

@@ -362,8 +362,6 @@ def main():
     if compiled:
         print("Resource pack -> %s  (sha1 %s)" % (BUNDLED_ZIP, pack_sha1()))
         print("Runtime rigs  -> %s" % RIGS_DIR)
-    from generate_bedrock_pack import generate
-    generate(bundled_pack_dir=Path(BUNDLED_ZIP).parent)
     write_manifest()
 
 
