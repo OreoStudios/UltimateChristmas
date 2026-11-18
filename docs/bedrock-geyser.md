@@ -103,11 +103,25 @@ python tools/generate_resourcepack.py
 python -B -m unittest discover -s tools -p "test_*.py"
 ```
 
-Maven's existing generate-resources phase also builds both packs. Deliverables
-are written under `target/geyser/`; the complete deployment zip is
-`target/geyser/UltimateChristmas-Geyser-bundle.zip`. Pack UUIDs remain stable
-and builds are deterministic. Raise the pack version when publishing changed
-Bedrock assets to avoid client cache ambiguity.
+Maven's existing generate-resources phase also builds both packs. The build puts
+`UltimateChristmas-Bedrock.mcpack` and `UltimateChristmas-Geyser-bundle.zip`
+beside the Java pack in `src/main/resources/pack/`. These files are included in
+the plugin JAR and its asset manifest, so the existing installer also extracts
+them into `plugins/UltimateChristmas/pack/` on startup. Geyser still requires
+the manual installation steps above.
+
+The mappings are also available without extracting the ZIP:
+
+- `src/main/resources/pack/geyser/custom_mappings/ultimatechristmas.json`
+- `src/main/resources/pack/geyser/extensions/GeyserDisplayEntity/Mappings/ultimatechristmas.yml`
+
+These loose files, their README and the checksum report are included in the
+asset manifest too, and are extracted into `plugins/UltimateChristmas/pack/geyser/`.
+
+Another copy of the mappings and deployment bundle is written under
+`target/geyser/`. Pack UUIDs remain stable and builds are deterministic. Raise
+the pack version when publishing changed Bedrock assets to avoid client cache
+ambiguity.
 
 ## Documentation checked
 
