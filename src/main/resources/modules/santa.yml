@@ -2,15 +2,53 @@
 #  modules/santa.yml - the wandering Santa NPC
 #  Reload with: /christmas module reload santa
 # ----------------------------------------------------------------------------
-#  Santa appears on a timer during the season, stays a while, then leaves.
-#  Right-click him for a gift (once per gift-cooldown-hours per player).
-#  Without LibsDisguises he is a named villager; with it he wears the skin.
+#  Santa appears on a timer during the season, waves hello and strolls around.
+#  Every so often (a random gap, see gifts.drops) he stops, plays his drop
+#  animation and leaves a present on the ground, for as long as he is spawned.
+#  Anyone can pick a present up, then right-click it to open it for a random
+#  reward from gifts.rewards. Right-clicking Santa himself gives nothing.
+#  When his time is up he laughs goodbye and leaves.
+#
+#  He wears the animated santa_claus model through the built-in renderer (the
+#  same one the Grinch uses), so players need the plugin's resource pack.
+#  Without a model he is a named villager (wearing `skin` via LibsDisguises).
 # ============================================================================
 
 display-name: "&c&lSanta Claus"
 
-# A Mojang username whose skin LibsDisguises will apply. Blank = plain villager.
+# A Mojang username whose skin LibsDisguises will apply when no model is shown.
 skin: ""
+
+# ----------------------------------------------------------------------------
+#  Model: same providers as bosses.yml. auto uses the built-in renderer when
+#  rigs/santa_claus.json is loaded; provider: none keeps the plain villager.
+# ----------------------------------------------------------------------------
+model:
+  id: santa_claus
+  provider: auto
+  scale: 1.0          # tune if he is too big/small
+  offset-y: 0.0       # lift so his boots meet the ground
+  yaw-offset: 180     # flip if he walks backwards
+  # Which clip plays for each moment. Any clip from the model may be used;
+  # /christmas santa drop plays the drop on demand for testing.
+  animations:
+    idle: idle               # standing between strolls
+    walk: walk               # strolling around
+    arrive: wave             # the moment he appears
+    greet: wave              # a player walks up to him (once per visit each)
+    drop-gift: drop_gift     # each time he leaves a present on the ground
+    clicked: interact        # a player right-clicks him
+    celebrate: celebrate     # a player opens one of his presents nearby
+    farewell: laugh          # ho ho ho, before he leaves
+
+# How he strolls around the point where he appeared.
+wander:
+  enabled: true
+  radius: 10              # blocks from where he appeared
+  speed: 0.06             # blocks per tick (0.02 - 0.3)
+  pause-min-seconds: 3
+  pause-max-seconds: 8
+  greet-radius: 6         # wave at players this close (0 = never)
 
 # Let Santa appear on his own during the season.
 auto-spawn: true
@@ -18,9 +56,6 @@ auto-spawn: true
 # How long he stays each visit, and the gap between visits.
 stay-seconds: 180
 cooldown-seconds: 600
-
-# How often one player may receive a gift from him (0 = no limit).
-gift-cooldown-hours: 20
 
 # ----------------------------------------------------------------------------
 #  Where Santa can appear. List as "world,x,y,z" lines, or leave empty and use
@@ -31,11 +66,39 @@ spawn-locations: []
 #  - "world,20,70,200"
 
 gifts:
-  # Restrict where his present items may be opened (needs WorldGuard).
-  # Empty = anywhere.
+  # Restrict where his presents may be opened (needs WorldGuard).
+  # Empty = anywhere. Example: ["christmas_tree", "winter_square"]
   open-regions: []
 
-  # Weighted gifts handed out on right-click.
+  # The present item. Test it with /christmas santa present
+  present:
+    # head       - a player head with head-texture below
+    # itemsadder - an ItemsAdder item (needs ItemsAdder; falls back to a head)
+    # material   - any vanilla material, optionally with custom-model-data
+    type: head
+    # base64 value, textures.minecraft.net URL/hash, or a player name.
+    head-texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTE3YjMwNDExZTUwYWUxNWJiZTg0Yzk0NGY1MWRmNWUxYjRmNTZiM2RiMDg5MjgwYjZkMTVkNDAzNjU5MDYxIn19fQ=="
+    itemsadder-id: "mypack:santa_present"   # used when type: itemsadder
+    material: PLAYER_HEAD                   # used when type: material
+    custom-model-data: 0                    # 0 = none
+    # Name and lore for head/material presents. ItemsAdder items keep their own;
+    # the name is also shown floating above presents on the ground.
+    name: "&c&lSanta's Present"
+    lore:
+      - "&7Right-click to open!"
+      - "&fContains a random reward"
+      - "&fstraight from &cSanta &f🎁"
+
+  # The presents he drops while he walks around, for anyone to grab. They
+  # appear exactly where the drop_gift animation sets its present down.
+  drops:
+    enabled: true
+    interval-min-seconds: 15 # each gap is random, between min and max
+    interval-max-seconds: 40
+    max-on-ground: 8         # pauses while this many are lying around
+    lifetime-seconds: 300    # a present nobody picks up vanishes after this
+
+  # Weighted rewards, one rolled each time a present is opened.
   rewards:
     cookies:
       weight: 30

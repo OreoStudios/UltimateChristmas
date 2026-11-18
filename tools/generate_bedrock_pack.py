@@ -21,7 +21,7 @@ RIGS = ROOT / "src/main/resources/rigs"
 OUTPUT = ROOT / "target/geyser"
 NAMESPACE = "ultimatechristmas"
 PACK_NAME = "UltimateChristmas-Bedrock.mcpack"
-PACK_VERSION = [4, 1, 1]
+PACK_VERSION = [4, 1, 2]
 UUID_NAMESPACE = uuid.UUID("e3f39072-5b5a-4900-b582-e3b727106f04")
 
 
@@ -168,7 +168,7 @@ def build():
     if not definitions:
         raise ValueError("No compiled rig items; run tools/generate_resourcepack.py first")
     files["manifest.json"] = encode({"format_version": 2,
-        "header": {"name": "UltimateChristmas - Grinch & Minions",
+        "header": {"name": "UltimateChristmas - Grinch, Minions & Santa",
                    "description": "Bedrock rig-part resources for UltimateChristmas 4.1.1+ and GeyserDisplayEntity",
                    "uuid": str(uuid.uuid5(UUID_NAMESPACE, "header")), "version": PACK_VERSION,
                    "min_engine_version": [1, 21, 0]},

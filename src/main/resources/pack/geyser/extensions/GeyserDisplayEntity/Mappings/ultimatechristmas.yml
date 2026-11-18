@@ -1570,3 +1570,453 @@ mappings:
       hand: false
       rotation: [0, 0, 0]
       translation: [0, 0, 0]
+  boss_santa_claus_body:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_body"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_body__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_body__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_body__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_body__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_body__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_body__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_body__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_body__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_head:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_head"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_head__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_head__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_head__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_head__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_head__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_head__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_head__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_head__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_head__c4:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_head__c4"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_head__c5:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_head__c5"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_beard:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_beard"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_beard__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_beard__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_beard__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_beard__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_beard__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_beard__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_beard__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_beard__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_beard__c4:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_beard__c4"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_mustache__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_mustache__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_mustache__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_mustache__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_mustache__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_mustache__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_mustache__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_mustache__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_hat:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_hat"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_hat__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_hat__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_hat__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_hat__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_hat__c2:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_hat__c2"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_hat__c3:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_hat__c3"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_pom:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_pom"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_eyelids:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_eyelids"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_arm_r__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_arm_r__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_forearm_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_forearm_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_hand_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_hand_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_hand_r__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_hand_r__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_arm_l__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_arm_l__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_forearm_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_forearm_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_hand_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_hand_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_hand_l__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_hand_l__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_sack:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_sack"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_leg_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_leg_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_knee_r:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_knee_r"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_leg_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_leg_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_knee_l:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_knee_l"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_gift:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_gift"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_gift__c0:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_gift__c0"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
+  boss_santa_claus_gift__c1:
+    type: "minecraft:paper"
+    item-identifier: "ultimatechristmas:boss_santa_claus_gift__c1"
+    displayentityoptions:
+      y-offset: -0.5
+      vanilla-scale: false
+      vanilla-scale-multiplier: 1
+      hand: false
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]

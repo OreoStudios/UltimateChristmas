@@ -1885,6 +1885,546 @@
           "allow_offhand": false,
           "display_handheld": false
         }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_body",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_body",
+        "display_name": "UltimateChristmas santa_claus / body",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_body__c0",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_body__c0",
+        "display_name": "UltimateChristmas santa_claus / body__c0",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_body__c1",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_body__c1",
+        "display_name": "UltimateChristmas santa_claus / body__c1",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_body__c2",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_body__c2",
+        "display_name": "UltimateChristmas santa_claus / body__c2",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_body__c3",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_body__c3",
+        "display_name": "UltimateChristmas santa_claus / body__c3",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_head",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_head",
+        "display_name": "UltimateChristmas santa_claus / head",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_head__c0",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_head__c0",
+        "display_name": "UltimateChristmas santa_claus / head__c0",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_head__c1",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_head__c1",
+        "display_name": "UltimateChristmas santa_claus / head__c1",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_head__c2",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_head__c2",
+        "display_name": "UltimateChristmas santa_claus / head__c2",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_head__c3",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_head__c3",
+        "display_name": "UltimateChristmas santa_claus / head__c3",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_head__c4",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_head__c4",
+        "display_name": "UltimateChristmas santa_claus / head__c4",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_head__c5",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_head__c5",
+        "display_name": "UltimateChristmas santa_claus / head__c5",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_beard",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_beard",
+        "display_name": "UltimateChristmas santa_claus / beard",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_beard__c0",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_beard__c0",
+        "display_name": "UltimateChristmas santa_claus / beard__c0",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_beard__c1",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_beard__c1",
+        "display_name": "UltimateChristmas santa_claus / beard__c1",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_beard__c2",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_beard__c2",
+        "display_name": "UltimateChristmas santa_claus / beard__c2",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_beard__c3",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_beard__c3",
+        "display_name": "UltimateChristmas santa_claus / beard__c3",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_beard__c4",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_beard__c4",
+        "display_name": "UltimateChristmas santa_claus / beard__c4",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_mustache__c0",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_mustache__c0",
+        "display_name": "UltimateChristmas santa_claus / mustache__c0",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_mustache__c1",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_mustache__c1",
+        "display_name": "UltimateChristmas santa_claus / mustache__c1",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_mustache__c2",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_mustache__c2",
+        "display_name": "UltimateChristmas santa_claus / mustache__c2",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_mustache__c3",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_mustache__c3",
+        "display_name": "UltimateChristmas santa_claus / mustache__c3",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_hat",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_hat",
+        "display_name": "UltimateChristmas santa_claus / hat",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_hat__c0",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_hat__c0",
+        "display_name": "UltimateChristmas santa_claus / hat__c0",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_hat__c1",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_hat__c1",
+        "display_name": "UltimateChristmas santa_claus / hat__c1",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_hat__c2",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_hat__c2",
+        "display_name": "UltimateChristmas santa_claus / hat__c2",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_hat__c3",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_hat__c3",
+        "display_name": "UltimateChristmas santa_claus / hat__c3",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_pom",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_pom",
+        "display_name": "UltimateChristmas santa_claus / pom",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_eyelids",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_eyelids",
+        "display_name": "UltimateChristmas santa_claus / eyelids",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_arm_r__c0",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_arm_r__c0",
+        "display_name": "UltimateChristmas santa_claus / arm_r__c0",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_forearm_r",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_forearm_r",
+        "display_name": "UltimateChristmas santa_claus / forearm_r",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_hand_r",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_hand_r",
+        "display_name": "UltimateChristmas santa_claus / hand_r",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_hand_r__c0",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_hand_r__c0",
+        "display_name": "UltimateChristmas santa_claus / hand_r__c0",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_arm_l__c0",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_arm_l__c0",
+        "display_name": "UltimateChristmas santa_claus / arm_l__c0",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_forearm_l",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_forearm_l",
+        "display_name": "UltimateChristmas santa_claus / forearm_l",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_hand_l",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_hand_l",
+        "display_name": "UltimateChristmas santa_claus / hand_l",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_hand_l__c0",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_hand_l__c0",
+        "display_name": "UltimateChristmas santa_claus / hand_l__c0",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_sack",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_sack",
+        "display_name": "UltimateChristmas santa_claus / sack",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_leg_r",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_leg_r",
+        "display_name": "UltimateChristmas santa_claus / leg_r",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_knee_r",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_knee_r",
+        "display_name": "UltimateChristmas santa_claus / knee_r",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_leg_l",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_leg_l",
+        "display_name": "UltimateChristmas santa_claus / leg_l",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_knee_l",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_knee_l",
+        "display_name": "UltimateChristmas santa_claus / knee_l",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_gift",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_gift",
+        "display_name": "UltimateChristmas santa_claus / gift",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_gift__c0",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_gift__c0",
+        "display_name": "UltimateChristmas santa_claus / gift__c0",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
+      },
+      {
+        "type": "definition",
+        "model": "ultimatechristmas:boss/santa_claus_gift__c1",
+        "bedrock_identifier": "ultimatechristmas:boss_santa_claus_gift__c1",
+        "display_name": "UltimateChristmas santa_claus / gift__c1",
+        "bedrock_options": {
+          "icon": "ultimatechristmas.santa_claus",
+          "creative_category": "none",
+          "allow_offhand": false,
+          "display_handheld": false
+        }
       }
     ]
   }

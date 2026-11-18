@@ -253,8 +253,12 @@ santa:
   left: "<red>Santa has finished his rounds and gone."
   # %reward%
   gift: "<green>Santa hands you a gift... <reset>%reward%"
-  # %remaining%
-  cooldown: "<yellow>Santa has already given you something. Come back in <white>%remaining%</white>."
+  # %reward% - opening one of Santa's presents
+  gift-found: "<green>You unwrap Santa's present... <reset>%reward%"
+  # right-clicking Santa
+  clicked: "<red>Ho ho ho! <gray>Follow me - I leave presents on the ground as I walk."
+  present-received: "<green>Santa hands you a present! Right-click it to open."
+  present-picked-up: "<gold>You picked up one of Santa's presents! <gray>Right-click it to open."
   not-here: "<gray>Santa is not around at the moment."
   already-here: "<yellow>Santa is already here."
   despawned: "<green>Sent Santa on his way."

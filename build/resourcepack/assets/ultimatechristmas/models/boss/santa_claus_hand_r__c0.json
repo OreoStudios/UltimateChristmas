@@ -1,0 +1,86 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "0": "ultimatechristmas:item/santa_claus",
+    "particle": "ultimatechristmas:item/santa_claus"
+  },
+  "display": {
+    "fixed": {
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "elements": [
+    {
+      "from": [
+        7.350000000000001,
+        7.100000000000001,
+        7.15
+      ],
+      "to": [
+        8.65,
+        8.9,
+        8.85
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5.3125,
+            6.875,
+            5.475,
+            7.1
+          ],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            3.3125,
+            6.875,
+            3.525,
+            7.1
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            5.3125,
+            6.875,
+            5.475,
+            7.1
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            3.3125,
+            6.875,
+            3.525,
+            7.1
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            5.3125,
+            6.875,
+            5.475,
+            7.0875
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            5.625,
+            6.875,
+            5.7875,
+            7.0875
+          ],
+          "texture": "#0"
+        }
+      }
+    }
+  ]
+}

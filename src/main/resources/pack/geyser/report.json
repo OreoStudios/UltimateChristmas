@@ -62,9 +62,24 @@
         "run",
         "walk"
       ]
+    },
+    {
+      "id": "santa_claus",
+      "parts": 45,
+      "cubes": 97,
+      "server_animations": [
+        "celebrate",
+        "drop_gift",
+        "give_gift",
+        "idle",
+        "interact",
+        "laugh",
+        "walk",
+        "wave"
+      ]
     }
   ],
-  "mapping_count": 157,
+  "mapping_count": 202,
   "animation_source": "UltimateChristmas server-side ItemDisplay transforms",
   "requires_display_entity_extension": true,
   "bedrock_client_visual_tested": false,
@@ -74,5 +89,5 @@
     "The referenced display extension does not preserve all affine rotations and interpolation; animated boss parity is not certified.",
     "The pack supplies geometry and mappings, not a native Bedrock behavior pack or an animation protocol bridge."
   ],
-  "mcpack_sha256": "fa922338aa0c4e59a0abb9d4d9db7a7c38f4007b93289fb59fa66a42e683084f"
+  "mcpack_sha256": "43b8dc9c4cbf9460c2f8edb62e3ffde81a51a059da2064cdd6bd219021cd862a"
 }

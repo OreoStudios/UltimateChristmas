@@ -352,7 +352,7 @@ def main():
     # with arbitrary past/future formats just to suppress their warning.
     write(os.path.join(PACK_DIR, "pack.mcmeta"), json.dumps({
         "pack": {"pack_format": 64,
-                 "description": "UltimateChristmas remastered Grinch and minions"}}, indent=2))
+                 "description": "UltimateChristmas Grinch, minions and Santa"}}, indent=2))
 
     zip_pack()
     print("Compiled %d model(s):" % len(compiled))

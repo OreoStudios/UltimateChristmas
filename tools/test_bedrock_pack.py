@@ -23,7 +23,7 @@ class BedrockPackTest(unittest.TestCase):
         self.assertEqual(['minecraft:paper'], list(self.mapping['items']))
         definitions = self.mapping['items']['minecraft:paper']
         self.assertEqual(expected, {d['model'] for d in definitions})
-        self.assertEqual(157, len(definitions))
+        self.assertEqual(202, len(definitions))
         self.assertEqual(len(definitions), len({d['bedrock_identifier'] for d in definitions}))
         for definition in definitions:
             self.assertEqual('definition', definition['type'])
@@ -62,7 +62,7 @@ class BedrockPackTest(unittest.TestCase):
                     for axis in range(2):
                         self.assertTrue(0 <= face['uv'][axis] <= 256)
                         self.assertTrue(0 <= face['uv'][axis] + face['uv_size'][axis] <= 256)
-        self.assertEqual(246, cube_count)
+        self.assertEqual(343, cube_count)
 
     def test_geometry_and_signed_uvs_match_actual_blockbench_export(self):
         # Exported by Blockbench MCP at 16-unit UV resolution, without centering.
@@ -105,7 +105,7 @@ class BedrockPackTest(unittest.TestCase):
             self.assertEqual('resources', manifest['modules'][0]['type'])
             self.assertFalse(any(n.startswith('assets/') or '\\' in n for n in archive.namelist()))
             self.assertFalse(any('custom_mappings' in n for n in archive.namelist()))
-        self.assertEqual(35, sum(len(m['server_animations']) for m in self.report['models']))
+        self.assertEqual(43, sum(len(m['server_animations']) for m in self.report['models']))
         self.assertTrue(self.report['requires_display_entity_extension'])
         self.assertFalse(self.report['bedrock_client_visual_tested'])
 

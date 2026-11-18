@@ -6,31 +6,38 @@ import fr.elias.ultimateChristmas.core.command.SubCommand;
 import fr.elias.ultimateChristmas.core.modulith.FeatureModule;
 import fr.elias.ultimateChristmas.core.reward.Reward;
 import fr.elias.ultimateChristmas.core.reward.RewardTable;
-import fr.elias.ultimateChristmas.core.season.Season;
 import fr.elias.ultimateChristmas.core.storage.PlayerProfile;
 import fr.elias.ultimateChristmas.core.text.Messages;
 import fr.elias.ultimateChristmas.modules.platform.api.ChristmasPlatform;
 import fr.elias.ultimateChristmas.modules.santa.api.SantaService;
 import fr.elias.ultimateChristmas.modules.santa.infra.SantaManager;
+import fr.elias.ultimateChristmas.core.effect.Fx;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.inventory.InventoryPickupItemEvent;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.Locale;
 
 /**
- * A wandering Santa NPC who hands out gifts.
+ * A wandering Santa NPC who leaves presents on the ground.
  *
- * <p>Santa appears on a timer during the season, stays a while, then leaves. A
- * player right-clicks him to receive a gift, limited to once per configured
- * window so he cannot be farmed. His appearances are driven by a single
+ * <p>Santa appears on a timer during the season, strolls around dropping
+ * presents at random intervals, then leaves. Players pick the presents up and
+ * right-click them to open them. His appearances are driven by a single
  * scheduled loop owned by the module lifecycle, so disabling the module stops
  * everything cleanly.
  */
@@ -55,14 +62,17 @@ public final class SantaModule extends FeatureModule implements SantaService {
     protected void onEnable() {
         manager = new SantaManager(platform, () -> parameters);
         manager.cleanupStale();
+        manager.prepare();
         gifts = RewardTable.read(section("gifts.rewards"), platform.plugin().getLogger());
 
         listen(new InteractListener());
+        listen(new GiftListener());
         command(new SantaCommand());
 
         nextAutoSpawn = System.currentTimeMillis()
                 + parameters.cooldownSeconds() * 1000L;
         timer(this::tick, 40L, 40L);
+        timer(manager::tick, 1L, 1L);
 
         publish(SantaService.class, this);
     }
@@ -71,6 +81,7 @@ public final class SantaModule extends FeatureModule implements SantaService {
     protected void onDisable() {
         if (manager != null) {
             manager.despawn();
+            manager.clearGifts();
         }
     }
 
@@ -78,6 +89,7 @@ public final class SantaModule extends FeatureModule implements SantaService {
     protected void onReload() {
         parameters = SantaParameters.from(config(), SantaParameters.DEFAULTS);
         gifts = RewardTable.read(section("gifts.rewards"), platform.plugin().getLogger());
+        manager.prepare();
     }
 
     /** The appearance loop: spawn when due, leave when his time is up. */
@@ -86,7 +98,7 @@ public final class SantaModule extends FeatureModule implements SantaService {
 
         if (manager.isSpawned()) {
             manager.idleEffects();
-            if (leaveAt > 0 && now >= leaveAt) {
+            if (leaveAt > 0 && now >= leaveAt && !manager.isLeaving()) {
                 leave();
             }
             return;
@@ -100,7 +112,11 @@ public final class SantaModule extends FeatureModule implements SantaService {
     }
 
     private void appear(boolean announce) {
-        Location where = manager.spawn();
+        appear(announce, null);
+    }
+
+    private void appear(boolean announce, Location fallback) {
+        Location where = manager.spawn(fallback);
         if (where == null) {
             // No usable spawn point: back off so we do not retry every tick.
             nextAutoSpawn = System.currentTimeMillis() + 60_000L;
@@ -116,23 +132,23 @@ public final class SantaModule extends FeatureModule implements SantaService {
         }
     }
 
+    /** Santa laughs goodbye, then leaves once the clip has played. */
     private void leave() {
-        Location where = location();
-        manager.despawn();
+        if (!manager.isSpawned()) {
+            return;
+        }
         leaveAt = 0;
         nextAutoSpawn = System.currentTimeMillis() + parameters.cooldownSeconds() * 1000L;
-        if (where != null) {
-            Bukkit.broadcast(platform.messages().prefixed("santa.left", java.util.Map.of()));
-        }
+        manager.leave(() -> Bukkit.broadcast(
+                platform.messages().prefixed("santa.left", java.util.Map.of())));
     }
 
-    /** Gives a gift, respecting the per-player cooldown. */
-    private void giveGift(Player player) {
-        PlayerProfile profile = platform.profiles().get(player);
-        if (parameters.giftCooldownHours() > 0 && profile.onCooldown("santa-gift")) {
-            platform.messages().send(player, "santa.cooldown", Messages.of(
-                    "remaining", Season.format(Duration.ofMillis(
-                            profile.cooldownRemaining("santa-gift")))));
+    /** Opens one present from the player's hand, if they are somewhere allowed. */
+    private void openPresent(Player player, org.bukkit.inventory.EquipmentSlot hand) {
+        if (!parameters.openRegions().isEmpty() && platform.hooks().worldGuard().active()
+                && !platform.hooks().worldGuard().inAnyRegion(player.getLocation(),
+                        parameters.openRegions())) {
+            platform.messages().send(player, "santa.present-wrong-place");
             return;
         }
         Reward reward = gifts.roll();
@@ -140,12 +156,20 @@ public final class SantaModule extends FeatureModule implements SantaService {
             platform.messages().send(player, "reward.none-configured");
             return;
         }
-        if (parameters.giftCooldownHours() > 0) {
-            profile.setCooldown("santa-gift",
-                    parameters.giftCooldownHours() * 3_600_000L);
+        org.bukkit.inventory.ItemStack held = player.getInventory().getItem(hand);
+        if (!SantaManager.isGift(held)) {
+            return;
         }
+        held.setAmount(held.getAmount() - 1);
+        player.getInventory().setItem(hand, held.getAmount() <= 0 ? null : held);
+
+        Location at = player.getLocation();
+        Fx.burst(at.clone().add(0, 1.2, 0), Particle.TOTEM_OF_UNDYING, 20, 0.4);
+        Fx.jingle(at);
         platform.rewards().grant(player, reward);
-        platform.messages().send(player, "santa.gift", Messages.of("reward", reward.id()));
+        platform.progress().record(player, PlayerProfile.STAT_GIFTS_OPENED, 1);
+        platform.messages().send(player, "santa.gift-found", Messages.of("reward", reward.id()));
+        manager.celebrateNear(at);
     }
 
     // ------------------------------------------------------------ public API
@@ -183,12 +207,59 @@ public final class SantaModule extends FeatureModule implements SantaService {
             if (!SantaManager.isSanta(event.getRightClicked())) {
                 return;
             }
+            // He hands nothing out on click: presents only come from his drops.
             event.setCancelled(true);
-            giveGift(event.getPlayer());
+            manager.clickedBy(event.getPlayer());
+            platform.messages().send(event.getPlayer(), "santa.clicked");
         }
     }
 
-    /** {@code /christmas santa [spawn|despawn]}. */
+    /** Santa's presents: picked up like any item, opened by right-clicking them. */
+    private final class GiftListener implements Listener {
+
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+        public void onPickup(EntityPickupItemEvent event) {
+            Item item = event.getItem();
+            if (!SantaManager.isGift(item.getItemStack())) {
+                return;
+            }
+            manager.forgetGift(item.getUniqueId());
+            if (event.getEntity() instanceof Player player) {
+                Fx.sound(item.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1f, 1.4f);
+                platform.messages().send(player, "santa.present-picked-up");
+            }
+        }
+
+        @EventHandler(priority = EventPriority.HIGH)
+        public void onUse(PlayerInteractEvent event) {
+            if (event.getAction() != Action.RIGHT_CLICK_AIR
+                    && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+                return;
+            }
+            if (event.getHand() == null || !SantaManager.isGift(event.getItem())) {
+                return;
+            }
+            // Also stops a head present being placed as a block.
+            event.setCancelled(true);
+            openPresent(event.getPlayer(), event.getHand());
+        }
+
+        @EventHandler(ignoreCancelled = true)
+        public void onPlace(BlockPlaceEvent event) {
+            if (SantaManager.isGift(event.getItemInHand())) {
+                event.setCancelled(true);
+            }
+        }
+
+        @EventHandler(ignoreCancelled = true)
+        public void onHopper(InventoryPickupItemEvent event) {
+            if (SantaManager.isGift(event.getItem().getItemStack())) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    /** {@code /christmas santa [spawn|despawn|where|drop]}. */
     private final class SantaCommand implements SubCommand {
 
         @Override
@@ -203,7 +274,7 @@ public final class SantaModule extends FeatureModule implements SantaService {
 
         @Override
         public String usage() {
-            return "<spawn|despawn|where>";
+            return "<spawn|despawn|where|drop|present [amount]>";
         }
 
         @Override
@@ -220,10 +291,35 @@ public final class SantaModule extends FeatureModule implements SantaService {
                         platform.messages().send(sender, "santa.already-here");
                         return;
                     }
-                    appear(true);
+                    appear(true, sender instanceof Player player ? player.getLocation() : null);
                     if (!manager.isSpawned()) {
                         throw new CommandError("Santa could not appear - check "
                                 + "spawn-locations in modules/santa.yml.");
+                    }
+                }
+                case "present" -> {
+                    if (!(sender instanceof Player player)) {
+                        throw new CommandError("Only a player can receive a present.");
+                    }
+                    int amount = 1;
+                    if (args.length > 1) {
+                        try {
+                            amount = Math.max(1, Math.min(64, Integer.parseInt(args[1])));
+                        } catch (NumberFormatException ex) {
+                            throw new CommandError("Amount must be a number.");
+                        }
+                    }
+                    player.getInventory().addItem(manager.presentItem(amount)).values().forEach(
+                            leftover -> player.getWorld().dropItemNaturally(player.getLocation(), leftover));
+                    platform.messages().send(player, "santa.present-received");
+                }
+                case "drop" -> {
+                    if (!manager.isSpawned()) {
+                        platform.messages().send(sender, "santa.not-here");
+                        return;
+                    }
+                    if (!manager.dropNow()) {
+                        throw new CommandError("Santa is busy - try again in a moment.");
                     }
                 }
                 case "despawn" -> {
@@ -251,7 +347,7 @@ public final class SantaModule extends FeatureModule implements SantaService {
 
         @Override
         public List<String> complete(CommandSender sender, String[] args) {
-            return args.length == 1 ? List.of("spawn", "despawn", "where") : List.of();
+            return args.length == 1 ? List.of("spawn", "despawn", "where", "drop", "present") : List.of();
         }
     }
 }

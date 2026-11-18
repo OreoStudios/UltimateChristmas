@@ -1,7 +1,7 @@
 UltimateChristmas 4.1 - remastered boss models
 =============================================
 
-The built-in display provider renders all four models without a model plugin.
+The built-in display provider renders all five models without a model plugin.
 The client must load the generated resource pack. ModelEngine and BetterModel
 remain optional providers, configured separately.
 
@@ -12,6 +12,20 @@ Bundled Bedrock cube projects, each with an embedded 256 x 256 pixel atlas:
   grinch_minion_strong.bbmodel
   grinch_minion_crazy.bbmodel
     Each minion: idle, walk, run, attack, laugh, carry_present, hurt, death.
+  santa_claus.bbmodel: idle, walk, wave, laugh, drop_gift, give_gift,
+                       interact, celebrate
+
+SANTA (modules/santa.yml, model section)
+  idle/walk: while resting / strolling around his spawn point
+  wave: when he appears, and at each player who walks up to him
+  drop_gift: at random intervals while he is spawned (gifts.drops); the real
+             present item lands where the clip sets its "gift" bone down
+  interact: a player right-clicks him (he gives nothing on click)
+  give_gift: not used by default; assign it to any slot under animations
+  celebrate: a player opens one of his presents nearby
+  laugh: farewell, played before he leaves
+  /christmas santa spawn   (at your feet if no spawn-locations are set)
+  /christmas santa drop    (play the drop now)
 
 The Grinch uses movement speed 0.18 (previously 0.30), a 0.32 blocks/tick run
 animation threshold and 0.85 locomotion playback rate. Rage does not increase
