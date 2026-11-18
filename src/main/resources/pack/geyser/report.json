@@ -1,0 +1,78 @@
+{
+  "models": [
+    {
+      "id": "grinch",
+      "parts": 80,
+      "cubes": 103,
+      "server_animations": [
+        "attack",
+        "celebrate",
+        "death",
+        "hurt",
+        "idle",
+        "laugh",
+        "rage",
+        "run",
+        "steal",
+        "summon",
+        "walk"
+      ]
+    },
+    {
+      "id": "grinch_minion_crazy",
+      "parts": 27,
+      "cubes": 41,
+      "server_animations": [
+        "attack",
+        "carry_present",
+        "death",
+        "hurt",
+        "idle",
+        "laugh",
+        "run",
+        "walk"
+      ]
+    },
+    {
+      "id": "grinch_minion_sneaky",
+      "parts": 25,
+      "cubes": 46,
+      "server_animations": [
+        "attack",
+        "carry_present",
+        "death",
+        "hurt",
+        "idle",
+        "laugh",
+        "run",
+        "walk"
+      ]
+    },
+    {
+      "id": "grinch_minion_strong",
+      "parts": 25,
+      "cubes": 56,
+      "server_animations": [
+        "attack",
+        "carry_present",
+        "death",
+        "hurt",
+        "idle",
+        "laugh",
+        "run",
+        "walk"
+      ]
+    }
+  ],
+  "mapping_count": 157,
+  "animation_source": "UltimateChristmas server-side ItemDisplay transforms",
+  "requires_display_entity_extension": true,
+  "bedrock_client_visual_tested": false,
+  "display_extension_reference_commit": "3d22bff3265f85812beaeb5e3b7e898ee4a58105",
+  "limitations": [
+    "Geyser alone does not translate Java item displays.",
+    "The referenced display extension does not preserve all affine rotations and interpolation; animated boss parity is not certified.",
+    "The pack supplies geometry and mappings, not a native Bedrock behavior pack or an animation protocol bridge."
+  ],
+  "mcpack_sha256": "fa922338aa0c4e59a0abb9d4d9db7a7c38f4007b93289fb59fa66a42e683084f"
+}

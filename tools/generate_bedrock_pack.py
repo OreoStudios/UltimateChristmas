@@ -195,7 +195,7 @@ def build():
     return files, mapping, display_yaml, report
 
 
-def generate(output=OUTPUT):
+def generate(output=OUTPUT, bundled_pack_dir=None):
     files, mapping, display_yaml, report = build()
     pack = zip_bytes(files)
     report["mcpack_sha256"] = hashlib.sha256(pack).hexdigest()
@@ -209,7 +209,19 @@ def generate(output=OUTPUT):
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_bytes(content)
     archive = output / "UltimateChristmas-Geyser-bundle.zip"
-    archive.write_bytes(zip_bytes(bundle))
+    bundle_zip = zip_bytes(bundle)
+    archive.write_bytes(bundle_zip)
+    if bundled_pack_dir is not None:
+        bundled_pack_dir.mkdir(parents=True, exist_ok=True)
+        (bundled_pack_dir / PACK_NAME).write_bytes(pack)
+        (bundled_pack_dir / archive.name).write_bytes(bundle_zip)
+        for relative, content in bundle.items():
+            if relative.startswith("packs/"):
+                continue
+            destination = bundled_pack_dir / "geyser" / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(content)
+        print("Bundled Bedrock resources ->", bundled_pack_dir)
     print(f"Bedrock pack -> {output / 'packs' / PACK_NAME} ({len(mapping['items']['minecraft:paper'])} v2 mappings)")
     print("Geyser install bundle ->", archive)
     return report

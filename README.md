@@ -246,9 +246,15 @@ or the [standalone .mcpack](bedrock/packs/UltimateChristmas-Bedrock.mcpack).
 The [published distribution](bedrock/README.md) includes both mapping formats,
 installation instructions, and a checksum report.
 
-The build also creates `target/geyser/packs/UltimateChristmas-Bedrock.mcpack`
-and `target/geyser/UltimateChristmas-Geyser-bundle.zip`, containing v2 item-model
-mappings for all 157 Grinch/minion parts and a GeyserDisplayEntity configuration.
+The build places `UltimateChristmas-Bedrock.mcpack` and
+`UltimateChristmas-Geyser-bundle.zip` beside the Java ZIP in
+`src/main/resources/pack/`. The plugin also extracts these files into its
+`pack/` data folder on startup. The bundle contains v2 item-model mappings for
+all 157 Grinch/minion parts and a GeyserDisplayEntity configuration. Loose mappings
+are in `src/main/resources/pack/geyser/custom_mappings/` and
+`src/main/resources/pack/geyser/extensions/GeyserDisplayEntity/Mappings/`, and
+are extracted into the plugin's `pack/geyser/` folder. Another copy of all
+deployment files is generated under `target/geyser/`.
 See [Bedrock setup and compatibility limits](docs/bedrock-geyser.md). Geyser alone
 cannot translate Java item displays; an extension and its companion pack are
 required, and complete animated-pose parity has not been verified on Bedrock.
