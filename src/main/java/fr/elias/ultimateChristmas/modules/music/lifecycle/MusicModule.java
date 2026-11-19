@@ -6,6 +6,7 @@ import fr.elias.ultimateChristmas.core.command.CommandError;
 import fr.elias.ultimateChristmas.core.command.SubCommand;
 import fr.elias.ultimateChristmas.core.modulith.FeatureModule;
 import fr.elias.ultimateChristmas.core.text.Messages;
+import fr.elias.ultimateChristmas.core.text.Text;
 import fr.elias.ultimateChristmas.modules.music.api.MusicService;
 import fr.elias.ultimateChristmas.modules.music.infra.MusicLibrary;
 import fr.elias.ultimateChristmas.modules.platform.api.ChristmasPlatform;
@@ -98,7 +99,8 @@ public final class MusicModule extends FeatureModule implements MusicService {
             return false;
         }
         platform.messages().send(player, "music.playing",
-                Messages.of("track", track.displayName(), "source", track.source()));
+                Messages.of("track", Text.formatted(track.displayName()),
+                        "source", track.source()));
         return true;
     }
 

@@ -4,6 +4,7 @@ import fr.elias.ultimateChristmas.core.effect.Fx;
 import fr.elias.ultimateChristmas.core.progress.ProgressService;
 import fr.elias.ultimateChristmas.core.storage.PlayerProfile;
 import fr.elias.ultimateChristmas.core.text.Messages;
+import fr.elias.ultimateChristmas.core.text.Text;
 import fr.elias.ultimateChristmas.modules.platform.api.ChristmasPlatform;
 import fr.elias.ultimateChristmas.modules.quests.api.QuestCompletedEvent;
 import org.bukkit.Sound;
@@ -73,7 +74,7 @@ public final class QuestTracker implements ProgressService.Listener {
                     "quest", quest.name()));
         }
         platform.messages().send(player, "quests.completed",
-                Messages.of("name", quest.name()));
+                Messages.of("name", Text.formatted(quest.name())));
         player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 0.7f, 1.2f);
         Fx.burst(player.getLocation().add(0, 1, 0), org.bukkit.Particle.TOTEM_OF_UNDYING,
                 16, 0.4);

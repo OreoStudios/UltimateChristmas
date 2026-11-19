@@ -39,7 +39,23 @@ public final class Text {
             "light_purple", "yellow", "white"
     };
 
+    /**
+     * Marks a placeholder value as formatted text (see {@link #formatted}). A
+     * private-use character, so player names and chat can never carry it.
+     */
+    private static final char FORMATTED = '';
+
     private Text() {
+    }
+
+    /**
+     * Wraps an admin-configured value (a track title, quest name, ...) so that
+     * its {@code &6} / MiniMessage formatting is rendered when it fills a
+     * placeholder. Plain placeholder values stay literal text; never pass
+     * player-controlled input here.
+     */
+    public static String formatted(String value) {
+        return value == null ? "" : FORMATTED + value;
     }
 
     /** Parses a configured string with no placeholders. */
@@ -125,7 +141,10 @@ public final class Text {
         }
         List<TagResolver> resolvers = new ArrayList<>(placeholders.size());
         for (Map.Entry<String, String> entry : placeholders.entrySet()) {
-            Component value = Component.text(entry.getValue() == null ? "" : entry.getValue());
+            String raw = entry.getValue() == null ? "" : entry.getValue();
+            Component value = !raw.isEmpty() && raw.charAt(0) == FORMATTED
+                    ? parse(raw.substring(1))
+                    : Component.text(raw);
             resolvers.add(TagResolver.resolver(tagName(entry.getKey()),
                     (args, ctx) -> Tag.selfClosingInserting(value)));
         }
@@ -204,7 +223,7 @@ public final class Text {
             out = out.replace("%" + entry.getKey() + "%",
                     entry.getValue() == null ? "" : entry.getValue());
         }
-        return out;
+        return out.replace(String.valueOf(FORMATTED), "");
     }
 
     private static String stripCodes(String raw) {

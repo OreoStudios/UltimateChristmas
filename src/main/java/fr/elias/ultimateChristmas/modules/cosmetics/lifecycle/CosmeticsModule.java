@@ -6,6 +6,7 @@ import fr.elias.ultimateChristmas.core.command.SubCommand;
 import fr.elias.ultimateChristmas.core.modulith.FeatureModule;
 import fr.elias.ultimateChristmas.core.storage.PlayerProfile;
 import fr.elias.ultimateChristmas.core.text.Messages;
+import fr.elias.ultimateChristmas.core.text.Text;
 import fr.elias.ultimateChristmas.modules.cosmetics.api.CosmeticsService;
 import fr.elias.ultimateChristmas.modules.cosmetics.infra.CosmeticCatalog;
 import fr.elias.ultimateChristmas.modules.cosmetics.infra.CosmeticsMenu;
@@ -113,7 +114,7 @@ public final class CosmeticsModule extends FeatureModule implements CosmeticsSer
             wearHat(player, cosmetic.icon());
         }
         platform.messages().send(player, "cosmetics.equipped",
-                Messages.of("name", cosmetic.name()));
+                Messages.of("name", Text.formatted(cosmetic.name())));
         return true;
     }
 
@@ -204,7 +205,7 @@ public final class CosmeticsModule extends FeatureModule implements CosmeticsSer
                 }
                 CosmeticCatalog.Cosmetic cosmetic = catalog.get(args[2]);
                 platform.messages().send(sender, "cosmetics.granted", Messages.of(
-                        "name", cosmetic.name(), "player", target.getName()));
+                        "name", Text.formatted(cosmetic.name()), "player", target.getName()));
                 return;
             }
 
