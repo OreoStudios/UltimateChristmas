@@ -214,7 +214,7 @@ Use `-Dpython.executable=python3` when needed.
 mvn clean package
 ```
 
-Produces `target/UltimateChristmas-4.1.1.jar` with MinecraftModulith shaded in.
+Produces `target/UltimateChristmas-4.1.2.jar` with MinecraftModulith shaded in.
 Requires JDK 21.
 
 ## Remastered Grinch encounter
