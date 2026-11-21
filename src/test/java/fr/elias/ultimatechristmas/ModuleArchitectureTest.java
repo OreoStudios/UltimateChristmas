@@ -12,6 +12,7 @@ import fr.elias.ultimateChristmas.modules.bosses.lifecycle.BossModule;
 import fr.elias.ultimateChristmas.modules.cosmetics.lifecycle.CosmeticsModule;
 import fr.elias.ultimateChristmas.modules.countdown.lifecycle.CountdownModule;
 import fr.elias.ultimateChristmas.modules.economy.lifecycle.EconomyModule;
+import fr.elias.ultimateChristmas.modules.events.lifecycle.EventModule;
 import fr.elias.ultimateChristmas.modules.feasts.lifecycle.FeastModule;
 import fr.elias.ultimateChristmas.modules.leaderboard.lifecycle.LeaderboardModule;
 import fr.elias.ultimateChristmas.modules.music.lifecycle.MusicModule;
@@ -56,7 +57,8 @@ class ModuleArchitectureTest {
             MusicModule.class, QuestModule.class, PassModule.class,
             CosmeticsModule.class, FeastModule.class, TreeModule.class,
             SecretSantaModule.class, CountdownModule.class,
-            LeaderboardModule.class, AmbienceModule.class, AdminModule.class);
+            LeaderboardModule.class, AmbienceModule.class, EventModule.class,
+            AdminModule.class);
 
     private static List<ModuleDescriptor> describeAll() {
         List<ModuleDescriptor> descriptors = new ArrayList<>();

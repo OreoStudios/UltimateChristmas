@@ -17,6 +17,8 @@ import fr.elias.ultimateChristmas.modules.countdown.lifecycle.CountdownModule;
 import fr.elias.ultimateChristmas.modules.countdown.lifecycle.CountdownParameters;
 import fr.elias.ultimateChristmas.modules.economy.lifecycle.EconomyModule;
 import fr.elias.ultimateChristmas.modules.economy.lifecycle.EconomyParameters;
+import fr.elias.ultimateChristmas.modules.events.lifecycle.EventModule;
+import fr.elias.ultimateChristmas.modules.events.lifecycle.EventParameters;
 import fr.elias.ultimateChristmas.modules.feasts.lifecycle.FeastModule;
 import fr.elias.ultimateChristmas.modules.feasts.lifecycle.FeastParameters;
 import fr.elias.ultimateChristmas.modules.leaderboard.lifecycle.LeaderboardModule;
@@ -155,6 +157,10 @@ public final class ModuleWiring {
                 .functor(AmbienceModule.class, AmbienceParameters.DEFAULTS,
                         (defaults, context) -> new AmbienceModule(platform(context),
                                 AmbienceParameters.from(context.config(), defaults)))
+
+                .functor(EventModule.class, EventParameters.DEFAULTS,
+                        (defaults, context) -> new EventModule(platform(context),
+                                EventParameters.from(context.config(), defaults)))
 
                 .functor(AdminModule.class, AdminParameters.DEFAULTS,
                         (defaults, context) -> new AdminModule(platform(context),

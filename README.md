@@ -42,6 +42,7 @@ Each feature is a module. Manage them in game with `/christmas module …`.
 | `countdown` | A countdown boss bar and a midnight firework show |
 | `leaderboards` | Festive leaderboards for every tracked stat |
 | `ambience` | Join greetings and incidental festive atmosphere |
+| `events` | Scheduled Christmas activities with start/end commands and admin overrides |
 | `admin` | Reload, diagnostics and the module control commands |
 | `platform` | Shared infrastructure the other modules build on |
 
@@ -86,6 +87,7 @@ arguments for paged, clickable help.
 | `/christmas snow blizzard [seconds]` | Start a blizzard |
 | `/christmas presents <spawn\|clear>` | Manage the present hunt |
 | `/christmas architecture [format]` | Export the module graph |
+| `/christmas events <list|start|stop|auto|enable|disable> [id]` | Inspect and operate timed events |
 
 ---
 

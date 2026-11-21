@@ -1,0 +1,30 @@
+# Scheduled Christmas events. Control with /christmas events.
+# The scheduler is enabled by default but example events are disabled.
+enabled: true
+timezone: "Europe/Paris"
+
+events:
+  grinch_weekend:
+    enabled: false
+    season-only: true
+    # Local start day controls the recurrence, including overnight windows.
+    days: [FRIDAY, SATURDAY, SUNDAY]
+    start-time: "18:00"
+    end-time: "20:00"
+    start-commands:
+      - "christmas boss spawn grinch"
+    end-commands:
+      - "christmas boss despawn grinch"
+
+  christmas_eve:
+    enabled: false
+    season-only: false
+    # One-shot dates may include an explicit UTC offset (recommended).
+    start-at: "2026-12-24T18:00:00+01:00"
+    end-at: "2026-12-24T22:00:00+01:00"
+    start-commands:
+      - "say The Christmas Eve celebration has begun!"
+      - "christmas santa spawn"
+    end-commands:
+      - "say Thanks for joining the Christmas Eve event!"
+      - "christmas santa despawn"
