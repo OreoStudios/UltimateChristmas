@@ -11,6 +11,8 @@ import fr.elias.ultimateChristmas.core.text.Messages;
 import fr.elias.ultimateChristmas.core.text.Text;
 import fr.elias.ultimateChristmas.modules.bosses.api.BossDefeatedEvent;
 import fr.elias.ultimateChristmas.modules.bosses.api.BossService;
+import fr.elias.ultimateChristmas.modules.bosses.infra.BossAutoSpawn;
+import fr.elias.ultimateChristmas.modules.bosses.infra.BossSpawnClock;
 import fr.elias.ultimateChristmas.modules.bosses.infra.BossAbilities;
 import fr.elias.ultimateChristmas.modules.bosses.infra.BossControl;
 import fr.elias.ultimateChristmas.modules.bosses.infra.BossControlMenu;
@@ -50,6 +52,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class BossModule extends FeatureModule implements BossService, BossControl {
 
     private final Map<String, BossType> types = new LinkedHashMap<>();
+    private final BossSpawnClock autoSpawnClock = new BossSpawnClock();
+    private volatile boolean running;
     /** Active fights, keyed by the boss entity's UUID. */
     private final Map<UUID, BossFight> fights = new LinkedHashMap<>();
     private volatile BossParameters parameters;
@@ -68,6 +72,7 @@ public final class BossModule extends FeatureModule implements BossService, Boss
 
     @Override
     protected void onEnable() {
+        running = true;
         loadTypes();
         listen(new CombatListener());
         command(new BossCommand());
@@ -81,6 +86,8 @@ public final class BossModule extends FeatureModule implements BossService, Boss
 
     @Override
     protected void onDisable() {
+        running = false;
+        autoSpawnClock.clear();
         // Despawn active bosses so none is orphaned when the module stops.
         for (BossFight fight : new ArrayList<>(fights.values())) {
             fight.hideBar();
@@ -122,11 +129,21 @@ public final class BossModule extends FeatureModule implements BossService, Boss
                 types.put(id.toLowerCase(Locale.ROOT), type);
             }
         }
+        java.util.Set<String> autoEnabled = new java.util.HashSet<>();
+        long now = System.currentTimeMillis();
+        for (BossType type : types.values()) {
+            if (type.autoSpawn().enabled()) {
+                autoEnabled.add(type.id());
+                autoSpawnClock.initialize(type.id(), now, type.autoSpawn().intervalSeconds());
+            }
+        }
+        autoSpawnClock.retain(autoEnabled);
         platform.plugin().getLogger().info("Bosses: " + types.size() + " type(s).");
     }
 
     /** The per-second loop: refresh bars, drop dead fights, fire abilities. */
     private void tick() {
+        tickAutomaticSpawns();
         ownedModels.removeIf(id -> !platform.modelRenderer().has(id));
         modelSettings.keySet().removeIf(id -> !ownedModels.contains(id));
         summonedOwners.keySet().removeIf(id -> {
@@ -159,6 +176,36 @@ public final class BossModule extends FeatureModule implements BossService, Boss
                 fireAbility(fight);
             }
         }
+    }
+
+    /**
+     * Automatic encounters use the same boss lifecycle as manual summons.
+     * Actual entity creation is scheduled for the target location's region,
+     * rather than doing world work on the global timer (Folia-safe).
+     */
+    private void tickAutomaticSpawns() {
+        if (!running || !platform.season().active() || Bukkit.getOnlinePlayers().isEmpty()) return;
+        long now = System.currentTimeMillis();
+        for (BossType type : types.values()) {
+            BossAutoSpawn policy = type.autoSpawn();
+            if (!policy.enabled() || policy.locations().isEmpty()
+                    || activeCount(type.id()) >= policy.maxAlive()) continue;
+            if (!autoSpawnClock.claim(type.id(), now, policy.intervalSeconds())) continue;
+            Location location = policy.pickLocation();
+            if (location == null || location.getWorld() == null) continue;
+
+            Bukkit.getRegionScheduler().execute(platform.plugin(), location, () -> {
+                if (!running || !platform.season().active()
+                        || activeCount(type.id()) >= policy.maxAlive()) return;
+                spawnAt(type.id(), location, policy.announce());
+            });
+        }
+    }
+
+    private long activeCount(String bossId) {
+        return fights.values().stream()
+                .filter(fight -> fight.alive() && fight.type().id().equalsIgnoreCase(bossId))
+                .count();
     }
 
     private void fireAbility(BossFight fight) {
@@ -247,6 +294,10 @@ public final class BossModule extends FeatureModule implements BossService, Boss
 
     @Override
     public boolean spawn(String bossId, Location where) {
+        return spawnAt(bossId, where, true);
+    }
+
+    private boolean spawnAt(String bossId, Location where, boolean announce) {
         BossType type = types.get(bossId.toLowerCase(Locale.ROOT));
         if (type == null || where == null || where.getWorld() == null) {
             return false;
@@ -259,16 +310,18 @@ public final class BossModule extends FeatureModule implements BossService, Boss
         BossFight fight = new BossFight(platform, type, mob);
         fights.put(mob.getUniqueId(), fight);
 
-        if (parameters.taunt()) {
-            for (String line : type.spawnLines()) {
-                Bukkit.broadcast(Text.parse(line));
+        if (announce) {
+            if (parameters.taunt()) {
+                for (String line : type.spawnLines()) {
+                    Bukkit.broadcast(Text.parse(line));
+                }
             }
+            Bukkit.broadcast(platform.messages().prefixed("boss.spawned", Messages.of(
+                    "name", Text.plain(Text.parse(type.displayName())),
+                    "x", String.valueOf(where.getBlockX()),
+                    "y", String.valueOf(where.getBlockY()),
+                    "z", String.valueOf(where.getBlockZ()))));
         }
-        Bukkit.broadcast(platform.messages().prefixed("boss.spawned", Messages.of(
-                "name", Text.plain(Text.parse(type.displayName())),
-                "x", String.valueOf(where.getBlockX()),
-                "y", String.valueOf(where.getBlockY()),
-                "z", String.valueOf(where.getBlockZ()))));
         Fx.fireworkShow(platform.plugin(), where, 3, 5L);
         return true;
     }
@@ -397,6 +450,11 @@ public final class BossModule extends FeatureModule implements BossService, Boss
 
     private void handleDeath(BossFight fight) {
         fights.remove(fight.entity().getUniqueId());
+        BossAutoSpawn spawnPolicy = fight.type().autoSpawn();
+        if (spawnPolicy.enabled()) {
+            autoSpawnClock.afterDeath(fight.type().id(), System.currentTimeMillis(),
+                    spawnPolicy.respawnSeconds());
+        }
         fight.hideBar();
         fight.releaseChunk();
         BossType type = fight.type();
