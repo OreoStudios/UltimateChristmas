@@ -13,6 +13,8 @@ import fr.elias.ultimateChristmas.modules.bosses.api.BossDefeatedEvent;
 import fr.elias.ultimateChristmas.modules.bosses.api.BossService;
 import fr.elias.ultimateChristmas.modules.bosses.infra.BossAutoSpawn;
 import fr.elias.ultimateChristmas.modules.bosses.infra.BossSpawnClock;
+import fr.elias.ultimateChristmas.modules.bosses.infra.BossRegionTrigger;
+import fr.elias.ultimateChristmas.modules.bosses.infra.BossRegionCooldowns;
 import fr.elias.ultimateChristmas.modules.bosses.infra.BossAbilities;
 import fr.elias.ultimateChristmas.modules.bosses.infra.BossControl;
 import fr.elias.ultimateChristmas.modules.bosses.infra.BossControlMenu;
@@ -27,6 +29,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.projectiles.ProjectileSource;
@@ -53,6 +56,7 @@ public final class BossModule extends FeatureModule implements BossService, Boss
 
     private final Map<String, BossType> types = new LinkedHashMap<>();
     private final BossSpawnClock autoSpawnClock = new BossSpawnClock();
+    private final BossRegionCooldowns regionCooldowns = new BossRegionCooldowns();
     private volatile boolean running;
     /** Active fights, keyed by the boss entity's UUID. */
     private final Map<UUID, BossFight> fights = new LinkedHashMap<>();
@@ -75,6 +79,7 @@ public final class BossModule extends FeatureModule implements BossService, Boss
         running = true;
         loadTypes();
         listen(new CombatListener());
+        listen(new RegionEntryListener());
         command(new BossCommand());
 
         // One loop drives health bars every second and abilities on the
@@ -88,6 +93,7 @@ public final class BossModule extends FeatureModule implements BossService, Boss
     protected void onDisable() {
         running = false;
         autoSpawnClock.clear();
+        regionCooldowns.clear();
         // Despawn active bosses so none is orphaned when the module stops.
         for (BossFight fight : new ArrayList<>(fights.values())) {
             fight.hideBar();
@@ -113,6 +119,7 @@ public final class BossModule extends FeatureModule implements BossService, Boss
     @Override
     protected void onReload() {
         parameters = BossParameters.from(config(), BossParameters.DEFAULTS);
+        regionCooldowns.clear();
         loadTypes();
     }
 
@@ -138,6 +145,10 @@ public final class BossModule extends FeatureModule implements BossService, Boss
             }
         }
         autoSpawnClock.retain(autoEnabled);
+        if (!platform.hooks().worldGuard().active() && types.values().stream()
+                .anyMatch(type -> type.regionTrigger().enabled())) {
+            log().warning("Boss region triggers are configured, but WorldGuard is unavailable; skipping region events.");
+        }
         platform.plugin().getLogger().info("Bosses: " + types.size() + " type(s).");
     }
 
@@ -510,6 +521,56 @@ public final class BossModule extends FeatureModule implements BossService, Boss
         if (parameters.removeMinionsOnDeath()) removeMinions(fight.entity().getUniqueId(), true);
 
         emit(new BossDefeatedEvent(type.id(), contributorIds));
+    }
+
+    /**
+     * Fire when a player ENTERS a named WorldGuard region, not on every move
+     * within it. Both the global per-region cooldown and per-boss max-active
+     * guard prevent repeated or concurrent encounters.
+     */
+    private final class RegionEntryListener implements Listener {
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+        public void onMove(PlayerMoveEvent event) {
+            if (!running || !platform.season().active()
+                    || !platform.hooks().worldGuard().active()) return;
+            Location from = event.getFrom();
+            Location to = event.getTo();
+            if (to == null || (from.getWorld() == to.getWorld()
+                    && from.getBlockX() == to.getBlockX()
+                    && from.getBlockY() == to.getBlockY()
+                    && from.getBlockZ() == to.getBlockZ())) return;
+            if (types.values().stream().noneMatch(type -> type.regionTrigger().enabled())) return;
+
+            java.util.Set<String> entered = new java.util.HashSet<>();
+            for (String region : platform.hooks().worldGuard().regionsAt(to)) {
+                entered.add(region.toLowerCase(Locale.ROOT));
+            }
+            for (String region : platform.hooks().worldGuard().regionsAt(from)) {
+                entered.remove(region.toLowerCase(Locale.ROOT));
+            }
+            if (entered.isEmpty()) return;
+
+            long now = System.currentTimeMillis();
+            for (BossType type : types.values()) {
+                BossRegionTrigger trigger = type.regionTrigger();
+                if (!trigger.enabled() || activeCount(type.id()) >= trigger.maxAlive()) continue;
+                for (String region : trigger.regions()) {
+                    if (!entered.contains(region)) continue;
+                    if (!regionCooldowns.claim(type.id(), region, now, trigger.cooldownSeconds())) continue;
+
+                    // Use the configured boss coordinates, falling back to the entry point.
+                    Location destination = type.autoSpawn().pickLocation();
+                    if (destination == null) destination = to.clone();
+                    Location target = destination;
+                    Bukkit.getRegionScheduler().execute(platform.plugin(), target, () -> {
+                        if (!running || !platform.season().active()
+                                || activeCount(type.id()) >= trigger.maxAlive()) return;
+                        spawn(type.id(), target);
+                    });
+                    break;
+                }
+            }
+        }
     }
 
     private final class CombatListener implements Listener {

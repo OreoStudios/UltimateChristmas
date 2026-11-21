@@ -82,6 +82,12 @@ bosses:
       locations: []
       #  - { world: world, x: 100, y: 65, z: -50 }
       #  - "world,200,65,100"
+    # Requires WorldGuard; triggers only when a player ENTERS this region.
+    region-trigger:
+      enabled: false
+      regions: [christmas_arena]
+      cooldown-seconds: 600
+      max-alive: 1
     display-name: "&2&lThe Grinch"
     entity-type: WITHER_SKELETON
     health: 800
