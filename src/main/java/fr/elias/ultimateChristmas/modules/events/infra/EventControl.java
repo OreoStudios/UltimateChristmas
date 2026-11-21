@@ -4,6 +4,8 @@ import java.util.List;
 
 /** Narrow API shared by event commands and the future admin GUI. */
 public interface EventControl {
+    fr.elias.ultimateChristmas.modules.platform.api.ChristmasPlatform platform();
+
     record Status(String id, boolean enabled, boolean active,
                   Boolean override, String schedule) {}
 

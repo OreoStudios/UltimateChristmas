@@ -6,6 +6,7 @@ import fr.elias.ultimateChristmas.core.menu.MenuView;
 import fr.elias.ultimateChristmas.core.menu.PagedMenu;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -45,9 +46,27 @@ public final class EventControlMenu extends PagedMenu {
                         .addLore("<gray>Shift + left: return to automatic schedule")
                         .addLore("<gray>Shift + right: enable/disable persistently")
                         .hideAll().build()));
+        // Quick controls for the other Christmas activities; their own admin
+        // permissions are still checked by the underlying commands.
+        view.set(MenuView.slot(5, 1), quickAction(Material.WITHER_SKELETON_SKULL,
+                "<red>Boss controls", "christmas boss"));
+        view.set(MenuView.slot(5, 2), quickAction(Material.EMERALD,
+                "<green>Summon Santa", "christmas santa spawn"));
+        view.set(MenuView.slot(5, 6), quickAction(Material.RED_WOOL,
+                "<red>Dismiss Santa", "christmas santa despawn"));
+        view.set(MenuView.slot(5, 7), quickAction(Material.SNOWBALL,
+                "<aqua>Start a 5-minute blizzard", "christmas snow blizzard 300"));
         view.set(MenuView.slot(5, 8), MenuItem.of(
                 ItemBuilder.of(Material.COMPASS).name("<yellow>Refresh status").build(),
                 click -> click.view().refresh()));
+    }
+
+    /** Run another admin command safely after the inventory click completes. */
+    private MenuItem quickAction(Material material, String name, String command) {
+        return MenuItem.of(ItemBuilder.of(material).name(name).hideAll().build(), click ->
+                Bukkit.getScheduler().runTask(control.platform().plugin(), () -> {
+                    if (click.player().isOnline()) click.player().performCommand(command);
+                }));
     }
 
     @Override

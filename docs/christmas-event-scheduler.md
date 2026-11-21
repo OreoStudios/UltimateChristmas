@@ -46,3 +46,7 @@ Use `/christmas events gui` (requires `ultimatechristmas.admin.events`).
 Click an event to start or stop it, shift-left to return it to its schedule,
 or shift-right to persistently enable/disable it in `modules/events.yml`.
 Manual starts and stops apply for this session only; enabling/disabling is saved.
+
+The dashboard also has quick-access actions for the existing boss control
+menu, summoning/dismissing Santa and starting a five-minute blizzard.
+Each shortcut uses its underlying command and permission checks.

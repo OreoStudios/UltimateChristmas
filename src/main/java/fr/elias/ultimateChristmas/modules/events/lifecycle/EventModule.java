@@ -132,6 +132,11 @@ public final class EventModule extends FeatureModule implements EventControl {
     }
 
     @Override
+    public ChristmasPlatform platform() {
+        return platform;
+    }
+
+    @Override
     public List<Status> statuses() {
         List<Status> result = new ArrayList<>();
         for (EventWindow window : windows.values()) {
