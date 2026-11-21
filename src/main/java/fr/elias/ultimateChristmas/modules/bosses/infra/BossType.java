@@ -34,6 +34,7 @@ public final class BossType {
     private final List<String> spawnLines;
     private final List<String> deathLines;
     private final Location spawnLocation;
+    private final BossAutoSpawn autoSpawn;
     private final String model;
     private final ModelHook.Provider modelProvider;
     private final ModelSettings modelSettings;
@@ -58,6 +59,7 @@ public final class BossType {
         this.spawnLines = List.copyOf(builder.spawnLines);
         this.deathLines = List.copyOf(builder.deathLines);
         this.spawnLocation = builder.spawnLocation;
+        this.autoSpawn = builder.autoSpawn;
         this.model = builder.model;
         this.modelProvider = builder.modelProvider;
         this.modelSettings = builder.modelSettings;
@@ -121,6 +123,8 @@ public final class BossType {
         builder.spawnLines.addAll(section.getStringList("spawn-messages"));
         builder.deathLines.addAll(section.getStringList("death-messages"));
         builder.spawnLocation = readLocation(section.getConfigurationSection("spawn"));
+        builder.autoSpawn = BossAutoSpawn.read(section.getConfigurationSection("auto-spawn"),
+                builder.spawnLocation, logger);
 
         // Optional custom model, rendered by ModelEngine or BetterModel. The
         // 'model' is the model id those plugins loaded from its .bbmodel.
@@ -254,6 +258,11 @@ public final class BossType {
         return spawnLocation == null ? null : spawnLocation.clone();
     }
 
+    /** Optional automatic spawn policy, disabled by default. */
+    public BossAutoSpawn autoSpawn() {
+        return autoSpawn;
+    }
+
     /** The custom model id, or an empty string for the vanilla appearance. */
     public String model() {
         return model;
@@ -302,6 +311,7 @@ public final class BossType {
         private final List<String> spawnLines = new ArrayList<>();
         private final List<String> deathLines = new ArrayList<>();
         private Location spawnLocation;
+        private BossAutoSpawn autoSpawn;
         private String model = "";
         private ModelHook.Provider modelProvider = ModelHook.Provider.AUTO;
         private ModelSettings modelSettings;

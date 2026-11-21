@@ -71,6 +71,17 @@ remove-minions-on-death: true
 bosses:
 
   grinch:
+    # Optional recurring encounters (off by default for backwards compatibility).
+    # Populate locations or keep the legacy single 'spawn:' section below.
+    auto-spawn:
+      enabled: false
+      interval-minutes: 60
+      respawn-after-death-minutes: 30
+      max-alive: 1
+      announce: true
+      locations: []
+      #  - { world: world, x: 100, y: 65, z: -50 }
+      #  - "world,200,65,100"
     display-name: "&2&lThe Grinch"
     entity-type: WITHER_SKELETON
     health: 800
@@ -250,6 +261,17 @@ bosses:
         shards: 30-70
 
   krampus:
+    # Optional recurring encounters (off by default for backwards compatibility).
+    # Populate locations or keep the legacy single 'spawn:' section below.
+    auto-spawn:
+      enabled: false
+      interval-minutes: 60
+      respawn-after-death-minutes: 30
+      max-alive: 1
+      announce: true
+      locations: []
+      #  - { world: world, x: 100, y: 65, z: -50 }
+      #  - "world,200,65,100"
     display-name: "&4&lKrampus"
     entity-type: PIGLIN_BRUTE
     health: 1200
@@ -282,6 +304,17 @@ bosses:
         broadcast: ["&6%player% &eclaimed Krampus's jackpot!"]
 
   frost_monarch:
+    # Optional recurring encounters (off by default for backwards compatibility).
+    # Populate locations or keep the legacy single 'spawn:' section below.
+    auto-spawn:
+      enabled: false
+      interval-minutes: 60
+      respawn-after-death-minutes: 30
+      max-alive: 1
+      announce: true
+      locations: []
+      #  - { world: world, x: 100, y: 65, z: -50 }
+      #  - "world,200,65,100"
     display-name: "&b&lThe Frost Monarch"
     entity-type: STRAY
     health: 2000
