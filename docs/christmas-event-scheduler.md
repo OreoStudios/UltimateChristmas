@@ -27,6 +27,7 @@ events:
 ```
 
 Admin commands:
+- `/christmas events` or `/christmas events gui` — visual admin control center
 - `/christmas events list` — current schedules and status
 - `/christmas events start <id>` — force start this session
 - `/christmas events stop <id>` — force stop this session
@@ -38,3 +39,14 @@ Events run as the server console; configure only trusted commands.
 When the module is stopped, active events run their end commands.
 Unconfigured example events remain **disabled** by default.
 These windows are checked every second while the module is enabled.
+
+## In-game event dashboard
+
+Use `/christmas events gui` (requires `ultimatechristmas.admin.events`).
+Click an event to start or stop it, shift-left to return it to its schedule,
+or shift-right to persistently enable/disable it in `modules/events.yml`.
+Manual starts and stops apply for this session only; enabling/disabling is saved.
+
+The dashboard also has quick-access actions for the existing boss control
+menu, summoning/dismissing Santa and starting a five-minute blizzard.
+Each shortcut uses its underlying command and permission checks.
