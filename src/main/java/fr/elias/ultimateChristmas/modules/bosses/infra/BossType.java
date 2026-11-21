@@ -35,6 +35,7 @@ public final class BossType {
     private final List<String> deathLines;
     private final Location spawnLocation;
     private final BossAutoSpawn autoSpawn;
+    private final BossRegionTrigger regionTrigger;
     private final String model;
     private final ModelHook.Provider modelProvider;
     private final ModelSettings modelSettings;
@@ -60,6 +61,7 @@ public final class BossType {
         this.deathLines = List.copyOf(builder.deathLines);
         this.spawnLocation = builder.spawnLocation;
         this.autoSpawn = builder.autoSpawn;
+        this.regionTrigger = builder.regionTrigger;
         this.model = builder.model;
         this.modelProvider = builder.modelProvider;
         this.modelSettings = builder.modelSettings;
@@ -125,6 +127,8 @@ public final class BossType {
         builder.spawnLocation = readLocation(section.getConfigurationSection("spawn"));
         builder.autoSpawn = BossAutoSpawn.read(section.getConfigurationSection("auto-spawn"),
                 builder.spawnLocation, logger);
+        builder.regionTrigger = BossRegionTrigger.read(
+                section.getConfigurationSection("region-trigger"), logger);
 
         // Optional custom model, rendered by ModelEngine or BetterModel. The
         // 'model' is the model id those plugins loaded from its .bbmodel.
@@ -263,6 +267,10 @@ public final class BossType {
         return autoSpawn;
     }
 
+    public BossRegionTrigger regionTrigger() {
+        return regionTrigger;
+    }
+
     /** The custom model id, or an empty string for the vanilla appearance. */
     public String model() {
         return model;
@@ -312,6 +320,7 @@ public final class BossType {
         private final List<String> deathLines = new ArrayList<>();
         private Location spawnLocation;
         private BossAutoSpawn autoSpawn;
+        private BossRegionTrigger regionTrigger;
         private String model = "";
         private ModelHook.Provider modelProvider = ModelHook.Provider.AUTO;
         private ModelSettings modelSettings;
