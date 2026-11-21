@@ -5,10 +5,12 @@ import fr.elias.ultimateChristmas.core.command.CommandError;
 import fr.elias.ultimateChristmas.core.command.SubCommand;
 import fr.elias.ultimateChristmas.core.modulith.FeatureModule;
 import fr.elias.ultimateChristmas.modules.events.infra.EventControl;
+import fr.elias.ultimateChristmas.modules.events.infra.EventControlMenu;
 import fr.elias.ultimateChristmas.modules.events.infra.EventWindow;
 import fr.elias.ultimateChristmas.modules.platform.api.ChristmasPlatform;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -101,7 +103,7 @@ public final class EventModule extends FeatureModule implements EventControl {
         for (EventWindow window : windows.values()) {
             boolean scheduled = parameters.enabled()
                     && window.activeAt(now, platform.season().active());
-            boolean desired = parameters.enabled()
+            boolean desired = parameters.enabled() && window.enabled()
                     && overrides.getOrDefault(window.id().toLowerCase(Locale.ROOT), scheduled);
             transition(window, desired);
         }
@@ -183,12 +185,21 @@ public final class EventModule extends FeatureModule implements EventControl {
         @Override public String name() { return "events"; }
         @Override public List<String> aliases() { return List.of("event"); }
         @Override public String permission() { return "ultimatechristmas.admin.events"; }
-        @Override public String usage() { return "<list|start|stop|auto|enable|disable> [id]"; }
+        @Override public String usage() { return "<gui|list|start|stop|auto|enable|disable> [id]"; }
         @Override public String description() { return "Control scheduled Christmas events"; }
 
         @Override
         public void execute(CommandSender sender, String[] args) {
-            String action = args.length == 0 ? "list" : args[0].toLowerCase(Locale.ROOT);
+            String action = args.length == 0
+                    ? (sender instanceof Player ? "gui" : "list")
+                    : args[0].toLowerCase(Locale.ROOT);
+            if (action.equals("gui") || action.equals("menu") || action.equals("control")) {
+                if (!(sender instanceof Player player)) {
+                    throw new CommandError("Only a player can open the event dashboard.");
+                }
+                platform.menus().open(player, new EventControlMenu(EventModule.this));
+                return;
+            }
             if (action.equals("list") || action.equals("status")) {
                 for (Status s : statuses()) {
                     platform.messages().sendRaw(sender,
@@ -216,7 +227,7 @@ public final class EventModule extends FeatureModule implements EventControl {
 
         @Override
         public List<String> complete(CommandSender sender, String[] args) {
-            if (args.length == 1) return List.of("list", "start", "stop", "auto", "enable", "disable");
+            if (args.length == 1) return List.of("gui", "list", "start", "stop", "auto", "enable", "disable");
             if (args.length == 2) return new ArrayList<>(windows.keySet());
             return List.of();
         }

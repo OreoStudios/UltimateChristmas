@@ -87,7 +87,7 @@ arguments for paged, clickable help.
 | `/christmas snow blizzard [seconds]` | Start a blizzard |
 | `/christmas presents <spawn\|clear>` | Manage the present hunt |
 | `/christmas architecture [format]` | Export the module graph |
-| `/christmas events <list|start|stop|auto|enable|disable> [id]` | Inspect and operate timed events |
+| `/christmas events [gui|list|start|stop|auto|enable|disable] [id]` | Inspect and operate timed events |
 
 ---
 

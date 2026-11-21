@@ -36,6 +36,16 @@ class EventWindowTest {
     }
 
     @Test
+    void disablingWindowKeepsCalendarButPreventsActivation() {
+        EventWindow window = new EventWindow("test", true, false, paris,
+                LocalTime.of(18, 0), LocalTime.of(20, 0), Set.of(DayOfWeek.SATURDAY),
+                null, null, List.of(), List.of());
+        assertTrue(window.activeAt(Instant.parse("2026-11-21T18:00:00Z"), true));
+        assertFalse(window.withEnabled(false).activeAt(
+                Instant.parse("2026-11-21T18:00:00Z"), true));
+    }
+
+    @Test
     void absoluteWindowIsDateBounded() {
         EventWindow window = new EventWindow("eve", true, false, paris,
                 null, null, Set.of(), Instant.parse("2026-12-24T17:00:00Z"),
