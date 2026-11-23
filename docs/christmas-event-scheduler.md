@@ -1,0 +1,52 @@
+# Christmas event scheduler
+
+The `events` module starts and ends activities by dispatching configured
+console commands. It is independent of boss, Santa, or snow internals.
+
+`plugins/UltimateChristmas/modules/events.yml` supports two timing modes:
+
+**Repeated daily times:** `start-time`, `end-time` (24h HH:mm),
+`days: [FRIDAY, SATURDAY]`, and optional `timezone` override.
+Overnight ranges are supported, with `days` representing the start day.
+
+**One-shot windows:** `start-at`, `end-at` in ISO-8601 format.
+Prefer explicit offsets, e.g. `2026-12-24T18:00:00+01:00`.
+
+```yaml
+enabled: true
+timezone: Europe/Paris
+events:
+  winter_boss:
+    enabled: true
+    season-only: true
+    days: [FRIDAY, SATURDAY]
+    start-time: "18:00"
+    end-time: "20:00"
+    start-commands: ["christmas boss spawn grinch"]
+    end-commands: ["christmas boss despawn grinch"]
+```
+
+Admin commands:
+- `/christmas events` or `/christmas events gui` — visual admin control center
+- `/christmas events list` — current schedules and status
+- `/christmas events start <id>` — force start this session
+- `/christmas events stop <id>` — force stop this session
+- `/christmas events auto <id>` — return to automatic calendar control
+- `/christmas events enable|disable <id>` — persisted into events.yml
+- `/christmas module reload events` — re-read the file
+
+Events run as the server console; configure only trusted commands.
+When the module is stopped, active events run their end commands.
+Unconfigured example events remain **disabled** by default.
+These windows are checked every second while the module is enabled.
+
+## In-game event dashboard
+
+Use `/christmas events gui` (requires `ultimatechristmas.admin.events`).
+Click an event to start or stop it, shift-left to return it to its schedule,
+or shift-right to persistently enable/disable it in `modules/events.yml`.
+Manual starts and stops apply for this session only; enabling/disabling is saved.
+
+The dashboard also has quick-access actions for the existing boss control
+menu, summoning/dismissing Santa and starting a five-minute blizzard.
+Each shortcut uses its underlying command and permission checks.
