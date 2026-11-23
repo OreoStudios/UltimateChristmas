@@ -362,8 +362,6 @@ def main():
     if compiled:
         print("Resource pack -> %s  (sha1 %s)" % (BUNDLED_ZIP, pack_sha1()))
         print("Runtime rigs  -> %s" % RIGS_DIR)
-    from generate_bedrock_pack import generate
-    generate(bundled_pack_dir=Path(BUNDLED_ZIP).parent)
     write_manifest()
 
 
@@ -385,7 +383,7 @@ def write_manifest():
     files = {}
     for folder in ("models", "rigs", "pack"):
         for path in sorted((resources / folder).rglob("*")):
-            if path.is_file() and path.suffix in (".bbmodel", ".json", ".zip", ".mcpack", ".txt", ".yml", ".md"):
+            if path.is_file() and path.suffix in (".bbmodel", ".json", ".zip", ".txt", ".yml", ".md"):
                 files[path.relative_to(resources).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
     revision = hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest()
     write(resources / "model-assets.json", json.dumps({"revision": revision, "files": files}, indent=2))

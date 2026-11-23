@@ -1,21 +1,15 @@
 {
-  "revision": "ffd0ccfbdc6b5f4243165e7e04bc01a9c92d64118be8a8e9a70e903ae388dd5d",
+  "revision": "925fc27950592bfac9a75ae08cd591881ff1459713d92f3b0cefb6aeb1a5c346",
   "files": {
     "models/grinch.bbmodel": "a36469edd7b31eb4cef4c7cb02c12d7db670e81eeee1be219b9dc5522f58099d",
     "models/grinch_minion_crazy.bbmodel": "7822085fa9064c2c60892e919bca0666a83731668df5caf2010ba9c59cabe174",
     "models/grinch_minion_sneaky.bbmodel": "e577233ff82e8fcddc8ae41ac1130c98af6c0b25ea068ab40ed8a2303a91808b",
     "models/grinch_minion_strong.bbmodel": "92b253bf556aaacdda0d825303c20a1c59cce4822499e8055264d1e8a2372da4",
-    "models/README.txt": "73bcd0165d6c06767df187e89adb103b6add60253514a095d5e14641b04e87c4",
+    "models/README.txt": "8dad31133a848242129f31ed419d96a83e74579dc4dff60c95f08d871e9c1c6e",
     "rigs/grinch.json": "80b040a8a05b479ede01da60e2a6e90cf4ac9795fc5e435079bcf79cbe175bdb",
     "rigs/grinch_minion_crazy.json": "c3b173415beae05a89ba3c9cde4365eec6166b4807345c51b7417ccadf986dac",
     "rigs/grinch_minion_sneaky.json": "f8ed1624e707702cc1961eb43f8502848d0802ba24e4e975069b3b23198ffe18",
     "rigs/grinch_minion_strong.json": "baa32090583d709fb9ba1072e2af3740c95e559eeabbc66e2627e5f65f2fae59",
-    "pack/geyser/custom_mappings/ultimatechristmas.json": "41edcae40e3ff108e589632f75b93d57f1214913e79fbfbedb1c2d43fcc1e8d1",
-    "pack/geyser/extensions/GeyserDisplayEntity/Mappings/ultimatechristmas.yml": "2ea1a47a3006a8b269d8b2e80dbf6025beee3daff3b95c585a338dc27f760f23",
-    "pack/geyser/README.md": "79c3fcac1a6ae3021619b1c4db454aec0358de376678b9277b9c66b38d3420a6",
-    "pack/geyser/report.json": "3d1a15053603f53b2b1e380728e6fca9461a5026f78fa392627369e7ce0c1767",
-    "pack/UltimateChristmas-Bedrock.mcpack": "fa922338aa0c4e59a0abb9d4d9db7a7c38f4007b93289fb59fa66a42e683084f",
-    "pack/UltimateChristmas-Geyser-bundle.zip": "7774e6b0e2d260d3052ed3beef9f567774d6d27b6477db6969202d2e5c5375d8",
     "pack/UltimateChristmas-Models.zip": "bc35291cccb7f09ed87c9407147b462ea6c5c1e6276d99a5b0f55a4bec7c5839"
   }
 }

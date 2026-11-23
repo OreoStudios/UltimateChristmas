@@ -214,7 +214,7 @@ Use `-Dpython.executable=python3` when needed.
 mvn clean package
 ```
 
-Produces `target/UltimateChristmas-4.1.2.jar` with MinecraftModulith shaded in.
+Produces `target/UltimateChristmas-4.1.3.jar` with MinecraftModulith shaded in.
 Requires JDK 21.
 
 ## Remastered Grinch encounter
@@ -238,26 +238,6 @@ See [the model guide](src/main/resources/models/README.txt) for migration detail
 The item-display centering and affine transforms follow
 [Paper's display entity documentation](https://docs.papermc.io/paper/dev/display-entities/).
 Pose regression fixtures were captured from the running Blockbench project.
-
-### Bedrock / Geyser assets
-
-Download the [complete Bedrock installation bundle](bedrock/UltimateChristmas-Geyser-bundle.zip)
-or the [standalone .mcpack](bedrock/packs/UltimateChristmas-Bedrock.mcpack).
-The [published distribution](bedrock/README.md) includes both mapping formats,
-installation instructions, and a checksum report.
-
-The build places `UltimateChristmas-Bedrock.mcpack` and
-`UltimateChristmas-Geyser-bundle.zip` beside the Java ZIP in
-`src/main/resources/pack/`. The plugin also extracts these files into its
-`pack/` data folder on startup. The bundle contains v2 item-model mappings for
-all 157 Grinch/minion parts and a GeyserDisplayEntity configuration. Loose mappings
-are in `src/main/resources/pack/geyser/custom_mappings/` and
-`src/main/resources/pack/geyser/extensions/GeyserDisplayEntity/Mappings/`, and
-are extracted into the plugin's `pack/geyser/` folder. Another copy of all
-deployment files is generated under `target/geyser/`.
-See [Bedrock setup and compatibility limits](docs/bedrock-geyser.md). Geyser alone
-cannot translate Java item displays; an extension and its companion pack are
-required, and complete animated-pose parity has not been verified on Bedrock.
 
 ---
 
